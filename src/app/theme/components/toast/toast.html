@@ -1,0 +1,14 @@
+<div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">
+    <!-- <img src="assets/img/toast-success.svg" alt="" class="toast-icon" ng-if="toastType == 'toast-success'">
+    <img src="" alt="" class="toast-icon" ng-if="toastType == 'toast-error'">
+    <img src="" alt="" class="toast-icon" ng-if="toastType == 'toast-info'">
+    <img src="" alt="" class="toast-icon" ng-if="toastType == 'toast-warning'"> -->
+    <img ng-src="assets/img/{{toastType}}.svg" alt="" class="toast-icon">
+    <div ng-switch on="allowHtml">
+        <div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>
+        <div ng-switch-default class="{{messageClass}}" aria-label="{{message}}">{{message}}</div>
+        <div ng-switch-when="true" ng-if="title" class="{{titleClass}}" ng-bind-html="title"></div>
+        <div ng-switch-when="true" class="{{messageClass}}" ng-bind-html="message"></div>
+    </div>
+    <progress-bar ng-if="progressBar"></progress-bar>
+</div>

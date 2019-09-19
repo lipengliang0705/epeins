@@ -1,0 +1,56 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        我的仪表盘
+    </h3>
+    <small class="text-muted h5 font-title-des">用户自定义综合视图</small>
+</div>
+
+<div class="wrapper" id="new-dashboard">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <div class="panel-heading">
+                    <button class="btn btn-primary" ng-click="vm.method.showAddModal()">
+                        <i class="fa fa-plus"></i>
+                        &nbsp;新建
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="search"
+                                ng-model="vm.data.search" autocomplete="off" required />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search-btn" type="submit"
+                                    ng-disabled="vm.search.$invalid">
+                                    <span class="ion-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <table class="table table-dash" ng-table="vm.data.tableParams">
+                        <tr ng-repeat="item in $data">
+                            <td data-title="'名称'" sortable="'name'" width="30%">
+                                <a href="" ui-sref="new-dashboard-detalis({id:item.id})">{{item.name}}</a>
+                            </td>
+                            <td data-title="'描述'" sortable="'description'">
+                                {{item.description}}
+                            </td>
+                            <td data-title="'时间'" sortable="'createdTime'">
+                                {{item.createdTime | date:'yyyy-MM-dd HH:mm'}}
+                            </td>
+                            <td data-title="'操作'" width="20%">
+                                <div class="btn-group">
+                                    <a href="" ui-sref="new-dashboard-detalis({id:item.id})"> 查看</a>
+                                    <a href="" ng-click="vm.method.showMidifyModal(item.id)">重命名</a>
+                                    <a href="" ng-click="vm.method.showDeleteModal(item.id)" class="text-delete">删除</a>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

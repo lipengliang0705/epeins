@@ -1,0 +1,92 @@
+<form id="new-dashboard-details-setting">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">组件配置</h4>
+    </div>
+    <div class="modal-body setting-body">
+        <ul class="setting-sidebar">
+            <li ng-repeat="item in vm.resources.menuList" ng-class="{'active': vm.data.currentIndex == $index}" ng-click="vm.method.selectedMenu($index)">
+                <a href="">{{item.name}}</a>
+            </li>
+        </ul>
+        <div class="form-horizontal setting-main" ng-if="vm.data.currentIndex == 0">
+            <div class="form-group-custom">
+                <label for="">图表标题</label>
+                <input type="text" class="form-control" ng-model="vm.resources.details.title">
+            </div>
+            <div class="form-group-custom">
+                <label for="">查询语句</label>
+                <textarea type="text" class="form-control" ng-model="vm.resources.details.parameters.query"></textarea>
+            </div>
+            <div class="form-group-custom">
+                <label for="">时间范围</label>
+                <!-- <input type="text" class="form-control" date-range-picker options="vm.data.dateRangeOptions" ng-model="vm.data.date"> -->
+                <span class="input-date" date-range-picker options="vm.data.dateRangeOptions" ng-model="vm.data.date">
+                    {{(vm.method.formatTime(vm.data.date.startDate)) +"~"+(vm.method.formatTime(vm.data.date.endDate))}}
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="form-group-custom form-group-static">
+                <label for="">日志来源:</label>
+                <p class="form-control-static">{{vm.resources.details.parameters.app.title}}</p>
+            </div>
+            <div class="form-group-custom form-group-static">
+                <label for="">过滤:</label>
+                <p class="form-control-static">x</p>
+            </div>
+        </div>
+        <div class="form-horizontal setting-main" ng-if="vm.data.currentIndex == 1">
+            <div class="form-group-custom">
+                <label for="">图表类型</label>
+                <select class="form-control" ng-model="vm.data.currentChartsType" ng-options="item.value as item.name for item in vm.resources.chartsType">
+                   
+                </select>
+            </div>
+            <div class="form-group-custom">
+                <label for="">展示字段</label>
+                <select class="form-control">
+                    <option value="">默认</option>
+                </select>
+            </div>
+            <div class="form-group-custom">
+                <label for="">分组字段</label>
+                <a href="">+添加</a>
+            </div>
+        </div>
+        <div class="form-horizontal setting-main" ng-if="vm.data.currentIndex == 2">
+            <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  不钻取
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  跳转到即时搜索
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios3" value="option2">
+                  地图内下钻
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios4" value="option2">
+                  钻取到仪表盘过滤项
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer setting-footer">
+        <button class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </button>
+
+        <button class="btn btn-primary" ng-click="vm.method.submit()">
+            <span>确定</span>
+        </button>
+    </div>
+</form>

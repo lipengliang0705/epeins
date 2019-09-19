@@ -1,0 +1,72 @@
+<style>
+    .form-lucene .page-list .pagination li span {
+        cursor: pointer;
+    }
+    
+    .popover {
+        max-width: 686px;
+        width: 688px;
+    }
+    
+    .tab-content {
+        overflow-x: auto;
+    }
+</style>
+
+<div class=" title-wrapper">
+    <h3 class="h3">SPL/SQL</h3>
+    <small class="h5 font-title-des">高级语法支持</small>
+</div>
+<div class="form-lucene wrapper ">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="data-range-picker-a">
+                <div date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange">{{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <form name="form" class="form-validation col-md-12 col-sm-12" ng-submit="vm.searchLog('query')">
+
+            <div class="input-group input-de col-md-12 col-sm-12">
+                <div class="input-de-before">
+                    <input type="text" class="input-search-group" ng-model='vm.filter.q' placeholder="支持关键字，通配符搜索(例如: 32.3.208.*) 并且支持AND, OR 等关键字， 键值对(例如: ip:32.3.208.18), 支持+,- 可增加， 增加，去除结果关键字">
+                </div>
+                <div class="btn-group " uib-dropdown dropdown-append-to-body>
+                    <button type="button" class="btn btn-default search-btn" uib-dropdown-toggle ng-click="vm.loadQuickSearch()">
+                            快速检索 <span class="caret"></span>
+                          </button>
+                    <ul uib-dropdown-menu>
+                        <li>
+                            <a href="javascript:void(0)" ng-click="vm.saveAsBtn()">另存为...</a>
+                        </li>
+                        <li>
+                            <a ui-sref="spl-data-dashboard">管理已存搜索</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="d in vm.quickSearch.list | limitTo:10 " style="display: flex;">
+                            <a href="" ng-click="d.selectUserView(d)" ng-bind="d['name']"></a><i ng-if="d.id==vm.quickSearch.selectStatus" class="glyphicon glyphicon-ok"></i>
+                        </li>
+                    </ul>
+                </div>
+                <span class="button-wrapper">
+                        <button class="btn btn-primary search-btn" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>检索
+                        </button>
+                    </span>
+
+            </div>
+
+
+        </form>
+    </div>
+
+
+    <div class="row spl-sql-wrap">
+        <div class="col-md-12 col-sm-12">
+            <spl-sql-search-view expression="vm.splExpression" model="vm.searchModel">
+            </spl-sql-search-view>
+        </div>
+    </div>
+
+</div>

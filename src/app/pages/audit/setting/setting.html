@@ -1,0 +1,60 @@
+<style>
+    .modal .modal-dialog .modal-body p, .modal .modal-dialog .modal-body div, .modal .modal-dialog .modal-body span,.ui-select-multiple.ui-select-bootstrap span{
+        display: block;
+    }
+</style>
+<div class="row">
+    <form name="searchForm" class="form-validation  col-md-12 col-sm-12" ng-submit="vm.searchClick()">
+        <div class="modal-header">
+            <button class="close" ng-click="vm.method.cancel()">×</button>
+            <h4 class="modal-title">设置堡垒机和登录服务器</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="fortersIp">堡垒机</label>
+                <ui-select class="form-control"
+                           name="fortersIp" id="fortersIp"   ng-model="vm.fortersIp"
+                           search-enabled="true"
+                           append-to-body="true"
+                           multiple
+                >
+                    <ui-select-match placeholder="选择堡垒机">
+                        {{$item.name}}--{{$item.ip}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in vm.hosts | filter: $select.search">
+                        {{item.name}}--{{item.ip}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="form-group">
+                <label for="serverId">登录服务器</label>
+                <ui-select class="form-control"
+                           name="serverId" id="serverId"   ng-model="vm.serverId"
+                           search-enabled="true"
+                           append-to-body="true"
+                           multiple
+                >
+                    <ui-select-match placeholder="选择登录服务器">
+                        {{$item.name}}--{{$item.ip}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in vm.hosts | filter: $select.search">
+                        {{item.name}}--{{item.ip}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" ng-click="vm.method.cancel()">
+                <span>取消</span>
+            </a>
+
+            <button class="btn btn-primary" ng-disabled="searchForm.$invalid"  ng-click="vm.method.submit()">
+                <span>保存</span>
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+

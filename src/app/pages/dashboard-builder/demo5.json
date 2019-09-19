@@ -1,0 +1,10 @@
+[
+    {"week":"周一", "normal": 13, "abnormal":66},
+    {"week":"周二", "normal": 15, "abnormal":34},
+    {"week":"周三", "normal": 23, "abnormal":22},
+    {"week":"周四", "normal": 27, "abnormal":19},
+    {"week":"周五", "normal": 48, "abnormal":29},
+    {"week":"周六", "normal": 17, "abnormal":27},
+    {"week":"周日", "normal": 22, "abnormal":21}
+
+]

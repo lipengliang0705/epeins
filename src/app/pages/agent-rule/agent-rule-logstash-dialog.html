@@ -1,0 +1,332 @@
+
+<style type="text/css">
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }
+    .euiFlexGrid--gutterLarge.euiFlexGrid--fourths > .euiFlexItem {
+        -ms-flex-preferred-size: calc(25% - 24px);
+        flex-basis: calc(25% - 24px);
+    }
+    .euiFlexGrid--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGrid > .euiFlexItem {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0;
+    }
+    .euiFlexItem {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .synopsis {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiLink {
+        text-align: left;
+    }
+    a {
+        text-decoration: none;
+        color: #0079a5;
+        cursor:pointer;
+    }
+    .euiPanel.euiPanel--paddingMedium {
+        padding: 16px;
+    }
+    .euiPanel {
+        -webkit-box-shadow: 0 2px 2px -1px rgba(153, 153, 153, 0.3), 0 1px 5px -2px rgba(153, 153, 153, 0.3);
+        box-shadow: 0 2px 2px -1px rgba(153, 153, 153, 0.3), 0 1px 5px -2px rgba(153, 153, 153, 0.3);
+        background-color: #FFF;
+        border: 1px solid #D9D9D9;
+        border-radius: 4px;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiFlexGroup--gutterLarge {
+        margin: -20px;
+    }
+    .euiFlexGroup {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiFlexItem.euiFlexItem--flexGrowZero {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0 !important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+    .euiFlexGroup--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGroup .euiFlexItem {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-preferred-size: 0%;
+        flex-basis: 0%;
+    }
+    .euiFlexItem {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .euiIcon--xLarge {
+        width: 32px;
+        height: 32px;
+    }
+    .euiIcon {
+        display: inline-block;
+        vertical-align: middle;
+        fill: currentColor;
+    }
+
+    *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .euiFlexGroup--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGroup .euiFlexItem {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-preferred-size: 0%;
+        flex-basis: 0%;
+    }
+    .euiFlexItem {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .synopsisTitle {
+        font-size: 16px;
+        font-weight: normal;
+        color: #0079a5;
+    }
+    .euiTitle--small {
+        font-size: 16px;
+        font-size: 1.14286rem;
+        line-height: 1.5;
+    }
+    .euiTitle {
+        color: #000;
+        font-weight: 600;
+        font-size: 18px;
+        font-size: 1.28571rem;
+        line-height: 1.5;
+    }
+
+    .euiText {
+        color: #2D2D2D;
+        font-weight: 400;
+        font-size: 14px;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    .euiText > :last-child {
+        margin-bottom: 0 !important;
+    }
+    .euiTextColor.euiTextColor--subdued {
+        color: #666 !important;
+    }
+
+</style>
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">选择LogStash采集方式</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div name="selecttemplate" > <!-- {{vm.selecttemplateName}} ng-if="(vm.selecttemplate==null || vm.selecttemplate=='') && (vm.agentRule.id==null || vm.agentRule.id=='')"  -->
+            <div class="euiFlexGrid euiFlexGrid--gutterLarge euiFlexGrid--fourths">                 
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkmysql logs" ui-sref="agent-rule.new-logstash-data" ng-click="vm.uibModalInstanceClose()">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/flume.jpg" width="32" height="32"/>                                    
+                                </div>
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">数据库</h4>
+                                    <div class="euiText synopsisBody"> 
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建关系型数据库采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinknginx logs" ui-sref="agent-rule.new-logstash-monitor" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('FileBeat')"-->
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/filebeat.jpg" width="32" height="32"/>                                    
+                                </div>
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">监控</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建监控采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash-custom" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('MetricBeat')"--> 
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/metricbeat.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">自定义</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建自定义脚本采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash-tcp" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('MetricBeat')"--> 
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/logstash.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">TCP与UDP</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建TCP与UDP采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div> 
+
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash-file" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('MetricBeat')"--> 
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/metricbeat.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">文件目录</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建文件目录采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash-kafka" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('MetricBeat')"--> 
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/metricbeat.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">kafka</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建kafka采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash-syslog" ng-click="vm.uibModalInstanceClose()"><!--ng-click="vm.getAgentRuleByTemplet('MetricBeat')"--> 
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/metricbeat.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">Syslog</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">创建Syslog采集任务</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div> 
+        </div> 
+       
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

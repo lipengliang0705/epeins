@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title" id="myAgentHostLabel">详情： <span>告警规则</span> {{vm.alarmRule.id}}</h4>
+</div>
+<div class="modal-body">
+    <jhi-alert-error></jhi-alert-error> 
+    <dl class="entity-details"> 
+        <dt><span>名称</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.name}}</span>
+        </dd>
+        <dt><span>告警类型</span></dt>
+        <dd ng-switch="vm.alarmRule.alarmType">
+            <span ng-switch-when="CARDINALITY">关键字告警</span>
+            <span ng-switch-when="FREQUENCY">事件告警</span>
+        </dd> 
+        <dt><span>通知类型</span></dt>
+        <dd ng-switch="vm.alarmRule.notifyType">
+            <span ng-switch-when="NULL">不通知</span>
+            <span ng-switch-default>{{vm.alarmRule.notifyType}}</span>
+        </dd>
+        <dt><span>通知组</span></dt> 
+        <dd>
+            <span>{{vm.alarmRule.notifyMember}}</span>
+        </dd>
+        <dt><span>通知人</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.notifyRole}}</span>
+        </dd> 
+        <dt><span>解析规则</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.eventRule.name}}</span>
+        </dd>
+        <dt><span>状态</span></dt>
+        <dd>
+            <span><switcher ng-model="vm.alarmRule.status" true-value="'1'" false-value="'0'" class="styled"></switcher></span>
+        </dd> 
+    </dl>
+
+    <!-- <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="alarm-rule-detail.edit({id:vm.alarmRule.id})" class="btn btn-black">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button> -->
+</div>
+<div class="modal-footer">
+</div>    

@@ -1,0 +1,1093 @@
+
+<style type="text/css">
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid--gutterLarge {
+        margin: -12px;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .euiFlexGrid {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }
+    .euiFlexGrid--gutterLarge.euiFlexGrid--fourths > .euiFlexItem {
+        -ms-flex-preferred-size: calc(25% - 24px);
+        flex-basis: calc(25% - 24px);
+    }
+    .euiFlexGrid--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGrid > .euiFlexItem {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0;
+    }
+    .euiFlexItem {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .synopsis {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiLink {
+        text-align: left;
+    }
+    a {
+        text-decoration: none;
+        color: #0079a5;
+        cursor:pointer;
+    }
+    .euiPanel.euiPanel--paddingMedium {
+        padding: 16px;
+    }
+    .euiPanel {
+        -webkit-box-shadow: 0 2px 2px -1px rgba(153, 153, 153, 0.3), 0 1px 5px -2px rgba(153, 153, 153, 0.3);
+        box-shadow: 0 2px 2px -1px rgba(153, 153, 153, 0.3), 0 1px 5px -2px rgba(153, 153, 153, 0.3);
+        background-color: #FFF;
+        border: 1px solid #D9D9D9;
+        border-radius: 0 ;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiFlexGroup--gutterLarge {
+        margin: -20px;
+    }
+    .euiFlexGroup {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .euiFlexItem.euiFlexItem--flexGrowZero {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0 !important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+    .euiFlexGroup--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGroup .euiFlexItem {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-preferred-size: 0%;
+        flex-basis: 0%;
+    }
+    .euiFlexItem {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .euiIcon--xLarge {
+        width: 32px;
+        height: 32px;
+    }
+    .euiIcon {
+        display: inline-block;
+        vertical-align: middle;
+        fill: currentColor;
+    }
+
+    *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .euiFlexGroup--gutterLarge > .euiFlexItem {
+        margin: 12px;
+    }
+    .euiFlexGroup .euiFlexItem {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-preferred-size: 0%;
+        flex-basis: 0%;
+    }
+    .euiFlexItem {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .synopsisTitle {
+        font-size: 16px;
+        font-weight: normal;
+        color: #0079a5;
+    }
+    .euiTitle--small {
+        font-size: 16px;
+        font-size: 1.14286rem;
+        line-height: 1.5;
+    }
+    .euiTitle {
+        color: #000;
+        font-weight: 600;
+        font-size: 18px;
+        font-size: 1.28571rem;
+        line-height: 1.5;
+    }
+
+    .euiText {
+        color: #2D2D2D;
+        font-weight: 400;
+        font-size: 14px;
+        font-size: 1rem;
+        line-height: 1.5;
+    } 
+    .euiText > :last-child {
+        margin-bottom: 0 !important;
+    }
+    .euiTextColor.euiTextColor--subdued {
+        color: #666 !important;
+    } 
+    .panelopacity{
+        background: #555;
+        filter:alpha(opacity=80);
+        -khtml-opacity:0.8; /* 老版Safari */
+        -moz-opacity:0.8;
+        opacity:0.8;
+    }
+</style>
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建/编辑 远程采集规则</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        
+        <div name="selecttemplate" > <!-- {{vm.selecttemplateName}} ng-if="(vm.selecttemplate==null || vm.selecttemplate=='') && (vm.agentRule.id==null || vm.agentRule.id=='')"  -->
+            <div class="euiFlexGrid euiFlexGrid--gutterLarge euiFlexGrid--fourths">                 
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkmysql logs" ui-sref="agent-rule.new-flume" ng-click="vm.uibModalInstanceClose()">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/flume.jpg" width="32" height="32"/>                                    
+                                </div>
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">Flume</h4>
+                                    <div class="euiText synopsisBody"> 
+                                        <p><span class="euiTextColor euiTextColor--subdued">Collect and parse error and slow logs created by Flume.</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinknginx logs">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel panelopacity">
+                            <!--<div class="euiFlexGroup euiFlexGroup&#45;&#45;gutterLarge euiFlexGroup&#45;&#45;responsive">-->
+                                <!--<div class="euiFlexItem synopsisContent">-->
+                                    <!--<div class="waitbox"><img src="assets/img/wait.svg" width="40" height="40"/>    </div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <span style="color:#e6dede;">待扩展...</span>
+
+                        </div>
+                    </a>
+                </div>
+                <!-- <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinknginx logs" ui-sref="agent-rule.new-filebeat" ng-click="vm.uibModalInstanceClose()">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/filebeat.jpg" width="32" height="32"/>                                    
+                                </div>
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">FileBeat</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">Collect and parse error and slow logs created by FileBeat.</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+                <!-- <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-metricbeat" ng-click="vm.uibModalInstanceClose()">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/metricbeat.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">MetricBeat</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">Collect and parse error and slow logs created by MetricBeat.</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="euiFlexItem">
+                    <a class="euiLink synopsis" data-test-subj="homeSynopsisLinkredis logs" ui-sref="agent-rule.new-logstash" ng-click="vm.uibModalInstanceClose()">
+                        <div class="euiPanel euiPanel--paddingMedium synopsisPanel">
+                            <div class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--responsive">
+                                <div class="euiFlexItem euiFlexItem--flexGrowZero">
+                                    <img src="assets/img/logstash.jpg" width="32" height="32"/>                                    
+                                </div>  
+                                <div class="euiFlexItem synopsisContent">
+                                    <h4 class="euiTitle euiTitle--small synopsisTitle">LogStash</h4>
+                                    <div class="euiText synopsisBody">
+                                        <p><span class="euiTextColor euiTextColor--subdued">Collect and parse error and slow logs created by LogStash.</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>  -->
+            </div> 
+        </div> 
+        
+        <!-- flume -->
+        <!--  <div name="new" ng-if="vm.selecttemplate && vm.selecttemplateName=='Flume'"> 
+            <div class="form-group" ng-show="vm.agentRule.id">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" ng-model="vm.agentRule.id" readonly />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_name">名称</label>
+                <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.agentRule.name" required/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_ruleType">规则类型</label>
+                <input type="text" class="form-control" name="ruleType" id="field_ruleType" ng-model="vm.agentRule.ruleType" required/>
+                
+                <div ng-show="editForm.ruleType.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.ruleType.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_detail">详情</label>
+                <input type="text" class="form-control" name="detail" id="field_detail" ng-model="vm.agentRule.detail" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_sourceType">来源类型</label>
+                <input type="text" class="form-control" name="sourceType" id="field_sourceType" ng-model="vm.agentRule.sourceType" />
+
+            </div>
+            <div class="form-group"> 
+                <div class="">
+                    <div class="col-sm-12 col-md-12">
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="true">
+                                  <uib-accordion-heading>
+                                    基本设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+
+                                  <div class="radio">
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="line" value="line">
+                                        普通文件
+                                      </label>
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="other" value="other">
+                                        归档文件
+                                        <select ng-if="vm.agentRule.conf.deserializer != 'line'" ng-model="vm.agentRule.conf.deserializer">
+                                            <option value="tar">tar</option>
+                                            <option value="gz">gz</option>
+                                            <option value="tar.gz">tar.gz</option>
+                                            <option value="tar.gz">zip</option>
+                                            <option value="tar.gz">Z</option>
+                                        </select>
+                                      </label>
+                                    </div>
+
+                                      <div class="form-group">
+                                        <label for="spoolDir">路径</label>
+                                        <input type="text" class="form-control" id="spoolDir" ng-model="vm.agentRule.conf.spoolDir" placeholder="需要监控的路径">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="spoolDir">字符集</label>
+                                        <input type="text" class="form-control" id="charSet" ng-model="vm.agentRule.conf.charSet" placeholder="监控文件的字符集">
+                                      </div>
+                                </div>
+                         </uib-accordion>
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="status.open">
+                                  <uib-accordion-heading>
+                                    高级设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+                                      <table  class="table">
+                                        <thead class="black-muted-bg">
+                                            <tr>
+                                                <th>
+                                                    <span>参数名</span>
+                                                </th>
+                                                <th>
+                                                    <span>配置</span>
+                                                </th>
+                                                <th>
+                                                    <span>值范围</span>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>保存采集点位置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="保存采集点位置"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集此时间前的文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不采集此时间前的文件"></span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件重命名检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件重命名检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件尾无结束标志时等待 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件尾无结束标志时等待"></span></td>
+                                                <td><input type="text" class="form-control"  value="10" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>1-3600秒，0</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>已读文件延后检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="已读文件延后检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后处理 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后处理"></span></td>
+                                                <td>
+                                                    <select class="form-control">
+                                                      <option>不处理</option>
+                                                      <option>重命名</option>
+                                                      <option>删除</option>
+                                                      
+                                                    </select>
+                                                </td>
+                                                <td>删除，重命名，不处理</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后删除或重命名置后时间 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后删除或重命名置后时间"></span></td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>缓存刷新间隔 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="缓存刷新间隔"></span></td>
+                                                <td><input type="text" class="form-control"  value="60" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>60-3600秒，关闭</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>日志检前标识 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="日志检前标识"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>计算长度设置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="计算长度设置"></span></td>
+                                                <td><input type="text" class="form-control"  value="256" style="width:50px;display: inline-block;">  字节</td>
+                                                <td>256-65000字节</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不读取字节小于“计算长度设置”文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不读取字节小于“计算长度设置”文件"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="设置不采集的文件"></span></td>
+                                                <td><input type="text" class="form-control"  style="width:150px;display: inline-block;"/></td>
+                                                <td>支持正则表达式，</td>
+                                            </tr> 
+                                        </tbody>
+                                          </table> 
+                                </div>
+                         </uib-accordion>
+                    </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                <label for="field_agentHost">目标主机</label>
+                <select class="form-control" id="field_agentHost" name="agentHost" ng-model="vm.agentRule.agentHost" ng-options="agentHost as agentHost.name for agentHost in vm.agenthosts track by agentHost.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="field_category">业务</label>
+                <select class="form-control" id="field_category" name="category" ng-model="vm.agentRule.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                    <option value=""></option>
+                </select>
+            </div>
+             <div class="form-group" ng-if="vm.agentRule.id">
+                <label for="field_category">状态</label>
+                <switcher ng-model="vm.agentRule.status"
+                      true-value="'1'"
+                      false-value="'0'"
+                      class="styled"
+                    >
+                </switcher> 
+            </div> 
+        </div>   -->
+
+        <!-- filebeat -->
+        <!-- <div name="new" ng-if="vm.selecttemplate && vm.selecttemplateName=='FileBeat'"> 
+            <div class="form-group" ng-show="vm.agentRule.id">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" ng-model="vm.agentRule.id" readonly />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_name">名称</label>
+                <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.agentRule.name" required/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_ruleType">规则类型</label>
+                <input type="text" class="form-control" name="ruleType" id="field_ruleType" ng-model="vm.agentRule.ruleType" required/>
+                
+                <div ng-show="editForm.ruleType.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.ruleType.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_detail">详情</label>
+                <input type="text" class="form-control" name="detail" id="field_detail" ng-model="vm.agentRule.detail" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_sourceType">来源类型</label>
+                <input type="text" class="form-control" name="sourceType" id="field_sourceType" ng-model="vm.agentRule.sourceType" />
+
+            </div>
+            <div class="form-group"> 
+                <div class="">
+                    <div class="col-sm-12 col-md-12">
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="true">
+                                  <uib-accordion-heading>
+                                    基本设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+
+                                  <div class="radio">
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="line" value="line">
+                                        普通文件
+                                      </label>
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="other" value="other">
+                                        归档文件
+                                        <select ng-if="vm.agentRule.conf.deserializer != 'line'" ng-model="vm.agentRule.conf.deserializer">
+                                            <option value="tar">tar</option>
+                                            <option value="gz">gz</option>
+                                            <option value="tar.gz">tar.gz</option>
+                                            <option value="tar.gz">zip</option>
+                                            <option value="tar.gz">Z</option>
+                                        </select>
+                                      </label>
+                                    </div>
+
+                                      <div class="form-group">
+                                        <label for="spoolDir">路径</label>
+                                        <input type="text" class="form-control" id="spoolDir" ng-model="vm.agentRule.conf.spoolDir" placeholder="需要监控的路径">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="spoolDir">字符集</label>
+                                        <input type="text" class="form-control" id="charSet" ng-model="vm.agentRule.conf.charSet" placeholder="监控文件的字符集">
+                                      </div>
+                                </div>
+                         </uib-accordion>
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="status.open">
+                                  <uib-accordion-heading>
+                                    高级设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+                                      <table  class="table">
+                                        <thead class="black-muted-bg">
+                                            <tr>
+                                                <th>
+                                                    <span>参数名</span>
+                                                </th>
+                                                <th>
+                                                    <span>配置</span>
+                                                </th>
+                                                <th>
+                                                    <span>值范围</span>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>保存采集点位置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="保存采集点位置"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集此时间前的文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不采集此时间前的文件"></span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件重命名检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件重命名检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件尾无结束标志时等待 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件尾无结束标志时等待"></span></td>
+                                                <td><input type="text" class="form-control"  value="10" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>1-3600秒，0</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>已读文件延后检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="已读文件延后检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后处理 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后处理"></span></td>
+                                                <td>
+                                                    <select class="form-control">
+                                                      <option>不处理</option>
+                                                      <option>重命名</option>
+                                                      <option>删除</option>
+                                                      
+                                                    </select>
+                                                </td>
+                                                <td>删除，重命名，不处理</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后删除或重命名置后时间 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后删除或重命名置后时间"></span></td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>缓存刷新间隔 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="缓存刷新间隔"></span></td>
+                                                <td><input type="text" class="form-control"  value="60" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>60-3600秒，关闭</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>日志检前标识 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="日志检前标识"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>计算长度设置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="计算长度设置"></span></td>
+                                                <td><input type="text" class="form-control"  value="256" style="width:50px;display: inline-block;">  字节</td>
+                                                <td>256-65000字节</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不读取字节小于“计算长度设置”文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不读取字节小于“计算长度设置”文件"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="设置不采集的文件"></span></td>
+                                                <td><input type="text" class="form-control"  style="width:150px;display: inline-block;"/></td>
+                                                <td>支持正则表达式，</td>
+                                            </tr> 
+                                        </tbody>
+                                          </table> 
+                                </div>
+                         </uib-accordion>
+                    </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                <label for="field_agentHost">目标主机</label>
+                <select class="form-control" id="field_agentHost" name="agentHost" ng-model="vm.agentRule.agentHost" ng-options="agentHost as agentHost.name for agentHost in vm.agenthosts track by agentHost.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="field_category">业务</label>
+                <select class="form-control" id="field_category" name="category" ng-model="vm.agentRule.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                    <option value=""></option>
+                </select>
+            </div>
+             <div class="form-group" ng-if="vm.agentRule.id">
+                <label for="field_category">状态</label>
+                <switcher ng-model="vm.agentRule.status"
+                      true-value="'1'"
+                      false-value="'0'"
+                      class="styled"
+                    >
+                </switcher> 
+            </div> 
+        </div>  --> 
+
+        <!-- metricbeat -->
+        <!-- <div name="new" ng-if="vm.selecttemplate && vm.selecttemplateName=='MetricBeat'"> 
+            <div class="form-group" ng-show="vm.agentRule.id">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" ng-model="vm.agentRule.id" readonly />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_name">名称</label>
+                <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.agentRule.name" required/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_ruleType">规则类型</label>
+                <input type="text" class="form-control" name="ruleType" id="field_ruleType" ng-model="vm.agentRule.ruleType" required/>
+                
+                <div ng-show="editForm.ruleType.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.ruleType.$error.required">
+                        此字段为必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_detail">详情</label>
+                <input type="text" class="form-control" name="detail" id="field_detail" ng-model="vm.agentRule.detail" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="field_sourceType">来源类型</label>
+                <input type="text" class="form-control" name="sourceType" id="field_sourceType" ng-model="vm.agentRule.sourceType" />
+
+            </div>
+            <div class="form-group"> 
+                <div class="">
+                    <div class="col-sm-12 col-md-12">
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="true">
+                                  <uib-accordion-heading>
+                                    基本设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+
+                                  <div class="radio">
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="line" value="line">
+                                        普通文件
+                                      </label>
+                                      <label>
+                                        <input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="other" value="other">
+                                        归档文件
+                                        <select ng-if="vm.agentRule.conf.deserializer != 'line'" ng-model="vm.agentRule.conf.deserializer">
+                                            <option value="tar">tar</option>
+                                            <option value="gz">gz</option>
+                                            <option value="tar.gz">tar.gz</option>
+                                            <option value="tar.gz">zip</option>
+                                            <option value="tar.gz">Z</option>
+                                        </select>
+                                      </label>
+                                    </div>
+
+                                      <div class="form-group">
+                                        <label for="spoolDir">路径</label>
+                                        <input type="text" class="form-control" id="spoolDir" ng-model="vm.agentRule.conf.spoolDir" placeholder="需要监控的路径">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="spoolDir">字符集</label>
+                                        <input type="text" class="form-control" id="charSet" ng-model="vm.agentRule.conf.charSet" placeholder="监控文件的字符集">
+                                      </div>
+                                </div>
+                         </uib-accordion>
+
+                        <uib-accordion close-others="oneAtATime">
+                                <div uib-accordion-group class="panel-default" is-open="status.open">
+                                  <uib-accordion-heading>
+                                    高级设置
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </uib-accordion-heading>
+                                      <table  class="table">
+                                        <thead class="black-muted-bg">
+                                            <tr>
+                                                <th>
+                                                    <span>参数名</span>
+                                                </th>
+                                                <th>
+                                                    <span>配置</span>
+                                                </th>
+                                                <th>
+                                                    <span>值范围</span>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>保存采集点位置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="保存采集点位置"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集此时间前的文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不采集此时间前的文件"></span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件重命名检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件重命名检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件尾无结束标志时等待 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件尾无结束标志时等待"></span></td>
+                                                <td><input type="text" class="form-control"  value="10" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>1-3600秒，0</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>已读文件延后检查 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="已读文件延后检查"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后处理 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后处理"></span></td>
+                                                <td>
+                                                    <select class="form-control">
+                                                      <option>不处理</option>
+                                                      <option>重命名</option>
+                                                      <option>删除</option>
+                                                      
+                                                    </select>
+                                                </td>
+                                                <td>删除，重命名，不处理</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>文件读后删除或重命名置后时间 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="文件读后删除或重命名置后时间"></span></td>
+                                                <td>
+                                                    <input type="text" class="form-control"  value="5" style="width:50px;display: inline-block;"> 天 
+                                                </td>
+                                                <td>0-999天</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>缓存刷新间隔 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="缓存刷新间隔"></span></td>
+                                                <td><input type="text" class="form-control"  value="60" style="width:50px;display: inline-block;"> 秒</td>
+                                                <td>60-3600秒，关闭</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>日志检前标识 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="日志检前标识"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>计算长度设置 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="计算长度设置"></span></td>
+                                                <td><input type="text" class="form-control"  value="256" style="width:50px;display: inline-block;">  字节</td>
+                                                <td>256-65000字节</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不读取字节小于“计算长度设置”文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="不读取字节小于“计算长度设置”文件"></span></td>
+                                                <td><switch 
+                                                        color="primary" 
+                                                        id="field_status"
+                                                        type="checkbox"
+                                                        ng-model="vm.agentRule.status"
+                                                        ng-change="vm.changeStatus(vm.agentRule)" 
+                                                        ng-true-value=1
+                                                        ng-false-value=0
+                                                        for="field_status"
+                                                        name="status"></switch>
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>不采集文件 <span class="glyphicon glyphicon-question-sign" tooltip-placement="right" uib-tooltip="设置不采集的文件"></span></td>
+                                                <td><input type="text" class="form-control"  style="width:150px;display: inline-block;"/></td>
+                                                <td>支持正则表达式，</td>
+                                            </tr> 
+                                        </tbody>
+                                          </table> 
+                                </div>
+                         </uib-accordion>
+                    </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                <label for="field_agentHost">目标主机</label>
+                <select class="form-control" id="field_agentHost" name="agentHost" ng-model="vm.agentRule.agentHost" ng-options="agentHost as agentHost.name for agentHost in vm.agenthosts track by agentHost.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="field_category">业务</label>
+                <select class="form-control" id="field_category" name="category" ng-model="vm.agentRule.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                    <option value=""></option>
+                </select>
+            </div>
+             <div class="form-group" ng-if="vm.agentRule.id">
+                <label for="field_category">状态</label>
+                <switcher ng-model="vm.agentRule.status"
+                      true-value="'1'"
+                      false-value="'0'"
+                      class="styled"
+                    >
+                </switcher> 
+            </div> 
+        </div>   -->
+
+    </div>
+    <div class="modal-footer"> 
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary" ng-if="vm.selecttemplate">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,361 @@
+<style>
+    .searchform-flex {
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .searchform-flex .form-group {
+        width: -webkit-calc(100% - 18px);
+        width: -moz-calc(100% - 18px);
+        width: calc(100% - 18px);
+
+    }
+
+    .searchform-flex .input-group-btn {
+        width: auto;
+    }
+
+    .panel-card {
+        font-size: 14px;
+    }
+
+    .panel-card .glyphicon {
+        font-size: 60px;
+        color: #e0e0e0;
+    }
+
+    .panel-card .footer {
+        margin-top: 10px;
+    }
+
+    .panel-card .num {
+        font-size: 40px;
+        line-height: 28px;
+        margin-bottom: 8px;
+    }
+
+    .panel-card .txt {
+        color: #aaa;
+    }
+
+    .text-sm {
+        font-size: 14px;
+    }
+
+    .set-host {
+        cursor: pointer;
+    }
+
+    .margin-top-5 {
+        margin-top: 5px;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">审计日志</h3>
+    <small class="text-muted h5 font-title-des">堡垒机日志审计</small>
+    <!--<div class="pull-right">-->
+        <!--&lt;!&ndash;<button ng-click="vm.addEs()">add es</button>&ndash;&gt;-->
+        <!--<span ng-click="vm.showSettingModal()" class="set-host text-primary">-->
+            <!--<i class="glyphicon glyphicon-cog text-primary" title="设置"></i>-->
+            <!--设置-->
+        <!--</span>-->
+    <!--</div>-->
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel widget panel-card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <i class="glyphicon glyphicon-signal"></i>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-right">
+                                <div class="num">{{vm.topData.top1}}<span class="text-sm">次</span></div>
+                                <div class="txt ">累计访问次数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">堡垒机历史累计连接访问次数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel widget panel-card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-right">
+                                <div class="num">{{vm.topData.top2}}<span class="text-sm">次</span></div>
+                                <div class="txt">今日访问次数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">堡垒机今日连接访问次数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel widget panel-card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-right">
+                                <div class="num">{{vm.topData.top3}}<span class="text-sm">个</span></div>
+                                <div class="txt">当前在线连接总数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">堡垒机当前在线连接总数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel widget panel-card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <i class="glyphicon glyphicon-remove-sign"></i>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-right">
+                                <div class="num">{{vm.topData.top4}}<span class="text-sm">次</span></div>
+                                <div class="txt">登陆失败总数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">堡垒机累计密码验证失败次数</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="row" style="position: relative;">-->
+    <!--<div class="col-sm-8">-->
+    <!--<div class="row">-->
+    <!--<div class="col-sm-12">-->
+    <!--<div class="panel">-->
+    <!--<div class="panel-heading">-->
+    <!--<div class="panel-title">[{{vm.formatShowTime(vm.dateRange.startDate)}} &#45;&#45;-->
+    <!--{{vm.formatShowTime(vm.dateRange.endDate)}}] 用户数量统计-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+    <!--<div id="simple-bar1" style="height: 300px;" class="ct-chart"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-sm-4" style="position: absolute; right: 0; top: 0;bottom: 10px;">-->
+    <!--<div class="panel" style="height:100%;">-->
+    <!--<div class="panel-heading">-->
+    <!--<div class="panel-title">时间范围</div>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+    <!--<dashboard-todo></dashboard-todo>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+
+    <!--<div class="horizontal-scroll">-->
+        <!--<table class="table" ng-table="vm.gatewayTableParams">-->
+            <!--<thead>-->
+            <!--<tr class="sortable ">-->
+                <!--<th>IP</th>-->
+                <!--<th>用户</th>-->
+                <!--<th>时间</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<th><input placeholder="Search First Name" class="input-sm form-control search-input"-->
+                           <!--type="search"/></th>-->
+                <!--<th><input placeholder="Search Last Name" class="input-sm form-control search-input"-->
+                           <!--type="search"/></th>-->
+                <!--<th><input placeholder="Search Username" class="input-sm form-control search-input"-->
+                           <!--type="search"/></th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+            <!--<tr ng-repeat="item in $data track by $index">-->
+                <!--<td data-title="'操作主机IP'" sortable="'targetHostIp'">{{item._source['comment']}}</td>-->
+                <!--<td data-title="'操作用户'" sortable="'userName'">{{item._source.name}}-->
+                <!--</td>-->
+                <!--<td data-title="'操作时间'" sortable="'date'">{{item._source['@timestamp']|date:'yyyy-MM-dd HH:mm:ss'}}-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+            <!--&lt;!&ndash;<tfoot>&ndash;&gt;-->
+            <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+            <!--&lt;!&ndash;<td colspan="6" class="text-center">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+            <!--&lt;!&ndash;</tfoot>&ndash;&gt;-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title">登录记录</div>
+                <div class="row margin-top-5">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <!--<label for="field_agentHost">登录服务器</label>-->
+                            <ui-select ng-model="vm.server"
+                                       class="btn-group bootstrap-select form-control"
+                                       ng-disabled="false"
+                                       append-to-body="true"
+                                       search-enabled="true"
+                                       id="field_agentHost"
+                                       name="agentHost"
+                                       ng-change="vm.handleChangeServer()"
+                            >
+                                <ui-select-match placeholder="选择登录服务器">
+                                    {{$select.selected.name}}--{{$select.selected.ip}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="agentHost in vm.serverRange | filter: $select.search">
+                                    <span ng-bind-html="agentHost.name+'--'+agentHost.ip"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <!--<label for="">时间范围</label>-->
+                            <input date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange"
+                                   class="form-control"
+                                   placeholder="选择时间"
+
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-primary">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-6">
+                    <h5><strong>堡垒机</strong></h5>
+                    <div class="table-responsive">
+                        <div class="form-group">
+                            <input placeholder="搜索堡垒机..." class="form-control"
+                                   type="search" ng-model="vm.gatewaySearch"/>
+                        </div>
+                        <table class="table" ng-table="vm.gatewayTableParams">
+                            <!--<thead>-->
+                            <!--<tr class="sortable ">-->
+                                <!--<th sortable="'server'">server</th>-->
+                                <!--<th sortable="'service'">service</th>-->
+                                <!--<th sortable="'account'">account</th>-->
+                                <!--<th sortable="'identity'">identity</th>-->
+                                <!--<th sortable="'from'">from</th>-->
+                                <!--<th sortable="'timestamp'">时间</th>-->
+                                <!--<th>操作</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<th colspan="7"><input placeholder="搜索堡垒机..." class="input-sm form-control search-input"-->
+                                                       <!--type="search" ng-model="vm.gatewaySearch"/></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <tbody>
+                            <tr ng-repeat="item in $data track by $index">
+                                <td data-title="'server'" sortable="'server'">{{item._source.server}}</td>
+                                <td data-title="'service'" sortable="'service'">{{item._source.service}}</td>
+                                <td data-title="'account'" sortable="'account'">{{item._source.account}}</td>
+                                <td data-title="'identity'" sortable="'identity'">{{item._source.identity}}</td>
+                                <td data-title="'from'" sortable="'from'">{{item._source.from}}</td>
+                                <!--<td data-title="'操作用户'" sortable="'userName'">{{item.username}}-->
+                                <!--</td>-->
+                                <!--<td data-title="'线程'" sortable="'line'">{{item.line}}-->
+                                <!--</td>-->
+                                <td data-title="'时间'" sortable="'timestamp'">{{item._source.timestamp|date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" class="btn-reset" ng-click="vm.searchServer(item)">
+                                            搜索登录机
+                                        </button>
+                                        <button type="submit" class="btn-reset" ng-click="vm.showInfoModal(item)">
+                                            日志内容
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr ng-if="vm.gatewayTableParams.data.length==0&&!vm.gatewayDataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.gatewayDataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h5><strong>登录服务器</strong></h5>
+                    <div class="table-responsive">
+                        <div class="form-group">
+                            <input placeholder="搜索登录服务器..." class="form-control"
+                                   type="search" ng-model="vm.serverSearch"/>
+                        </div>
+                        <table class="table" ng-table="vm.serverTableParams">
+                            <!--<thead>-->
+                            <!--<tr class="sortable ">-->
+                                <!--<th>操作主机IP</th>-->
+                                <!--<th>操作用户</th>-->
+                                <!--<th>线程</th>-->
+                                <!--<th>时间</th>-->
+                                <!--<th>操作</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<th colspan="5"><input placeholder="搜索登录服务器..." class="input-sm form-control search-input"-->
+                                                       <!--type="search" ng-model="vm.serverSearch"/></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <tbody>
+                                <tr ng-repeat="item in $data track by $index">
+                                    <td data-title="'操作主机IP'" sortable="'ip'">{{item.ip}}</td>
+                                    <td data-title="'操作用户'" sortable="'userName'">{{item.username}}</td>
+                                    <td data-title="'线程'" sortable="'line'">{{item.line}}</td>
+                                    <td data-title="'操作时间'" sortable="'timestamp'">{{item.timestamp|date:'yyyy-MM-dd HH:mm:ss'}}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group flex-btn-group-container">
+                                            <button type="submit" class="btn-reset" ng-click="vm.gatewaySearch=item.ip">
+                                                搜索堡垒机
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr ng-if="vm.serverTableParams.data.length==0&&!vm.serverDataload">
+                                    <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                                </tr>
+                                <tr ng-if="vm.serverDataload">
+                                    <td colspan="8" class="table-data-alert">数据加载中...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

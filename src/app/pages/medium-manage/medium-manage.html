@@ -1,0 +1,53 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        介质管理配置
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">用户自定义综合视图</small> -->
+</div>
+
+<div class="wrapper" id="new-dashboard">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <div class="panel-heading">
+                    <!-- <button class="btn btn-primary">新建</button> -->
+                    <button class="btn btn-primary" ng-click="vm.method.showAddModal()">
+                        <i class="fa fa-plus"></i>
+                        &nbsp;上传介质
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-dash">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>描述</th>
+                                <th>上传时间</th>
+                                <th>状态</th>
+                                <th width="20%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="medium in vm.resources.list track by $index">
+                                <td>
+                                    <a href="">{{medium.name}}</a>
+                                </td>
+                                <td title="{{medium.describe}}"><span>{{medium.describe}}</span></td>
+                                <td>
+                                    {{medium.createTime | date:'yyyy-MM-dd HH:mm'}}
+                                </td>
+                                <td>
+                                    {{medium.status}}
+                                </td>
+                                <td>
+                                    <a href=""> 查看</a>
+                                    <a href="">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

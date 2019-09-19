@@ -1,0 +1,124 @@
+<style type="text/css">
+    .track-heading{
+        border-bottom: 1px solid #fff;
+        color:#fff;
+        text-align: center;
+        /*padding:2px 5px;*/        
+        padding: 5px 5px;
+    }
+    .track-content{
+        padding:1px;
+        text-align: center;
+    }
+    .track-content p{
+        margin:2px 0;
+        color:#fff;
+        padding: 12px;
+    }
+    .track-content h5{
+        font-size: 12px;
+        font-weight: normal;
+        color:#fff;
+        margin-bottom: 0;
+    } 
+    .track-module{
+        position:relative;
+        width: 85%;
+        margin: 10px 30px 20px 20px;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        border:1px solid #19a9d5;
+        -webkit-box-shadow: 0 2px 5px #19a9d5;
+        box-shadow: 0 2px 5px #19a9d5;
+        background:#19a9d5;
+        font-size: 16px;
+        z-index: 5;
+    }
+    .track-warning{
+        background:#fad733;
+        border:1px solid #fad733;
+    }
+    .track-danger{
+        background:#ee3939;
+        border:1px solid #ee3939;
+    }
+    .track-success{
+        background-color: #27c24c;
+        border:1px solid #27c24c;
+    }
+    .track-arrow{
+        position:absolute;
+        left:-60px;
+        top: 50%;
+        width:57px;
+        height:20px;
+        background: url('assets/img/arrow-right.svg') no-repeat -40px -145px;
+        z-index: 4;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">单笔业务追踪</h3>
+    <small class="text-muted h5 font-title-des">端到端应用监控管理，对业务交易量，性能及响应延迟，上下游交易跟踪</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>SN</label>
+                        <input type="text" class="form-control" name="service_sn" ng-model="vm.sns.service_sn" placeholder="请输入SN" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="text" class="form-control" name="service_id" ng-model="vm.sns.service_id" placeholder="请输入ID" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div class="input-group">
+                            <button class="btn m-b-xs btn-primary" ng-click="vm.loadAll()">获取数据</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2" ng-repeat="item in vm.items">
+                <div class="track-module {{item.ngclass}}">
+                    <div class="track-heading" popup-show="myPopoverTemplate.html" popup-placement="bottom" ng-click="vm.popoverTemplate(item)">{{item.title}}</div>
+                    <div class="track-content">
+                        <p>{{item.category ||'&nbsp;'}}&nbsp;</p>
+                        <p>{{item.status||'&nbsp;'}}</p>
+                        <p>{{item.code||'&nbsp;'}}</p>
+                        <h5>
+                            <i class="glyphicon glyphicon-time"></i>{{item.used_time  | date:'yyyy-MM-dd HH:mm:sss'}}</h5>
+                    </div>
+                    <div ng-hide="$index<1" class="track-arrow"></div>
+                </div>
+            </div>
+            <script type="text/ng-template" id="myPopoverTemplate.html">
+                      <h3 class="popover-title">{{vm.ptdata.category}}</h3>
+                      <div class="row popover-content">
+                        <div class="col-sm-12 col-md-12">                                                             
+                         <dl class="asset-dist-popover">
+                             <dt uib-tooltip=""></dt>
+                             <dd>
+                                 <pre><code>{{vm.ptdata.xml}}<code></pre></dd>
+                         </dl> 
+                        </div> 
+                      </div>
+                    </script>
+        </div>
+    </div>
+
+
+</div>

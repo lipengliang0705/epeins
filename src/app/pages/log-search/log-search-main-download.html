@@ -1,0 +1,76 @@
+<style type="text/css">
+    .table-td-div p {
+        margin-bottom: 0;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.cancel()">&times;</button>
+    <h4 class="modal-title">导出数据</h4>
+</div>
+<div class="modal-body" tabindex="1">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">导出类型</label>
+            <div class="col-sm-10" ng-init="treams=[{x: 'log', y: '原始文件'}]">
+                <!-- <input type="text" class="form-control"> -->
+
+                <!-- <ui-select ng-model="vm.download.type" theme="bootstrap" ng-disabled="disabled" reset-search-input="false" placeholder="默认为原始文件">
+                    <ui-select-match>{{$select.selected.y}}</ui-select-match>
+                    <ui-select-choices repeat="type in treams track by $index" refresh="refreshAddresses($select.search)" refresh-delay="0">
+                        <div ng-bind-html="type.y | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select> -->
+
+                <div class="col-md-6" ng-init="vm.download.type='log'">
+                    <label class="i-checks">
+                      <input type="radio" name="type" ng-model="vm.download.type" value="log">
+                      <i></i>
+                      原始文件
+                    </label>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="i-checks">
+                      <input type="radio" name="type" ng-model="vm.download.type" value="csv">
+                      <i></i>
+                      CSV
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label">选择主机</label>
+            <!-- <input type="text" class="form-control"> -->
+
+            <ui-select class="form-control" multiple ng-model="vm.download.hosts" theme="bootstrap" reset-search-input="false" placeholder="默认所有主机全部下载一个文件">
+                <ui-select-match>{{$item.hostname}}</ui-select-match>
+                <ui-select-choices repeat="host in vm.hosts track by $index" refresh="refreshAddresses($select.search)" refresh-delay="0">
+                    <div ng-bind-html="host.hostname | highlight: $select.search"></div>
+                    <small>
+                        总文档数: {{host.count}}, 文件路径: {{host.filepath}}
+                    </small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label">文件名</label>
+            <input type="text" class="form-control" placeholder="默认文件名为下载主机名" ng-model="vm.download.hostsName">
+        </div>
+        <div class="form-group">
+            <label class="control-label">结果数</label>
+            <input type="number" class="form-control" placeholder="最大为10000行，默认导出10000行" ng-model="vm.download.number">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="vm.cancel()">
+       <span>关闭</span>
+    </button>
+    <button class="btn btn-primary" ng-click="vm.getList()">
+        <span>开始下载</span>
+    </button>
+</div>

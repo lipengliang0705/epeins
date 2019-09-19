@@ -1,0 +1,70 @@
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">菜单管理</h3>
+    <small class="text-muted h5 font-title-des">自定义用户菜单</small>
+</div>
+<div class="wrapper" >
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel widget">
+                <div class="panel-heading">
+                  <button class="btn btn-primary" ui-sref="menu-management.new"><i class="fa fa-plus"></i>&nbsp;新建</button> 
+                  <full-size></full-size>
+            </div>
+            <div class="panel-body">
+                 <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                </form>
+                <table  class="table" ng-table="vm.tableParams">
+                   
+                    <tbody>
+                        <tr ng-repeat="menu in $data track by $index">
+                           <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="menu-management-detail({id:menu.id})">{{menu.id}}</a></td> -->
+                            <td data-title="'Name'" sortable="'name'">{{menu.name}}</td>
+                           <!--  <td>{{menu.info}}</td> -->
+                            <td data-title="'Description'" sortable="'description'">{{menu.description}}</td> 
+                            <td data-title="'Created Date'" sortable="'createdTime'">{{menu.createdTime | date:'yyyy/MM/dd HH:mm'}}</td>
+                            <td data-title="'Last Modified By'" sortable="'modifiedBy'">{{menu.modifiedBy}}</td>
+                            <td data-title="'操作'"  class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit" 
+                                            ui-sref="menu-management-detail({id:menu.id})"
+                                            class="btn-reset">
+                                        查看
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <button type="submit" ng-disabled="menu.id=='1' && account.authorities.indexOf('ADMINISTRATOR')<0" 
+                                            ui-sref="menu-management.edit({id:menu.id})"  
+                                            class="btn-reset" title="编辑">
+                                        编辑
+                                        <span class="hidden-xs hidden-sm"></span>
+                                    </button>       
+                                    <button type="submit" ng-disabled="menu.id=='1'"
+                                            ui-sref="menu-management.delete({id:menu.id})"
+                                            class="btn-reset text-delete" title="删除">
+                                        删除
+                                        <span class="hidden-xs hidden-sm"></span> <!--ng-disabled="vm.menu.id === 1" -->
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>

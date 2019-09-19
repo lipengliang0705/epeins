@@ -1,0 +1,475 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建/编辑 MetricBeat远程采集规则</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.agentRule.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" ng-model="vm.agentRule.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.agentRule.name" required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="control-label" for="field_ruleType">规则类型</label>
+            <input type="text" class="form-control" name="ruleType" id="field_ruleType" ng-model="vm.agentRule.ruleType"  required/>
+            
+            <div ng-show="editForm.ruleType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.ruleType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label class="control-label" for="field_detail">详情</label>
+            <input type="text" class="form-control" name="detail" id="field_detail" ng-model="vm.agentRule.detail" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_sourceType">来源类型</label> 
+            <ul class="set-list" ng-model="vm.agentRule.sourceType">
+                <li ng-class="{ 'active' : vm.setList.current == 1 }" ng-click="vm.setActions.setCurrent(1,'System')">
+                    <label><input type="radio" name="1" value="System" checked="checked"> System</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 2 }" ng-click="vm.setActions.setCurrent(2,'Apache')">
+                    <label><input type="radio" name="1" value="Apache"> Apache</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 3 }" ng-click="vm.setActions.setCurrent(3,'Docker')">
+                    <label><input type="radio" name="1" value="Docker"> Docker</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 4 }" ng-click="vm.setActions.setCurrent(4,'Kafka')">
+                    <label><input type="radio" name="1" value="Kafka"> Kafka</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 5 }" ng-click="vm.setActions.setCurrent(5,'MySQL')">
+                    <label><input type="radio" name="1" value="MySQL"> MySQL</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 6 }" ng-click="vm.setActions.setCurrent(6,'Ngnix')">
+                    <label><input type="radio" name="1" value="Ngnix"> Ngnix</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 7 }" ng-click="vm.setActions.setCurrent(7,'Redis')">
+                    <label><input type="radio" name="1" value="Redis"> Redis</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 8 }" ng-click="vm.setActions.setCurrent(8,'ZooKeeper')">
+                    <label><input type="radio" name="1" value="ZooKeeper"> ZooKeeper</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 9 }" ng-click="vm.setActions.setCurrent(9,'PostgreSQL')">
+                    <label><input type="radio" name="1" value="PostgreSQL"> PostgreSQL</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 10 }" ng-click="vm.setActions.setCurrent(10,'Mogodb')">
+                    <label><input type="radio" name="1" value="Mogodb"> Mogodb</label>
+                </li>
+            </ul> 
+        </div>
+        <div class="form-group">
+            <!-- <label class="control-label" for="field_conf">配置</label> -->           
+                <div class="col-sm-12 col-md-12">
+                    <uib-accordion close-others="oneAtATime">
+                            <div uib-accordion-group class="panel-default" is-open="true">
+                              <uib-accordion-heading>
+                                基本设置(根据来源类型，显示勾选要检测的组件)
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                              </uib-accordion-heading>
+
+                               <div ng-if="vm.setList.current == 1">
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.system">
+                                            <input type="checkbox" name="system_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="CPU"> CPU</li>
+                                        <li><input type="checkbox" name="1" value="Load"> Load</li>
+                                        <li><input type="checkbox" name="1" value="FileSystem"> FileSystem</li>
+                                        <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Process"> Process</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li> -->
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                               <div ng-if="vm.setList.current == 2">   
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.apache">
+                                            <input type="checkbox" name="apache_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="CPU"> CPU</li>
+                                        <li><input type="checkbox" name="1" value="Load"> Load</li> -->
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                               <div ng-if="vm.setList.current == 3"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.docker">
+                                            <input type="checkbox" name="docker_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>                                      
+                                        <!-- <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Process"> Process</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li> --> 
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div> 
+
+                               <div ng-if="vm.setList.current == 4"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.kafka">
+                                            <input type="checkbox" name="kafka_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li> --> 
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                               <div ng-if="vm.setList.current == 5"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.mysql">
+                                            <input type="checkbox" name="mysql_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="FileSystem"> FileSystem</li>
+                                        <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Process"> Process</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li> -->
+                                    </ul>
+                                    <!-- <div ng-show="editForm.mysql_type.$invalid">
+                                        <p class="help-block"
+                                            ng-show="editForm.mysql_type.$error.required">
+                                               *必选项
+                                        </p>
+                                    </div>  -->
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">主机：</label> 
+                                        <input type="text" class="form-control" name="hosts" id="field_hosts" ng-model="vm.agentRule.conf.hosts" required>
+                                        <div ng-show="editForm.hosts.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.hosts.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_username">用户名：</label>  
+                                        <input type="text" class="form-control" name="username" id="field_username" ng-model="vm.agentRule.conf.username" required>
+                                        <div ng-show="editForm.username.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.username.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div>   
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_password">密码：</label>  
+                                        <input type="text" class="form-control" name="password" id="field_password" ng-model="vm.agentRule.conf.password" required>
+                                        <div ng-show="editForm.password.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.password.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div>   
+                                    </div> 
+                               </div>
+
+                               <div ng-if="vm.setList.current == 6"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.ngnix">
+                                            <input type="checkbox" name="ngnix_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="Process"> Process</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li> --> 
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">主机：</label> 
+                                        <input type="text" class="form-control" name="hosts" id="field_hosts" ng-model="vm.agentRule.conf.hosts" required>
+                                        <div ng-show="editForm.hosts.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.hosts.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                    </div>
+                               </div> 
+                               <div ng-if="vm.setList.current == 7"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.redis">
+                                            <input type="checkbox" name="redis_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="Load"> Load</li>
+                                        <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Process"> Process</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li> --> 
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">主机：</label> 
+                                        <input type="text" class="form-control" name="hosts" id="field_hosts" ng-model="vm.agentRule.conf.hosts" required>
+                                        <div ng-show="editForm.hosts.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.hosts.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">网络：</label> 
+                                        <input type="text" class="form-control" name="network" id="field_network" ng-model="vm.agentRule.conf.network" required>
+                                        <div ng-show="editForm.network.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.network.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">最大连接数：</label> 
+                                        <input type="text" class="form-control" name="maxconn" id="field_maxconn" ng-model="vm.agentRule.conf.maxconn" ng-pattern="/^(\d)+$/" required> 
+                                        <div ng-show="editForm.maxconn.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.maxconn.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                        <div ng-show="editForm.maxconn.$error.pattern">
+                                            <p class="help-block">
+                                                只能输入正整数
+                                            </p>
+                                        </div>
+                                    </div> 
+                               </div>
+
+                               <div ng-if="vm.setList.current == 8"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.zookeeper">
+                                            <input type="checkbox" name="zookeeper_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li>  -->
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="field_hosts">主机：</label> 
+                                        <input type="text" class="form-control" name="hosts" id="field_hosts" ng-model="vm.agentRule.conf.hosts" required>
+                                        <div ng-show="editForm.hosts.$invalid">
+                                            <p class="help-block"
+                                                ng-show="editForm.hosts.$error.required">
+                                                *必填项
+                                            </p>
+                                        </div> 
+                                    </div> 
+                               </div>
+
+                               <div ng-if="vm.setList.current == 9"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.postgresql">
+                                            <input type="checkbox" name="postgresql_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="CPU"> CPU</li>
+                                        <li><input type="checkbox" name="1" value="Load"> Load</li>
+                                        <li><input type="checkbox" name="1" value="FileSystem"> FileSystem</li>
+                                        <li><input type="checkbox" name="1" value="Memory"> Memory</li>
+                                        <li><input type="checkbox" name="1" value="Core"> Core</li>
+                                        <li><input type="checkbox" name="1" value="Diskio"> Diskio</li>
+                                        <li><input type="checkbox" name="1" value="Fsstat"> Fsstat</li>
+                                        <li><input type="checkbox" name="1" value="NetWork"> NetWork</li>
+                                        <li><input type="checkbox" name="1" value="Socket"> Socket</li> -->
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                               <div ng-if="vm.setList.current == 10"> 
+                                    <ul class="set-list" ng-model="vm.agentRule.conf.type">
+                                        <li ng-repeat="type in vm.types.mogodb">
+                                            <input type="checkbox" name="mogodb_type" ng-model="vm.type[type]"> {{type}}
+                                        </li>
+                                        <!-- <li><input type="checkbox" name="1" value="Socket"> Socket</li> -->
+                                    </ul>
+                                    <div class="form-group">
+                                        <label for="interval">间隔时间：</label>
+                                        <select class="form-control" ng-model="vm.agentRule.conf.interval" style="width: 150px;">
+                                            <option value="10">10秒</option>
+                                            <option value="30">30秒</option>
+                                            <option value="60">1分钟</option>
+                                            <option value="3600">1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                            </div>
+                     </uib-accordion>
+
+                    <uib-accordion close-others="oneAtATime">
+                            <div uib-accordion-group class="panel-default" is-open="status.open">
+                              <uib-accordion-heading>
+                                高级设置
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                              </uib-accordion-heading>
+                                <div class="metricbeat-senior">
+                                    <h3>文件系统忽略类型：</h3>
+                                    <p><span>Process</span>白名单</p>
+                                    <p><span>Socket</span>轮询启动</p>
+                                </div>
+                            </div>
+                     </uib-accordion>
+                </div>
+            
+            <!-- <input type="text" class="form-control" name="conf" id="field_conf" ng-model="vm.agentRule.conf" /> -->
+        </div>
+        <div class="form-group">
+            <label for="field_agentHost">目标主机</label>
+            <select class="form-control" id="field_agentHost" name="agentHost" ng-model="vm.agentRule.agentHost" ng-options="agentHost as agentHost.name for agentHost in vm.agenthosts track by agentHost.id" required >
+                <option value=""></option>
+            </select>
+            <div ng-show="editForm.agentHost.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.agentHost.$error.required">
+                    *必选项
+                </p>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label for="field_category">业务</label>
+            <select class="form-control" id="field_category" name="category" ng-model="vm.agentRule.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                <option value=""></option>
+            </select>
+        </div> -->
+         <div class="form-group" ng-if="vm.agentRule.id">
+            <label for="field_category">状态</label>
+            <switcher ng-model="vm.agentRule.status"
+                  true-value="'1'"
+                  false-value="'0'"
+                  class="styled"
+                >
+            </switcher>
+           <!--  <switch 
+                color="primary" 
+                id="field_status"
+                type="checkbox"
+                ng-model="vm.agentRule.status"
+                ng-change="vm.changeStatus(vm.agentRule)" 
+                ng-true-value=1
+                ng-false-value=0
+                for="field_status"
+                name="status"></switch> -->
+           <!-- <input
+                bs-switch
+                switch-size="small"
+                ng-model="vm.agentRule.status"
+                type="checkbox"
+                ng-change="vm.changeStatus(vm.agentRule)"
+                ng-true-value=1
+                ng-false-value=0
+                for="field_status"
+                name="status"
+                class="form-control"> -->
+        </div> 
+
+    </div>
+    <div class="modal-footer"> 
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

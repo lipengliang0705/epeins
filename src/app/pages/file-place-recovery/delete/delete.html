@@ -1,0 +1,21 @@
+<form>
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">清空归档</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <p>清空归档日志后，将无法恢复，确认操作吗？</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </button>
+
+        <button class="btn btn-primary"  ng-click="vm.method.submit(vm.id)">
+            <i ng-if="vm.isLoading" class="fa fa-spinner fa-pulse"></i>
+            <span ng-hide="vm.isLoading">确认</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,150 @@
+<style type="text/css">
+    .ipset-text strong{ 
+        display: block; 
+        line-height: 15px; 
+        margin-top: 25px;
+        font-size: 18px;
+        text-align: center;
+        vertical-align: middle;
+     }
+    .imglist{ width: 130px; height: 130px; padding: 30px; position: relative; margin: 0 20px; }
+    .imglist img{width: 100%; height: 100%;}
+    .imglist strong{ position: absolute; bottom: 20px; right: 3px; font-size: 18px; }
+</style>
+<div>
+    <div class=" title-wrapper">
+        <h3 class="m-n font-thin h3">告警详情</h3>
+        <jhi-alert></jhi-alert>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">     
+                    <h4>未处理告警总计： <strong>{{vm.unCheckedCount}}</strong></h4> 
+                </div> 
+                <div class="col-md-4">     
+                    <select  class="form-control" name="show_type" id="show_type" ng-model="vm.show_type" ng-init="vm.show_type = 'eventRule'">
+                        <option value="eventRule">解析规则</option>
+                        <option value="category">业务</option>
+                        <option value="alarmLevel">告警等级</option>
+                    </select>
+                </div> 
+            </div> 
+        </div>  
+    </div>
+    
+    
+    
+    <br/>
+    <div class="row">
+        <div class="col-md-12" ng-if="vm.show_type=='eventRule'" >
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 解析规则
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">      
+                        <div  ng-repeat="row in vm.eventRuleData">
+                            <div class="col-sm-3 col-md-3">
+                                <div  class="warn-list">
+                                  <div class="light-8 warn-list-name" data-container="body" ><p >{{row.name}}</p></div>
+                                  <div class="npm-stat-info-null bg-muted light-8 warn-list-cont" >
+                                    <div class="layer-tracker-wrap " ng-class="{'red-warn' : row.value>0}" >
+                                        <div class="layer-tracker-bor">
+                                            <div class="layer-cont" ng-click="vm.goAlarmInfo()" >
+                                                <span tooltip-placement="bottom" uib-tooltip="{{row.value}}个告警未解决">
+                                                {{row.value}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                     </div>
+                                   <!--  <div class="img-wrapper" style=" display: block; width: 100%; height: 260px; text-align: center; position: relative;"> -->
+                                      <!-- <div class="ipset-text"><strong>{{row.value}}</strong></div> 
+                                      <img src="/content/images/alarm-bolt.gif" style="vertical-align: top; width: 80px; height: 80px; display:inline-block;"> -->
+                                      <!-- <div class="imglist" ng-if="row.value>0"><img src="/content/images/alarm-bolt.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div>
+                                      <div class="imglist" ng-if="row.value==0"><img src="/content/images/alarm-normal.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div> -->
+                                    </div>
+                                  </div> 
+
+                                </div> 
+                            </div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div> 
+
+        <div class="col-md-12" ng-if="vm.show_type=='category'" >
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 业务
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">      
+                        <div  ng-repeat="row in vm.categoryData">
+                            <div class="col-sm-3 col-md-3">
+                                <div class="warn-list">
+                                  <div class="light-8 warn-list-name" data-container="body" ><p >{{row.name}}</p></div>
+                                  <div class="npm-stat-info-null bg-muted light-8 warn-list-cont" >
+                                        <div class="layer-tracker-wrap " ng-class="{'red-warn' : row.value>0}" >
+                                            <div class="layer-tracker-bor">
+                                                <div class="layer-cont" ng-click="vm.goAlarmInfo()" >
+                                                    <span tooltip-placement="bottom" uib-tooltip="{{row.value}}个告警未解决">
+                                                    {{row.value}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- <div class="img-wrapper" style=" display: block; width: 100%; height: 260px; text-align: center; position: relative;"> -->
+                                     <!--  <div class="ipset-text"><strong>{{row.value}}</strong></div>  -->
+                                        <!-- <div class="imglist" ng-if="row.value>0"><img src="/content/images/alarm-bolt.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div>
+                                          <div class="imglist" ng-if="row.value==0"><img src="/content/images/alarm-normal.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div> -->
+                                        </div>
+                                    </div>
+                                  </div> 
+
+                                </div> 
+                            </div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="vm.show_type=='alarmLevel'" >
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 告警等级
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">      
+                        <div  ng-repeat="row in vm.alarmLevelData">
+                            <div class="col-sm-3 col-md-3">
+                                <div class="warn-list">
+                                  <div class="light-8 warn-list-name" data-container="body" ><p >{{row.name}}</p></div>
+                                  <div class="npm-stat-info-null bg-muted light-8 warn-list-cont" >
+                                        <div class="layer-tracker-wrap " ng-class="{'red-warn' : row.value>0}" >
+                                            <div class="layer-tracker-bor">
+                                                <div class="layer-cont" ng-click="vm.goAlarmInfo()" >
+                                                    <span tooltip-placement="bottom" uib-tooltip="{{row.value}}个告警未解决">
+                                                    {{row.value}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- <div class="img-wrapper" style=" display: block; width: 100%; height: 260px; text-align: center; position: relative;"> -->
+                                      <!-- <div class="ipset-text"><strong>{{row.value}}</strong></div>  -->
+                                        <!-- <div class="imglist" ng-if="row.value>0"><img src="/content/images/alarm-bolt.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div>
+                                          <div class="imglist" ng-if="row.value==0"><img src="/content/images/alarm-normal.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{row.value}}</strong></p></div> -->
+                                        </div>
+                                    </div>
+                                  </div> 
+
+                                </div> 
+                            </div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+
+</div>

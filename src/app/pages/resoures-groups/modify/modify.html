@@ -1,0 +1,51 @@
+<form novalidate show-validation  name="form">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">修改业务分组 </h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <div class="form-group">
+                <label for="name">分组名</label>
+                <input type="text" placeholder="输入分组名" id="name" required ng-model="vm.data.name" name="name" class="form-control">
+
+                <div ng-show="form.name.$invalid">
+                    <p class="help-block"
+                       ng-show="form.name.$error.required">
+                        *必填项
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">描述</label>
+                <textarea type="text" placeholder="输入描述" id="description" ng-model="vm.data.description"  class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="level">业务等级</label>
+                <select name="level" id="level" class="form-control"  ng-model="vm.data.level"  required>
+                    <option value="0">不重要</option>
+                    <option value="1">一般</option>
+                    <option value="2">重要</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>业务</label>
+                <div class="form-control" style="height:auto;">
+                    <div js-tree="vm.mainTreeBasicConfig" ng-model="vm.mainTreeData" tree="basicTree"
+                         id="mainTreeBasicConfig"
+                         tree-events="select_node:vm.selectnodeCB;deselect_node:vm.deselectnodeCB"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary" type="submit" ng-disabled="form.$invalid"  ng-click="vm.method.submit()">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

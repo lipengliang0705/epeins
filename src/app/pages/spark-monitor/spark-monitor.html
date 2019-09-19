@@ -1,0 +1,189 @@
+<style>
+    .monitorinfo-list{
+        margin: 0;
+    }
+    .monitorinfo-list dt{
+        color: #78a100;
+        font-size: 18px;
+    }
+    .monitorinfo-list dd{
+        font-weight: normal;
+        margin:5px 0;
+    }
+    .monitorinfo-list dd.sinkchart{
+        width: 100%;
+        height: 80px;
+    }
+    .monitorinfo-list dd b{
+        font-weight: normal;
+    }
+    .form-group-inline .label-fw80{
+        float: left;
+        width:80px;
+        margin-top: 8px;
+        font-weight: 300;
+    }
+    .form-group-inline .form-group-left{
+        margin-left: 90px;
+    }
+    .form-group-inline .form-group-left input{
+        width: 100%;
+    }
+    .execord-list{
+        margin: 0;
+        padding-top: 10px;
+    }
+    .execord-list li{
+        list-style: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .jobcharts{
+        padding: 20px;
+        width: 100%;
+        height: 250px;
+    }
+    .mg-top10{
+        margin-top: 10px;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">作业流监控</h3>
+    <small class="text-muted h5 font-title-des">实时作业流运行状态</small>
+</div>
+<div class="wrapper">
+    <div class="panel widget mg-top10">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4">
+                        <dl class="monitorinfo-list">
+                            <dt>ES Sink jobs:{{vm.esSink.count}} </dt>
+                            <dd class="sinkchart">
+                                <simple-echarts options="vm.sinkCharts"></simple-echarts> 
+                            </dd>
+                        </dl>
+                </div>
+                <div class="col-sm-4">
+                    <dl class="monitorinfo-list">
+                        <dt>ES Sink jobs:{{vm.esSink.count}} </dt>
+                        <dd><b>cord used:</b><span>{{vm.esSink.allocatedVCores}}</span></dd>
+                        <dd><b>Memory used:</b><span>{{vm.esSink.allocatedMB}}</span></dd>
+                        <dd><b>ERROR count:</b><span>{{vm.esSink.errorcount}}</span></dd> 
+                    </dl>
+                </div>
+                <div class="col-sm-4">
+                    <dl class="monitorinfo-list">
+                        <dt>HDFS Sink jobs:{{vm.hdfsSink.count}} </dt>
+                        <dd><b>cord used:</b><span>{{vm.hdfsSink.allocatedVCores}}</span></dd>
+                        <dd><b>Memory used:</b><span>{{vm.hdfsSink.allocatedMB}}</span></dd>
+                        <dd><b>ERROR count:</b><span>{{vm.hdfsSink.errorcount}}</span></dd>
+                    </dl>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                    <i></i>ES 
+                </div>
+                <div class="panel-body">
+                     <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group-inline">
+                                <label class="label-fw80">JOB Name</label>
+                                <div class="form-group-left"> 
+                                    <ui-select ng-model="vm.app"  class="btn-group bootstrap-select form-control" on-select="vm.changeView()">
+                                        <ui-select-match placeholder="JOB Name">{{$select.selected.appname}}</ui-select-match>
+                                        <ui-select-choices repeat="d in vm.apps | filter: $select.search">
+                                            <div ng-bind-html="d.appname | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                  <!--   <input type="text" class="form-control"/> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <ul class="execord-list">
+                                <li>Executor core:<b>{{vm.esJob.executor_cores}}</b></li>
+                                <li>Executor memory:<b>{{vm.esJob.executor_mem}}</b></li>
+                                <li>Drive core:<b>{{vm.esJob.driver_cores}}</b></li>
+                                <li>Drive memory:<b>{{vm.esJob.driver_mem}}</b></li>
+                                <li>RDD:<b>{{vm.esJob.duration}}</b></li>
+                            </ul> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <!-- <div  class="dashcharts"><simple-echarts options="vm.jobLinesCharts"></simple-echarts></div> -->
+                            <div mix-chart config="vm.jobLinesCharts.config" data="vm.jobLinesCharts.data" class="charts-xl" ></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <!-- <div  class="dashcharts"><simple-echarts options="vm.jobErroCharts"></simple-echarts></div> -->
+                            <div mix-chart config="vm.jobErrorCharts.config" data="vm.jobErrorCharts.data" class="charts-xl" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>   
+    </div>   
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                    <i></i>HDFS 
+                </div>
+                <div class="panel-body">
+                     <div class="row"> 
+                    </div>
+                </div>
+            </div>         
+        </div>   
+    </div>   
+       <!--  <uib-tabset class="menutabset">
+            <uib-tab index="0">
+                <uib-tab-heading>ES</uib-tab-heading>
+                <div class="tabcontent">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group-inline">
+                                <label class="label-fw80">JOB Name</label>
+                                <div class="form-group-left"><input type="text" class="form-control"/></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <ul class="execord-list">
+                                <li>Executor core:<b>1</b></li>
+                                <li>Executor memory:<b>1GB</b></li>
+                                <li>Drive core:<b>1</b></li>
+                                <li>Drive memory:<b>1GB</b></li>
+                                <li>RDD:<b>5s</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div  class="dashcharts"><simple-echarts options="vm.jobLinesCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div  class="dashcharts"><simple-echarts options="vm.jobErroCharts"></simple-echarts></div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1">
+                <uib-tab-heading>HDFS </uib-tab-heading>
+                <div class="tabcontent">
+                    2222222
+                </div>
+            </uib-tab>
+            <uib-tab index="2">
+                <uib-tab-heading>ALL </uib-tab-heading>
+                <div class="tabcontent">
+                    3333333
+                </div>
+            </uib-tab>
+        </uib-tabset> -->
+    </div> 
+</div>

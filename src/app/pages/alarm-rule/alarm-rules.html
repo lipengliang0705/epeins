@@ -1,0 +1,103 @@
+
+
+    <div class=" title-wrapper">
+        <h3 class="m-n font-thin h3">告警规则</h3>
+        <small class="text-muted h5 font-title-des">告警触发规则定义</small>
+    </div>
+    <jhi-alert></jhi-alert>
+    <div class="wrapper" >
+        <div class="panel"> 
+            <div class="panel-heading"> 
+                <div class="row">
+                    <div class="col-xs-4 no-padding-left"> 
+                        <button class="btn btn-primary" ui-sref="alarm-rule.new"><i class="fa fa-plus"></i>&nbsp;新建</button> 
+                    </div>
+                </div> 
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <!-- <form class="input-group">
+                        <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="search">
+  
+                    </form> -->
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div> 
+                    </form>
+                    <table class="table" ng-table="vm.tableParams">
+
+                            <tr ng-repeat="alarmRule in $data">
+                               <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="alarm-rule-detail({id:alarmRule.id})">{{alarmRule.id}}</a></td> -->
+                                <td data-title="'名称'" sortable="'name'">{{alarmRule.name}}</td>
+                                <td data-title="'告警类型'" sortable="'alarmType'" ng-switch="alarmRule.alarmType" >
+                                    <div ng-switch-when="CARDINALITY">关键字告警</div>
+                                    <div ng-switch-when="FREQUENCY">事件告警</div>
+                                </td>
+
+                                <td data-title="'通知类型'" sortable="'notifyType'" ng-switch="alarmRule.notifyType" >
+                                    <div ng-switch-when="NULL">不通知</div>
+                                    <div ng-switch-default>{{alarmRule.notifyType}}</div>
+                                </td>
+                                <!--<td data-title="'通知组'" sortable="'notifyRole'">{{alarmRule.notifyRole}}</td>-->
+                                <!--<td data-title="'通知人'" sortable="'notifyMember'">{{alarmRule.notifyMember}}</td>-->
+                                <td data-title="'解析规则'" sortable="'eventRule.name'">
+                                    <a ui-sref="event-rule-detail({id:alarmRule.eventRule.id})">{{alarmRule.eventRule.name}}</a>
+                                </td>
+                                <td data-title="'状态'">
+                                    <switcher ng-model="alarmRule.status"
+                                          true-value="'on'"
+                                          false-value="'off'"
+                                          class="styled"
+                                              ng-change="vm.changeStatus(alarmRule)"
+                                        >
+                                    </switcher>
+                                   <!--  <input
+                                        bs-switch
+                                        switch-size="small"
+                                        ng-model="alarmRule.status"
+                                        type="checkbox"
+                                        ng-change="vm.changeStatus(alarmRule)"
+                                        ng-true-value="'1'"
+                                        ng-false-value="'0'"> -->
+                                </td>
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                ui-sref="alarm-rule-detail({id:alarmRule.id})"
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="alarm-rule.edit({id:alarmRule.id})"
+                                                class="btn-reset">
+                                            编辑
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="alarm-rule.delete({id:alarmRule.id})"
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="9" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="9" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                       <!--  </tbody> -->
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>

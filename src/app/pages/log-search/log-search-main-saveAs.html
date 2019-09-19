@@ -1,0 +1,173 @@
+<style type="text/css">
+    .addfiltrate-box {
+        margin: 0;
+        padding: 4px 10px 2px 10px;
+    }
+
+    .operat-field {
+        color: #FFF;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+        ng-click="vm.method.cancel()">&times;</button>
+    <h4 class="modal-title">另存为</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form name="saveAsForm">
+            <!-- <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">名称</label>
+                    <input type="text" placeholder="名称" name="name" ng-blur="vm.nameValidateBlur()" ng-model="vm.name" class="form-control" required />
+                    <p class="unmb-p text-danger help-block" ng-show="saveAsForm.name.$error.required">*必填项</p>
+                    <p class="unmb-p text-danger help-block" ng-show="vm.nameValidateMsgFlag">{{vm.nameValidateMsg}}</p>
+                </div>
+            </div> -->
+            <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">名称</label>
+                    <input type="text" placeholder="名称" name="name" ng-blur="vm.nameValidateBlur()"
+                        ng-model="vm.data.name" class="form-control" required />
+                    <p class="unmb-p text-danger help-block" ng-show="saveAsForm.name.$error.required">*必填项</p>
+                    <p class="unmb-p text-danger help-block" ng-show="vm.nameValidateMsgFlag">{{vm.nameValidateMsg}}</p>
+                </div>
+            </div>
+            <!-- <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">应用</label>
+                    <input type="text" class="form-control" ng-model="vm.filter.title" disabled="disabled">
+                </div>
+            </div> -->
+            <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">应用</label>
+                    <input type="text" class="form-control" ng-model="vm.data.options.app.title" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">时间</label>
+                    <input date-range-picker class="form-control" type="text" options="vm.dateRangeOptions"
+                        ng-model="vm.data.options.timeParams" />
+                    <!-- <span date-range-picker ng-model="vm.data.options.timeParams">{{(vm.method.formatShowTime(vm.data.options.timeParams.startDate) +"至"+ vm.method.formatShowTime(vm.data.options.timeParams.endDate))}}</span>    
+                </div> -->
+                </div>
+                <!-- <div class="form-group form-group-input clearfix">
+                <div class="col-md-12">
+                    <label class="control-label">查询语句</label>
+                    <input type="text" class="form-control" ng-model="vm.queryParams.queryString">
+                </div>
+            </div> -->
+                <div class="form-group form-group-input clearfix">
+                    <div class="col-md-12">
+                        <label class="control-label">查询语句</label>
+                        <input type="text" class="form-control" ng-model="vm.data.options.config.query">
+                    </div>
+                </div>
+                <div class="form-group form-group-input clearfix" style="display: none;">
+                    <div class="col-md-12">
+                        <label class="control-table">高级过滤</label>
+                        <div class="form-control addfiltrate-box">
+                            &nbsp;
+                            <div class="helplabel-hover"
+                                ng-repeat="(key , val)  in vm.queryParams.filterFields.exists track by $index">
+                                <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                                    {{title || 'exists: '+val}}
+                                    <div class="icons-show" ng-show="show">
+                                        <a><i class="fa fa-trash-o"
+                                                ng-click="vm.rmFilter({'name':key, 'val':val}, 'exists')"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- must_not exists 模式 -->
+                            <div class="helplabel-hover"
+                                ng-repeat="(key, val) in vm.queryParams.filterFields.does_not_exist  track by $index">
+                                <div class="operat-field operat-field-isno" ng-mouseenter="show = true"
+                                    ng-mouseleave="show = false">{{title || 'not exists: '+val}}
+                                    <div class="icons-show" ng-show="show">
+                                        <a><i class="fa fa-trash"
+                                                ng-click="vm.rmFilter({'name':key, 'val':val}, 'does_not_exist')"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- must term 模式 -->
+                            <div class="helplabel-hover"
+                                ng-repeat="(key, val) in vm.queryParams.filterFields.is  track by $index">
+                                <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                                    {{title || key+':'+val}}
+                                    <div class="icons-show" ng-show="show">
+                                        <a><i class="fa fa-trash-o"
+                                                ng-click="vm.rmFilter({'name':key, 'val':val}, 'is')"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- must_not term 模式 -->
+                            <div class="helplabel-hover"
+                                ng-repeat="(key, val) in vm.queryParams.filterFields.is_not  track by $index">
+                                <div class="operat-field operat-field-isno" ng-mouseenter="show = true"
+                                    ng-mouseleave="show = false">{{title || key+'!='+val}}
+                                    <div class="icons-show" ng-show="show">
+                                        <a><i class="fa fa-trash-o"
+                                                ng-click="vm.rmFilter({'name':key, 'val':val}, 'is_not')"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- must bool 模式 -->
+                            <div class="helplabel-hover"
+                                ng-repeat="(key, val) in vm.queryParams.filterFields.is_one_of  track by $index">
+                                <div class="">
+                                    <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                                        {{title || key+':'+val}}
+                                        <div class="icons-show" ng-show="show">
+                                            <a><i class="fa fa-trash-o"
+                                                    ng-click="vm.rmFilter({'name':key, 'val':val}, 'is_one_of')"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- must_not bool 模式 -->
+                            <div class="helplabel-hover"
+                                ng-repeat="(key, val) in vm.queryParams.filterFields.is_not_one_of  track by $index">
+                                <div class="">
+                                    <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                                        {{title || key+'!='+val}}
+                                        <div class="icons-show" ng-show="show">
+                                            <a><i class="fa fa-trash-o"
+                                                    ng-click="vm.rmFilter({'name':key, 'val':val}, 'is_not_one_of')"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div ng-repeat="d in vm.queryParams.filterFields track by $index" class="inline-block col-md-6">
+                <p ng-repeat="(key , val) in d">{{key}}:{{val}}</p>
+                <button ng-repeat="(key , val) in d" type="button" class="btn btn-raised btn-warning btn-xs btn-no-margin">{{key}}:{{val}} <i class="glyphicon glyphicon-remove-sign" ng-click="d.rmFilter(d)"></i></button>
+            </div> -->
+                        <!-- <div class="panel-body" ng-show="vm.queryParams.filterFields[0]">              
+              <div ng-repeat="d in vm.queryParams.filterFields track by $index" class="inline-block col-md-6">
+                <p ng-repeat="(key , val) in d" type="button" class="btn btn-raised btn-warning btn-xs btn-no-margin">{{key}}:{{val}}></p>
+                <button ng-repeat="(key , val) in d" type="button" class="btn btn-raised btn-warning btn-xs btn-no-margin">{{key}}:{{val}} <i class="glyphicon glyphicon-remove-sign" ng-click="d.rmFilter(d)"></i></button>
+              </div>  
+            </div> -->
+                    </div>
+                </div>
+
+                <!--  <div class="form-group">
+            <label class="col-md-2 control-label">语法</label>
+                <textarea class="form-control col-md-12" rows=20 name="expressionStr" ng-model="vm.queryParams" required></textarea>
+            <p class="text-danger" ng-show="saveAsForm.expressionStr.$error.required">语法栏不能为空。</p>
+        </div> -->
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.method.cancel()">
+        <span no-translate="entity.action.cancel">取消</span>
+    </button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.method.save()"
+        ng-disabled="saveAsForm.name.$error.required">
+        保存
+    </button>
+</div>

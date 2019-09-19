@@ -1,0 +1,79 @@
+    
+    <!-- <link rel="stylesheet" href="app/pages/dashboard-builder/builder.css"> -->
+     
+    
+    <!-- <div class=" panel title-wrapper">
+        <h3 class="m-n font-thin h3">仪表盘 > 自定义展现 > {{vm.dataDashboardName || 'new' }} </h3>
+         <small class="text-muted h5 font-title-des">自定义展现</small> 
+    </div> 
+ -->
+    <div class="title-wrapper">
+        <h3 class="m-n font-thin h3">仪表板 > <a ui-sref="dashboards()">自定义展现<a> <span ng-if="vm.dataDashboardName !=''"> > {{vm.dataDashboardName}}  </span> </h3>
+        <small class="text-muted h5 font-title-des">用户自定义综合视图</small>
+    </div>
+    <!-- <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-black" ng-click="vm.addWidget()" ng-if="vm.newbtn"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;新建</button> 
+        <button class="btn btn-info" ng-click="vm.openToolbar()" ng-if="vm.configBtn" ><i class="glyphicon glyphicon-cog"></i>&nbsp;配置</button> 
+      </div>   
+    </div>   -->
+    <div id="builder-space">      
+      <div style="width: 100%; height: 100%; background-color:{{vm.backgroundColor}}" id="builer-space-div"> 
+        <gridster options="vm.gridOptions">
+          <gridster-item item="group" ng-repeat="group in vm.myWidgets track by $index">
+            <div class="panel panel-default" ng-mouseup="vm.clickWidget(group)" ng-class="{true:'cur-widget',false:''}[vm.options.editable && group==vm.curWidget]">
+              <div class="panel-heading" style="border-bottom:0px; background-color: {{group.titleBgColor}}" ng-if="group.title!=''" >
+                <i ng-class="group.icon" style="color: {{group.iconColor}}"></i>&nbsp;<span style="color: {{group.titleColor}}">{{group.title}}</span>
+              </div>
+              <div style="background-color: {{group.backgroundColor}}" >
+                <div group-container>
+                  <wg-grid columns="12" rows="12" options="vm.options" style="width: 100%;"
+                    ng-class="{false:'show-mode', true:''}[vm.options.editable]" >
+                    <wg-widget wg-resizable wg-movable editable="{{vm.options.editable && chart.position==vm.curChart.position}}" ng-repeat="chart in group.charts track by $index" position="chart.position" ng-mouseup="vm.clickChart(group, chart)" > 
+                      <div ng-if="chart.category=='mu-echarts'">
+                        <div widget-container="chart">
+                        </div>
+                      </div>
+                      <div ng-if="chart.category=='ng-table-factory'" style="background-color: {{chart.attrs.config.backgroundColor}}"> 
+                        <div widget-container="chart">
+                        </div>
+                      </div>
+                    </wg-widget>
+                  </wg-grid> 
+                </div>  
+              </div>                  
+            </div>  
+          </gridster-item>
+        </gridster>
+      </div>   
+
+      <div class="title-div-space" id="toolbar-space">
+          <span class="glyphicon glyphicon-menu-hamburger icon-show" ng-click="vm.showList = !vm.showList"></span>
+          <div ng-hide="vm.showList" class="showList">
+            <label><h4>编辑工具栏 <!-- <a style="margin-left: 25px;" ng-click="vm.returnBtn()"><i class="glyphicon glyphicon-share-alt"></i>返回</a> --> </h4> </label>
+            <ul> 
+              <li style="cursor: pointer;" ng-show="vm.options.editable" ng-click="vm.addWidget()"><i class="glyphicon glyphicon-plus-sign"></i> 添加Widget</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget" ng-click="vm.cloneWidget()"><i class="fa fa-copy"></i> 克隆Widget</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget"  ng-click="vm.removeWidget()"><i class="glyphicon glyphicon-remove-circle"></i> 删除Widget</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget"  ng-click="vm.addChart()"><i class="fa fa-line-chart"></i> 添加Chart</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget && vm.curChart && vm.curChart.category=='mu-echarts'"  ng-click="vm.config(false)"><i class="glyphicon glyphicon-edit"></i> 配置Chart</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget && vm.curChart && vm.curChart.category=='mu-echarts'"  ng-click="vm.removeChart()"><i class="glyphicon glyphicon-remove-circle"></i> 删除Chart</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget"  ng-click="vm.addTable()"><i class="fa fa-table"></i> 添加Table</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget && vm.curChart && vm.curChart.category=='ng-table-factory'"  ng-click="vm.config(false)"><i class="glyphicon glyphicon-edit"></i> 配置Table</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable && vm.curWidget && vm.curChart && vm.curChart.category=='ng-table-factory'"  ng-click="vm.removeTable()"><i class="glyphicon glyphicon-remove-circle"></i> 删除Table</li>
+              <li style="cursor: pointer;" ng-show="vm.options.editable"  ng-click="vm.toggleEditable()"><i class="glyphicon glyphicon-lock"></i> 关闭编辑模式</li>
+              <li style="cursor: pointer;" ng-show="!vm.options.editable"  ng-click="vm.toggleEditable()"><i class="fa fa-unlock"></i> 开启编辑模式</li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+            <div class="input-group">
+                  <input type="text" ng-model="vm.newDashboardName" class="form-control" />
+                  <button class="btn btn-warning pull-right" ng-click="vm.save()">保存</button> 
+            </div>
+          </div> 
+      </div> 
+ 
+  
+    </div>

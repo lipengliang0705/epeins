@@ -1,0 +1,1575 @@
+<style type="text/css">
+  .dropdown-menu {
+    color: #95d7f1;
+    border-color: #4f97ab;
+    background-color: #335660; 
+    /*background-color: inherit;*/
+  }
+</style>
+<div style="margin-top: 5px;">
+	<div class="form-group col-sm-3" style="margin-bottom: 15px;" >
+	  <label>类别</label>
+	  <select ng-model="widget.category" class="form-control" ng-disabled="true" ng-options="item.value as item.name for item in widgetCategories">
+	  </select> 
+	</div>
+	<div class="form-group col-sm-3" style="margin-bottom: 15px;">
+	  <label>图形</label>
+	  <select ng-model="widget.attrs.config.type" ng-options="item as item for item in chartTypes" class="form-control" >
+	  </select> 
+	</div> 
+  <div class="form-group col-sm-3"  style="margin-bottom: 15px;" >
+    <label>开启动画</label>
+    <select ng-model="widget.attrs.config.animation" ng-options="item.value as item.name for item in booleans" class="form-control"></select> 
+  </div>  
+<!--   <div class="form-group col-sm-3"  style="margin-bottom: 15px;" >
+    <label>背景色</label>
+    <spectrum-colorpicker ng-model="backgroundColor" format="'hex3'" options="colorPicker1" ng-change="chgBackground()"></spectrum-colorpicker>
+  </div>  -->  
+  <div class="form-group col-sm-3"  style="margin-bottom: 15px;" >
+    <label>缓动类别</label>
+    <select ng-model="widget.attrs.config.animationEasing" ng-options="item as item for item in animationEasings" class="form-control"></select> 
+  </div> 
+<!--   <div class="form-group col-sm-3"  style="margin-bottom: 15px;" >
+    <label>图形混合模式</label>
+    <select ng-model="widget.attrs.config.blendMode" ng-options="item as item for item in blendModes" class="form-control"></select> 
+  </div>  --> 
+
+</div>
+
+
+
+<div ng-tabs class="tabbable">
+    <ul class="nav nav-tabs">
+        <li ng-tab-head="on">
+            <a href="#" ng-click="$event.preventDefault()">数据源</a>
+        </li>
+        <li ng-tab-head="on">
+            <a href="#" ng-click="$event.preventDefault()">数据</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">基本</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">共性</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">个性</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">文字</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">图形</a>
+        </li>
+        <li ng-tab-head="on" ng-if="widget.attrs.config.datasource.type=='es'&&widget.attrs.config.datasource.es_index!=null&&widget.attrs.config.datasource.es_type!=null">
+            <a href="#" ng-click="$event.preventDefault()">告警源</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+
+
+<!-- 数据源 开始 -->
+        <div ng-tab-body class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              数据源
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-4">
+                <label>数据源类别</label>
+                <select ng-model="widget.attrs.config.datasource.type" ng-options="item.value as item.name for item in datasources" class="form-control">
+                </select> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>最大数据量</label>
+                <input type="number" ng-model="widget.attrs.config.datasource.maxCount" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>刷新率(秒)</label>
+                <input type="number" ng-model="widget.attrs.config.datasource.interval" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2 pull-right">
+                <label>&nbsp;</label>
+                <button class="btn btn-info" ng-click="tabs.index = 2; getData()">获取数据</button> 
+              </div>
+              <div ng-if="widget.attrs.config.datasource.type=='es'" > 
+                <div class="form-group col-sm-4"> 
+                  <label>业务</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_index" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.title}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_indexs | filter: $select.search">
+                        <div ng-bind-html="item.title | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-4">
+                  <label>解析规则</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_type" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_types | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>                
+                <div class="form-group col-sm-4">
+                  <label>统计视图</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_view" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_views | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-4">
+                  <label>字段</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_field" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_fields | filter: $select.search">
+                        <div ng-bind-html="item.name  | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>             
+                <div class="form-group col-sm-4">
+                  <label>时间段</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_range" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_ranges | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.es_view.name!='字段值分类'">
+                  <label>频率</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_interval" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_intervals | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.es_view.name=='字段值分类'">
+                  <label>TOP</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_top" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_tops | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.es_view.name=='字段值统计'">
+                  <label>聚合方式</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_function" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_functions | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>                 
+                <div class="form-group" ng-class="{true:'col-sm-8',false:'col-sm-12'}[widget.attrs.config.datasource.es_view.name=='字段值统计']">
+                  <label>Query String</label>
+                  <input ng-model="widget.attrs.config.datasource.queryString" class="form-control" />
+                </div>  
+              </div>
+
+              <div ng-if="['rest', 'rest_post', 'socket'].includes(widget.attrs.config.datasource.type)">  
+                <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.type!='rest_post'">
+                  <label>数据源Host</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.host" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in dataStores | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div> 
+                <div class="form-group col-sm-8">
+                  <label>数据源地址</label>
+                  <input ng-model="widget.attrs.config.datasource.url" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.type=='rest_post'">
+                  <label>返回类型</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.postType" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in postTypes | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+                <div class="form-group col-sm-12" ng-if="widget.attrs.config.datasource.type=='rest' || widget.attrs.config.datasource.type=='rest_post'">
+                  <label>返回值path</label>
+                  <input ng-model="widget.attrs.config.datasource.retPath" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-12" ng-show="widget.attrs.config.datasource.type=='rest_post' || widget.attrs.config.datasource.type=='es'">
+                  <label>BODY参数 (变量：${target}, ${indicator}, ${timeStart}, ${timeEnd})</label>
+                  <textarea class="form-control" rows="10" ng-model="widget.attrs.config.datasource.postbody" ng-model-options="{updateOn: 'blur'}"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              字段匹配
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-12">
+                <table class="table table-condensed table-bordered" style="margin: 0px">
+                  <tr class="bg-info">
+                    <th width="15%">类别</th>
+                    <th width="28%">字段</th>
+                    <th width="25%">名称</th>
+                    <!-- <th width="18%">图形</th> -->
+                    <th width="15%">Y轴</th>
+                    <th width="17%">操作</th>
+                  </tr>
+                  <tr>
+                    <td>分组</td>
+                    <td><select ng-model="widget.attrs.config.fieldMap.group" ng-options="item as item for item in widget.attrs.config.fields" class="form-control"></select></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><button ng-click="exeGroup()" class="btn-xs btn-info">执行分组</button></td>
+                  </tr>
+                  <tr>
+                    <td>类目(X)</td>
+                    <td><select ng-model="widget.attrs.config.fieldMap.x" ng-options="item as item for item in widget.attrs.config.fields" class="form-control"></select></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <!-- <td>&nbsp;</td> -->
+                    <td><button ng-click="addMap()" class="btn-xs btn-info">添加数值</button></td>
+                  </tr> 
+                  <tr ng-repeat="field in widget.attrs.config.fieldMap.y">
+                    <td>数值(Y)</td>
+                    <td><select ng-model="field.field" ng-options="item as item for item in widget.attrs.config.fields" class="form-control"></select></td>
+                    <td><input ng-model="field.name" class="form-control" ng-model-options="{updateOn: 'blur'}"/></td>
+                    <!-- <td><select ng-model="field.type" ng-options="item as item for item in subChartTypes" class="form-control"></select></td> -->
+                    <td><select ng-model="field.yAxisIndex" ng-options="item.value as item.name for item in yAxisIndexs" class="form-control"></select></td>
+                    <td><button ng-click="delMap($index)" class="btn-xs btn-danger">删除</button>
+                        <button ng-click="tabs.index = 5; setSpecial(field, $index)" class="btn-xs btn-primary">个性</button>
+                    </td>
+                  </tr>
+<!--                   <tr class="bg-info" ng-show="isAxisChart(widget.attrs.config.type)">
+                    <td>是否平铺：</td>
+                    <td><select ng-model="widget.attrs.config.layout.isMultiple" ng-options="item.value as item.name for item in booleans" class="form-control"></td>
+                    <td>每行个数：</td>
+                    <td><input type="number" ng-model="widget.attrs.config.layout.chartsPerRow" ng-model-options="{updateOn: 'blur'}" class="form-control" /></td>
+                    <td></td>
+                  </tr> -->
+                </table>
+                <!-- <button ng-click="addMap()" class="btn-xs btn-info pull-right">添加数据</button> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+<!-- 数据源 结束 -->
+
+<!-- 数据 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              数据
+            </div>
+            <div class="panel-body">
+              <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:100%" class="col-sm-12">
+                <table ng-table-dynamic="tableParams with cols" class="table table-condensed table-bordered table-striped">
+                  <tr ng-repeat="row in $data">
+                    <td ng-repeat="col in $columns" noWrap="noWrap">{{row[col.field]}}</td>
+                  </tr>
+                </table> 
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- 数据 结束 -->
+
+
+<!-- 基本 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              标题
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-4">
+                <label>标题内容</label>
+                <input ng-model="group.title" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>标题颜色</label>
+                  <spectrum-colorpicker ng-model="group.titleColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>   
+              <div class="form-group col-sm-4">
+                <label>标题图标(font awesome)</label>
+                <input ng-model="group.icon" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图标颜色</label>
+                  <spectrum-colorpicker ng-model="group.iconColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>           
+<!--               <div class="form-group col-sm-6">
+                <label>标题内容</label>
+                <input ng-model="widget.attrs.config.title.text" class="form-control" /> 
+              </div>
+<!--               <div class="form-group col-sm-2">
+                <label>字体</label>
+                <select ng-model="widget.attrs.config.title.textStyle.fontFamily" class="form-control" ng-options="item as item for item in fonts"> 
+                </select>
+              </div> -->
+<!--               <div class="form-group col-sm-2">
+                <label>字体透明度</label>
+                <input ng-model="widget.attrs.config.title.textStyle.fontFamily" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>  -->
+<!--               <div class="form-group col-sm-2">
+                <label>字体颜色</label>
+                  <spectrum-colorpicker ng-model="widget.attrs.config.title.textStyle.color" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体大小</label>
+                <input ng-model="widget.attrs.config.title.textStyle.fontSize" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>左偏移</label>
+                <input ng-model="widget.attrs.config.title.left" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>上偏移</label>
+                <input ng-model="widget.attrs.config.title.top" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>右偏移</label>
+                <input ng-model="widget.attrs.config.title.right" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>下偏移</label>
+                <input ng-model="widget.attrs.config.title.bottom" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体风格</label>
+                <select ng-model="widget.attrs.config.title.textStyle.fontStyle"  class="form-control">
+                  <option value="normal">正常</option>
+                  <option value="italic">斜体</option>
+                </select> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体粗细</label>
+                <select ng-model="widget.attrs.config.title.textStyle.fontWeight"  class="form-control"> 
+                  <option value="normal">正常</option>
+                  <option value="bold">粗</option>
+                  <option value="lighter">细</option>
+                </select>
+              </div> -->
+
+
+  <!--             <div class="form-group col-sm-12">
+                <label>副标题内容</label>
+                <input ng-model="widget.attrs.config.title.subtext" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-6">
+                <label>副标题颜色</label>
+                <input ng-model="widget.attrs.config.title.subtextStyle.color" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-6">
+                <label>副标题大小</label>
+                <input ng-model="widget.attrs.config.title.subtextStyle.fontSize" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-6">
+                <label>副标题风格</label>
+                <select ng-model="widget.attrs.config.title.subtextStyle.fontStyle"  class="form-control">
+                  <option value="normal">正常</option>
+                  <option value="italic">斜体</option>
+                </select> 
+              </div>
+              <div class="form-group col-sm-6">
+                <label>副标题粗细</label>
+                <select ng-model="widget.attrs.config.title.subtextStyle.fontWeight"  class="form-control"> 
+                  <option value="normal">正常</option>
+                  <option value="bold">粗</option>
+                  <option value="lighter">细</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+
+
+          <div class="panel panel-default" ng-show="isMapChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              地图坐标
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>左偏移</label>
+                <input ng-model="widget.attrs.config.geo.left" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>上偏移</label>
+                <input ng-model="widget.attrs.config.geo.top" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>右偏移</label>
+                <input ng-model="widget.attrs.config.geo.right" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>下偏移</label>
+                <input ng-model="widget.attrs.config.geo.bottom" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>缩放比率</label>
+                <input ng-model="widget.attrs.config.geo.zoom" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>长宽比率</label>
+                <input ng-model="widget.attrs.config.geo.aspectScale" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default" ng-show="isAxisChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              坐标轴
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>左偏移</label>
+                <input ng-model="widget.attrs.config.grid.left" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>上偏移</label>
+                <input ng-model="widget.attrs.config.grid.top" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>右偏移</label>
+                <input ng-model="widget.attrs.config.grid.right" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>下偏移</label>
+                <input ng-model="widget.attrs.config.grid.bottom" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>X轴显示</label>
+                <select ng-model="widget.attrs.config.xAxis.show"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>左Y轴显示</label>
+                <select ng-model="widget.attrs.config.yAxis.l_show"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>         
+              <div class="form-group col-sm-2">
+                <label>标签颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.Axis.labelColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                <!-- <input ng-model="widget.attrs.config.Axis.labelColor"  ng-model-options="{updateOn: 'blur'}" class="form-control" />  -->
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>标签倾斜度</label>
+                <input type="number" ng-model="widget.attrs.config.xAxis.axisLabel.rotate" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>Y轴自适应</label>
+                <select ng-model="widget.attrs.config.yAxis.scale"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>Y轴标准化</label>
+                <select ng-model="widget.attrs.config.yAxis.standardize"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>Y轴分割线</label>
+                <select ng-model="widget.attrs.config.yAxis.splitLine.show"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>右Y轴显示</label>
+                <select ng-model="widget.attrs.config.yAxis.r_show"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+<!--               <div class="form-group col-sm-2">
+                <label>X-Y轴反转</label>
+                <select ng-model="widget.attrs.config.axisReverse"  ng-options="item.value as item.name for item in booleans" class="form-control">
+                </select> 
+              </div> -->
+              <div class="form-group col-sm-2">
+                <label>单位颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.yAxis.nameTextStyle.color" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                <!-- <input ng-model="widget.attrs.config.yAxis.nameTextStyle.color"  ng-model-options="{updateOn: 'blur'}" class="form-control" />  -->
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>名称/单位</label>
+                <input ng-model="widget.attrs.config.yAxis.name"  ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div> 
+
+              <div class="form-group col-sm-2">
+                <label>单位位置</label>
+                <select ng-model="widget.attrs.config.yAxis.nameLocation"  class="form-control" >
+                  <option></option>
+                  <option value="start">start</option>
+                  <option value="middle">middle</option>
+                  <option value="end">end</option>
+                </select> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>数轴反向</label>
+                <select ng-model="widget.attrs.config.yAxis.inverse"  ng-options="item.value as item.name for item in booleans" class="form-control">
+                </select> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>类目轴反向</label>
+                <select ng-model="widget.attrs.config.xAxis.inverse"  ng-options="item.value as item.name for item in booleans" class="form-control">
+                </select> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>轴线颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.Axis.lineColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                <!-- <input ng-model="widget.attrs.config.Axis.lineColor"  ng-model-options="{updateOn: 'blur'}"  class="form-control" />  -->
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              图例
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>显示与否</label>
+                <select ng-model="widget.attrs.config.legend.show"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>对齐方式</label>
+                <select ng-model="widget.attrs.config.legend.orient" class="form-control"> 
+                  <option value="horizontal">水平</option>
+                  <option value="vertical">垂直</option>             
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>选择方式</label>
+                <select ng-model="widget.attrs.config.legend.selectedMode" class="form-control"> 
+                  <option value="false">关闭</option>
+                  <option value="single">单选</option>  
+                  <option value="multiple">多选</option>           
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.legend.textStyle.color" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                <!-- <input ng-model="widget.attrs.config.legend.textStyle.color" ng-model-options="{updateOn: 'blur'}" class="form-control" />  -->
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体大小</label>
+                <input ng-model="widget.attrs.config.legend.textStyle.fontSize" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>字体风格</label>
+                <select ng-model="widget.attrs.config.legend.textStyle.fontStyle"  class="form-control">
+                  <option value="normal">正常</option>
+                  <option value="italic">斜体</option>
+                </select> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>左偏移</label>
+                <input ng-model="widget.attrs.config.legend.left" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>上偏移</label>
+                <input ng-model="widget.attrs.config.legend.top" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>右偏移</label>
+                <input ng-model="widget.attrs.config.legend.right" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>下偏移</label>
+                <input ng-model="widget.attrs.config.legend.bottom" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例大小</label>
+                <input type="number" ng-model="widget.attrs.config.legend.itemHeight"  ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>图例区宽度</label>
+                <input ng-model="widget.attrs.config.legend.width" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- 基本 结束 -->
+
+<!-- 共性 开始 -->
+        <div ng-tab-body class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              共通项
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>颜色</label>
+                <button ng-click="randomColor()" class="form-control btn-info">随机分配</button> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2" ng-show="!isRadarChart(widget.attrs.config.type)">
+                <label>单色渐变</label>
+                <select ng-model="widget.attrs.config.dataComm.symbolColorGradual"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例透明度</label>
+                <input ng-model="widget.attrs.config.dataComm.symbolOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2" ng-show="isRadarChart(widget.attrs.config.type)">
+                <label>区域透明度</label>
+                <input ng-model="widget.attrs.config.dataComm.areaOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2" ng-show="!isRadarChart(widget.attrs.config.type)">
+                <label>阴影大小</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.shadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2" ng-show="!isRadarChart(widget.attrs.config.type)">
+                <label>阴影颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.shadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                <!-- <input ng-model="widget.attrs.config.dataComm.shadowColor" ng-model-options="{updateOn: 'blur'}" class="form-control" /> -->
+              </div>
+              <div class="form-group col-sm-2" ng-show="isAreaChart(widget.attrs.config.type)">
+                <label>面积透明度</label>
+                <input ng-model="widget.attrs.config.dataComm.areaOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="panel panel-default" ng-show="isMapChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              地图类
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>区域颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.geo.itemStyle.normal.areaColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>边界线颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.geo.itemStyle.normal.borderColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>标签颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.mapLabelColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例最小</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.symbolSizeA" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例最大</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.symbolSizeB" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>凸显TOP数</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.topCount" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>边界阴影大小</label>
+                <input type="number" ng-model="widget.attrs.config.geo.itemStyle.normal.shadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+               <div class="form-group col-sm-2">
+                <label>边界阴影颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.geo.itemStyle.normal.shadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default" ng-show="isLineChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              线图类
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>曲线平滑</label>
+                <select ng-model="widget.attrs.config.dataComm.smooth"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>线条样式</label>
+                <select ng-model="widget.attrs.config.dataComm.lineType"  ng-options="item as item for item in lineTypes" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>线条粗细</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.lineWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>线条透明度</label>
+                <input ng-model="widget.attrs.config.dataComm.lineOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例形状</label>
+                <select ng-model="widget.attrs.config.dataComm.symbol"  ng-options="item as item for item in symbols" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例大小</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.symbolSize" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default" ng-show="isBarChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              柱图类
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>柱子圆角</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.barBorderRadius" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>柱间距</label>
+                <input ng-model="widget.attrs.config.dataComm.barGap" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>类目间距</label>
+                <input ng-model="widget.attrs.config.dataComm.barCategoryGap" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+            </div>  
+          </div>
+
+          <div class="panel panel-default" ng-show="isPieChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              饼图类
+            </div>
+            <div class="panel-body">
+               <div class="form-group col-sm-2">
+                <label>顺时针</label>
+                <select ng-model="widget.attrs.config.dataComm.pieClockwise" class="form-control" ng-options="item.value as item.name for item in booleans" >
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>标签位置</label>
+                <select ng-model="widget.attrs.config.dataComm.pieLabelPosition" class="form-control" ng-options="item as item for item in positions" >
+                </select>
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>标签颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.pieLabelColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>标签大小</label>
+                <input ng-model="widget.attrs.config.dataComm.pieLabelFontSize" class="form-control">
+                </input>
+              </div>
+               <div class="form-group col-sm-2" ng-show="widget.attrs.config.type=='donut-gauge'">
+                <label>空值颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.donutNullColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </input>
+              </div>
+            </div>  
+          </div>
+
+          <div class="panel panel-default" ng-show="isRadarChart(widget.attrs.config.type)">
+            <div class="panel-heading">
+              雷达图类
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>雷达形状</label>
+                <select ng-model="widget.attrs.config.dataComm.radarShape" class="form-control">
+                  <option value="polygon">正多边型</option>
+                  <option value="circle">圆型</option>
+                </select>
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>雷达位置(X)</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarCenterX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>雷达位置(Y)</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarCenterY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>雷达大小</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarRadius" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>雷达背景色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.radarSplitAreaColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>分区数</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarSplitNumber" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>线形样式</label>
+                <select ng-model="widget.attrs.config.dataComm.radarItemLineType"  ng-options="item as item for item in lineTypes" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>线条粗细</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarItemLineWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>图例形状</label>
+                <select ng-model="widget.attrs.config.dataComm.radarSymbol"  ng-options="item as item for item in symbols" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>图例大小</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarSymbolSize" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>最大值比例</label>
+                <input ng-model="widget.attrs.config.dataComm.radarRatioMax" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>              
+              <div class="form-group col-sm-2">
+                <label>最小值比例</label>
+                <input ng-model="widget.attrs.config.dataComm.radarRatioMin" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>轴线样式</label>
+                <select ng-model="widget.attrs.config.dataComm.radarAxisLineType"  ng-options="item as item for item in lineTypes" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>轴线粗细</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarAxisLineWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>轴线颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.radarAxisLineColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>分割线样式</label>
+                <select ng-model="widget.attrs.config.dataComm.radarSplitLineType"  ng-options="item as item for item in lineTypes" class="form-control"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>分割线粗细</label>
+                <input type="number" ng-model="widget.attrs.config.dataComm.radarSplitLineWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>分割线颜色</label>
+                <spectrum-colorpicker ng-model="widget.attrs.config.dataComm.radarSplitLineColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>
+            
+            </div>   
+          </div>
+
+        </div>
+
+<!-- 共性 结束 -->
+
+<!-- 个性 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              当前操作字段信息
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-12">
+                <table class="table table-condensed table-bordered" style="margin: 0px">
+                  <tr class="bg-info">
+                    <th width="15%">类别</th>
+                    <th width="25%">字段</th>
+                    <th width="25%">名称</th>
+                    <th width="18%">图形</th>
+                    <th width="17%">颜色</th>
+                  </tr>
+                  <tr>
+                    <td>数值(Y)</td>
+                    <td><select ng-disabled="true" ng-model="specialField.field" ng-options="item as item for item in widget.attrs.config.fields" class="form-control"></select></td>
+                    <td><input ng-model="specialField.name" class="form-control" ng-model-options="{updateOn: 'blur'}"/></td>
+                    <td><select ng-model="specialField.type" ng-options="item as item for item in subChartTypes" class="form-control"></select></td>
+                    <td><spectrum-colorpicker ng-model="specialField.color" format="'hex3'" options="colorPicker2"></spectrum-colorpicker></td>
+                  </tr>
+                </table>
+                <!-- <button ng-click="addMap()" class="btn-xs btn-info pull-right">添加数据</button> -->
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="specialField.type!=null">
+
+            <div class="panel panel-default" ng-show="!isGaugeChart(specialField.type || widget.attrs.config.type)">
+              <div class="panel-heading">
+                图例双色渐变
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>渐变方式</label>
+                  <select ng-model="specialField.symbolColorGradualMethod"  ng-options="item.value as item.name for item in colorGraudualMethods" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.symbolColorGradualMethod=='gradual' ">
+                  <label>中心X</label>
+                  <input ng-model="specialField.symbolColorGradualX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.symbolColorGradualMethod=='gradual' ">
+                  <label>中心Y</label>
+                  <input ng-model="specialField.symbolColorGradualY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.symbolColorGradualMethod=='gradual' ">
+                  <label>渐变深度</label>
+                  <input ng-model="specialField.symbolColorGradualWeight" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.symbolColorGradualMethod=='linear' ">
+                  <label>渐变方向</label>
+                  <select ng-model="specialField.symbolColorGradualDirection"  ng-options="item.value as item.name for item in colorGraudualDriections" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>颜色A</label>
+                  <spectrum-colorpicker ng-model="specialField.symbolColorGradualA" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>颜色B</label>
+                  <spectrum-colorpicker ng-model="specialField.symbolColorGradualB" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default" ng-show="isAreaChart(specialField.type || widget.attrs.config.type)">
+              <div class="panel-heading">
+                面积双向渐变
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>渐变方式</label>
+                  <select ng-model="specialField.areaColorGradualMethod"  ng-options="item.value as item.name for item in colorGraudualMethods" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.areaColorGradualMethod=='gradual' ">
+                  <label>中心X</label>
+                  <input ng-model="specialField.areaColorGradualX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.areaColorGradualMethod=='gradual' ">
+                  <label>中心Y</label>
+                  <input ng-model="specialField.areaColorGradualY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.areaColorGradualMethod=='gradual' ">
+                  <label>渐变深度</label>
+                  <input ng-model="specialField.areaColorGradualWeight" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="specialField.areaColorGradualMethod=='linear' ">
+                  <label>渐变方向</label>
+                  <select ng-model="specialField.areaColorGradualDirection"  ng-options="item.value as item.name for item in colorGraudualDriections" class="form-control">
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>颜色A</label>
+                  <spectrum-colorpicker ng-model="specialField.areaColorGradualA" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>颜色B</label>
+                  <spectrum-colorpicker ng-model="specialField.areaColorGradualB" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+              </div>  
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                图例基本属性
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2" ng-if="specialField.symbolColorGradualMethod==null">
+                  <label>单色渐变</label>
+                  <select ng-model="specialField.symbolColorGradual"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>图例透明度</label>
+                  <input ng-model="specialField.symbolOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影大小</label>
+                  <input type="number" ng-model="specialField.shadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.shadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>边框宽度</label>
+                  <input type="number" ng-model="specialField.borderWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>边框颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.borderColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2" ng-show="isAreaChart(specialField.type || widget.attrs.config.type)">
+                  <label>面积透明度</label>
+                  <input ng-model="specialField.areaOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="isMapChart(widget.attrs.config.type)">
+                  <label>TOP值颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.effectColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default" ng-show="isLineChart(specialField.type || widget.attrs.config.type)">
+              <div class="panel-heading">
+                线图类
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>曲线平滑</label>
+                  <select ng-model="specialField.smooth"  ng-options="item.value as item.name for item in booleans" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>线条样式</label>
+                  <select ng-model="specialField.lineType"  ng-options="item as item for item in lineTypes" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>线条粗细</label>
+                  <input type="number" ng-model="specialField.lineWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>线条透明度</label>
+                  <input ng-model="specialField.lineOpacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>图例形状</label>
+                  <select ng-model="specialField.symbol"  ng-options="item as item for item in symbols" class="form-control"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>图例大小</label>
+                  <input type="number" ng-model="specialField.symbolSize" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影大小</label>
+                  <input type="number" ng-model="specialField.lineShadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.lineShadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影偏移X</label>
+                  <input type="number" ng-model="specialField.lineShadowOffsetX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>阴影偏移X</label>
+                  <input type="number" ng-model="specialField.lineShadowOffsetY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default" ng-show="isBarChart(specialField.type || widget.attrs.config.type)">
+              <div class="panel-heading">
+                柱图类
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>柱子圆角</label>
+                  <input type="number" ng-model="specialField.barBorderRadius" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>柱间距</label>
+                  <input ng-model="specialField.barGap" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>类目间距</label>
+                  <input ng-model="specialField.barCategoryGap" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+              </div>  
+            </div>
+            <div class="panel panel-default" ng-show="isPieChart(specialField.type || widget.attrs.config.type)">
+            <!-- <div class="panel panel-default"> -->
+              <div class="panel-heading">
+                饼图类
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>中心位置X</label>
+                  <input type="number" ng-model="specialField.pieCenterX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>中心位置Y</label>
+                  <input ng-model="specialField.pieCenterY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2" ng-show="widget.attrs.config.type!='pie'">
+                  <label>内径</label>
+                  <input ng-model="specialField.pieRadiusIn" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>外径</label>
+                  <input ng-model="specialField.pieRadiusOut" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+              </div>  
+            </div>
+
+            <div class="panel panel-default" ng-show="isGaugeChart(specialField.type || widget.attrs.config.type)">
+              <div class="panel-heading">
+                仪表盘类
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-2">
+                  <label>起始角度</label>
+                  <input type="number" ng-model="specialField.gaugeStartAngle" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>终止角度</label>
+                  <input type="number" ng-model="specialField.gaugeEndAngle" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>中心位置(X)</label>
+                  <input type="number" ng-model="specialField.gaugeCenterX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>中心位置(Y)</label>
+                  <input type="number" ng-model="specialField.gaugeCenterY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>大小</label>
+                  <input type="number" ng-model="specialField.gaugeRadius" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>分区数量</label>
+                  <input type="number" ng-model="specialField.gaugeSplitNumber" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+
+                <div class="form-group col-sm-2">
+                  <label>最大刻度</label>
+                  <input type="number" ng-model="specialField.gaugeMax" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>最小刻度</label>
+                  <input type="number" ng-model="specialField.gaugeMin" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>标尺宽度</label>
+                  <input type="number" ng-model="specialField.gaugeAxisTickLength" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>标签颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeAxisLabelColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>指针宽度</label>
+                  <input type="number" ng-model="specialField.gaugePointerWidth" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>指针长度</label>
+                  <input type="number" ng-model="specialField.gaugePointerLength" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>              
+
+                <div class="form-group col-sm-2">
+                  <label>标题颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeTitleColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>标题字号</label>
+                  <input type="number" ng-model="specialField.gaugeTitleSize" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>标题字体</label>
+                  <select ng-model="specialField.gaugeTitleFont" class="form-control" ng-options="item as item for item in fonts"> 
+                  </select>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>数值颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeDetailColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>数值字号</label>
+                  <input type="number" ng-model="specialField.gaugeDetailSize" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>数值字体</label>
+                  <select ng-model="specialField.gaugeDetailFont" class="form-control" ng-options="item as item for item in fonts"> 
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-2">
+                  <label>低区位置</label>
+                  <input ng-model="specialField.gaugeLRatio" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>              
+                <div class="form-group col-sm-2">
+                  <label>低区颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeLColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>中区位置</label>
+                  <input ng-model="specialField.gaugeMRatio" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>              
+                <div class="form-group col-sm-2">
+                  <label>中区颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeMColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>高区位置</label>
+                  <input ng-model="specialField.gaugeHRatio" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+                </div>              
+                <div class="form-group col-sm-2">
+                  <label>高区颜色</label>
+                  <spectrum-colorpicker ng-model="specialField.gaugeHColor" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+                </div>
+
+              </div>  
+            </div>
+
+          </div>  
+        </div>
+<!-- 个性 开始 -->
+
+<!-- 文字 开始 -->
+
+        <div ng-tab-body class="tab-pane">
+          <div class="panel panel-default" ng-repeat="item in widget.attrs.config.texts track by $index">
+            <div class="panel-heading">
+              特效文字&nbsp; {{$index+1}}  
+              <button ng-click="delText($index)" class="btn-xs btn-danger pull-right">删除</button>
+              <button ng-click="cloneText(item)" class="btn-xs btn-success pull-right">克隆</button> 
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-4">
+                <label>内容</label>
+                <input ng-model="item.style.text" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+<!--               <div class="form-group col-sm-6">
+                <label>字体(CSS样式)</label>
+                <input type="text" ng-model="item.style.font" ng-model-options="{updateOn: 'blur'}" class="form-control"> 
+                </input>
+              </div>  -->
+
+              <div class="form-group col-sm-2">
+                <label>字体</label>
+                <select ng-model="item.style.fontFamily" class="form-control" ng-options="item as item for item in fonts"> 
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体风格</label>
+                <select ng-model="item.style.fontStyle"  class="form-control">
+                  <option value="normal">正常</option>
+                  <option value="italic">斜体</option>
+                </select> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体粗细</label>
+                <select ng-model="item.style.fontWeight"  class="form-control"> 
+                  <option value="normal">正常</option>
+                  <option value="bold">粗</option>
+                  <option value="lighter">细</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>字体大小</label>
+                <input type="number" ng-model="item.style.fontSize" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>左偏移</label>
+                <input type="number" ng-model="item.left" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2">
+                <label>上偏移</label>
+                <input type="number" ng-model="item.top" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>阴影色</label>
+                  <spectrum-colorpicker ng-model="item.style.shadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>阴影大小</label>
+                  <input ng-model="item.style.shadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>阴影偏移X</label>
+                  <input type="number" ng-model="item.style.shadowOffsetX" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>阴影偏移Y</label>
+                  <input type="number" ng-model="item.style.shadowOffsetY" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <!--  -->
+<!--               <div class="form-group col-sm-2">
+                <label>渐变方式</label>
+                <select ng-model="item.textColorGradualMethod"  ng-options="item.value as item.name for item in colorGraudualMethods" class="form-control"> 
+                </select>
+              </div> -->
+<!--               <div class="form-group col-sm-2" ng-show="item.textColorGradualMethod=='gradual' ">
+                <label>中心X</label>
+                <input ng-model="item.textColorGradualX" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2" ng-show="item.textColorGradualMethod=='gradual' ">
+                <label>中心Y</label>
+                <input ng-model="item.textColorGradualY" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2" ng-show="item.textColorGradualMethod=='gradual' ">
+                <label>渐变深度</label>
+                <input ng-model="item.textColorGradualWeight" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div> -->
+              <!-- <div class="form-group col-sm-2" ng-show="item.textColorGradualMethod=='linear' "> -->
+
+              <div class="form-group col-sm-2">
+                <label>笔画宽度</label>
+                  <input ng-model="item.style.lineWidth" type="number" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>笔画色</label>
+                  <spectrum-colorpicker ng-model="item.style.stroke" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div> 
+
+<!--               <div class="form-group col-sm-2">
+                <label>渐变方向</label>
+                <select ng-model="item.textColorGradualDirection"  ng-options="item.value as item.name for item in colorGraudualDriections" class="form-control"> 
+                </select>
+              </div> -->
+              <div class="form-group col-sm-2">
+                <label ng-show="item.textColorGradualDirection != null">颜色A</label>
+                <label ng-show="item.textColorGradualDirection == null">填充色</label>
+                <spectrum-colorpicker ng-model="item.textColorGradualA" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2" ng-show="item.textColorGradualDirection != null">
+                <label>颜色B</label>
+                <spectrum-colorpicker ng-model="item.textColorGradualB" format="'hex3'" options="colorPicker2"></spectrum-colorpicker>
+              </div>
+              <div class="form-group col-sm-2" ng-show="item.textColorGradualDirection != null">
+                <label>渐变深度</label>
+                <input ng-model="item.gradientDeep" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>数据字段</label>
+                <select ng-model="item.dataField"  ng-options="item as item for item in widget.attrs.config.fields" class="form-control"> 
+                  <option value="">-- 无 --</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label>数据Index</label>
+                <input type="number" ng-model="item.dataIndex" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-12">
+                <label>超链接URL</label>
+                <input ng-model="item.hyperlink" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>              
+            </div>
+          </div>
+          <div><button ng-click="addText()" class="btn-xs btn-info pull-right">添加特效文字</button></div> 
+        </div>
+<!-- 文字 结束 -->
+
+<!-- 图形 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default" ng-repeat="item in widget.attrs.config.shapes">
+            <div class="panel-heading">
+              图形&nbsp; {{$index+1}}  <button ng-click="delShape($index)" class="btn-xs btn-danger pull-right">删除</button> 
+            </div>
+            <div class="panel-body">
+<!--                <div class="form-group col-sm-2">
+                <label>图形颜色</label>
+                  <spectrum-colorpicker ng-model="item.style.fill" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div>  -->
+              <div class="form-group col-sm-2" >
+                <label>左偏移</label>
+                <input type="number" ng-model="item.style.x" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2" >
+                <label>上偏移</label>
+                <input type="number" ng-model="item.style.y" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2" >
+                <label>宽度</label>
+                <input type="number" ng-model="item.style.width" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>           
+              <div class="form-group col-sm-2" >
+                <label>高度</label>
+                <input type="number" ng-model="item.style.height" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>阴影色</label>
+                  <spectrum-colorpicker ng-model="item.style.shadowColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div> 
+              <div class="form-group col-sm-2">
+                <label>阴影大小</label>
+                  <input ng-model="item.style.shadowBlur" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+<!--               <div class="form-group col-sm-2">
+                <label>阴影偏移X</label>
+                  <input type="number" ng-model="item.style.shadowOffsetX" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>阴影偏移Y</label>
+                  <input type="number" ng-model="item.style.shadowOffsetY" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div> -->
+
+<!--               <div class="form-group col-sm-2">
+                <label>示例图形</label>
+                <select selector
+                  multi="false"
+                  model="item.style.image"
+                  options="allImages"
+                  value-attr="url"
+                  view-item-template="'selector/viewTemplate'"
+                  dropdown-item-template="'selector/dropdownTemplate'"></select>
+              </div> -->
+              <div class="form-group col-sm-12">
+                <label>请输入图片路径:</label>
+                  <input ng-model="item.style.image" ng-model-options="{updateOn: 'blur'}" class="form-control" /> 
+              </div>
+            </div>
+          </div>
+          <div><button ng-click="addShape()" class="btn-xs btn-info pull-right">添加基础图形</button></div> 
+
+          <script type="text/ng-template" id="selector/viewTemplate">
+            <img ng-src="{{option.url}}" height="20">
+          </script>
+
+          <script type="text/ng-template" id="selector/dropdownTemplate">
+            <img ng-src="{{option.url}}" height="50">
+          </script>
+
+        </div>
+<!-- 图形 结束 -->
+
+
+<!-- 告警源 开始 -->
+        <div ng-tab-body class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              数据源
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-4">
+                <label>数据源类别</label>
+                <select ng-model="widget.attrs.config.datasource.type" ng-options="item.value as item.name for item in datasources" class="form-control">
+                </select> 
+              </div>
+              <div class="form-group col-sm-2">
+                <label>最大数据量</label>
+                <input type="number" ng-model="widget.attrs.config.datasource2.maxCount" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2">
+                <label>刷新率(秒)</label>
+                <input type="number" ng-model="widget.attrs.config.datasource2.interval" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-2 pull-right">
+                <label>&nbsp;</label>
+                <button class="form-control btn-success" ng-click="tabs.index = 2; ">获取数据</button> <!-- getAlarmData()-->
+              </div>
+              <div ng-if="widget.attrs.config.datasource.type=='es'" > 
+                <div class="form-group col-sm-4"> 
+                  <label>业务</label>
+                  <input type="text" ng-model="widget.attrs.config.datasource.es_index.title" class="form-control" readonly/>  
+                </div>
+                <div class="form-group col-sm-4">
+                  <label>解析规则</label>
+                  <input type="text" ng-model="widget.attrs.config.datasource.es_type.name" class="form-control" readonly/> 
+                  <!-- <ui-select ng-model="widget.attrs.config.datasource.es_type" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_types | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select> -->
+                </div>                
+                <div class="form-group col-sm-4">
+                  <label>告警规则</label>
+                  <ui-select ng-model="widget.attrs.config.datasource.es_alarmrule" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in es_alarmrules | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>                                  
+              <div class="form-group col-sm-4 pull-left">
+                <label>时间段</label>
+                <ui-select ng-model="widget.attrs.config.datasource2.es_range" theme="bootstrap">
+                      <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                      <ui-select-choices repeat="item in es_ranges | filter: $select.search">
+                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+              </div>                            
+              <div class="form-group col-sm-4">
+                <label>&nbsp;</label> 
+              </div>                            
+              <div class="form-group col-sm-4">
+                <label>&nbsp;</label> 
+              </div>
+              <!-- <div class="form-group col-sm-4">
+                <label>数据源Host</label>
+                <ui-select ng-model="widget.attrs.config.datasource2.host" theme="bootstrap">
+                  <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in dataStores | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group col-sm-8">
+                <label>数据源地址</label>
+                <input ng-model="widget.attrs.config.datasource2.url" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div>
+              <div class="form-group col-sm-12" ng-if="widget.attrs.config.datasource2.type=='rest' || widget.attrs.config.datasource2.type=='rest_post'">
+                <label>返回值path</label>
+                <input ng-model="widget.attrs.config.datasource2.retPath" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div> -->
+              <div class="form-group col-sm-12" ng-show="widget.attrs.config.datasource2.type=='rest_post' || widget.attrs.config.datasource2.type=='es'" ng-if="false">
+                <label>BODY参数 (变量：${target}, ${indicator}, ${timeStart}, ${timeEnd})</label>
+                <textarea class="form-control" rows="10" ng-model="widget.attrs.config.datasource2.postbody" ng-model-options="{updateOn: 'blur'}"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              字段匹配
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-12">
+                <table class="table table-condensed table-bordered" style="margin: 0px">
+                  <tr class="bg-info">
+                    <th width="25%">时间字段</th>
+                    <th width="55%">字段</th>
+                    <th width="20%"><button ng-click="addMap2()" class="btn-xs btn-primary">添加</button></th>
+                  </tr>
+                  <tr ng-repeat="field in widget.attrs.config.fieldMap2.y">
+                    <td>字段{{$index+1}}</td>
+                    <td><select ng-model="field.field" ng-options="item as item for item in widget.attrs.config.fields2" class="form-control"></select></td>
+                    <td><button ng-click="delMap2($index)" class="btn-xs btn-danger">删除</button></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              其他配置
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-2">
+                <label>告警色</label>
+                  <spectrum-colorpicker ng-model="widget.attrs.config.warning.color" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+              </div> 
+               <div class="form-group col-sm-2">
+                <label>透明度</label>
+                  <input ng-model="widget.attrs.config.warning.opacity" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+              </div> 
+            </div>
+          </div>
+
+        </div>
+<!-- 告警源 结束 -->
+
+<!-- XXX 开始 -->
+<!--         <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              特效文字
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-12">
+              特效文字
+              </div>
+            </div>
+          </div>
+        </div> -->
+<!-- XXX 结束 -->
+
+    </div>
+</div>

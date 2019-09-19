@@ -1,0 +1,38 @@
+<form id="new-dashboard-details-add">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">选择图表添加到仪表盘</h4>
+    </div>
+    <div class="modal-body">
+        <div class="filter">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text" class="form-control" ng-model="vm.data.search" placeholder="输入名称筛选">
+        </div>
+
+        <ul class="list">
+            <li class="item" ng-repeat="item in vm.resoures.list | filter:vm.data.search">
+                <div title="选择">
+                    <div class="checkbox icheck-default" ng-click="item.ischecked = !item.ischecked">
+                        <input type="checkbox" id="default{{$index}}" ng-checked="item.ischecked">
+                        <label for="default{{$index}}" ng-click="item.ischecked = !item.ischecked">
+                            {{item.title}}</label>
+                    </div>
+                </div>
+                <a href="" class="item-delete" ng-click="vm.method.showDeleteModal(item)">
+                    删除
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.method.cancel()">
+            <!-- <span class="glyphicon glyphicon-ban-circle"></span> -->
+            <span>取消</span>
+        </button>
+
+        <button class="btn btn-primary" ng-click="vm.method.submit()">
+            <!-- <span class="glyphicon glyphicon-save"></span> -->
+            <span>确定</span>
+        </button>
+    </div>
+</form>

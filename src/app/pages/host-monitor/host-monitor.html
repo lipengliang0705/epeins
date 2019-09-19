@@ -1,0 +1,518 @@
+<style>
+    .mg-top10 {
+        margin-top: 10px;
+    }
+
+    .monitorinfo-list {
+        margin: 0;
+    }
+
+    .monitorinfo-list dt {
+        color: #78a100;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .monitorinfo-list dd {
+        font-weight: normal;
+        margin: 5px 0;
+    }
+
+    .monitorinfo-list dd.sinkchart {
+        width: 100%;
+        height: 80px;
+    }
+
+    .monitorinfo-list dd.index-info {
+        text-align: center;
+    }
+
+    .monitorinfo-list dd.index-info {
+        min-height: 80px;
+    }
+
+    .monitorinfo-list dd.index-info span {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .monitorinfo-list dd.index-info b {
+        color: #000;
+        font-size: 12px;
+    }
+
+    .monitorinfo-list dd.index-info h4 {
+        margin-bottom: 0;
+    }
+
+    .totallast {
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .monitorinfo-list dd b {
+        font-weight: normal;
+    }
+
+    .large-panel-300 {
+        /*height: 300px;*/
+    }
+
+    .processes-table {
+        width: 100%;
+    }
+
+    .processes-table tbody tr:hover {
+        background: #e5e5e5;
+    }
+
+    .processes-table tbody tr th, .processes-table tbody tr td {
+        padding: 4px 10px;
+    }
+
+    .processes-table tbody tr th {
+        width: 20%;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .processes-table tbody tr td:last-child {
+        width: 10%;
+        color: color: rgba(0, 0, 0, 0.4);
+    }
+
+    .inner-bar-box {
+        width: 100%;
+        min-height: 16px;
+    }
+
+    .processes-inner-bar {
+        background-color: rgb(104, 188, 0);
+        min-height: 16px;
+    }
+
+    .panel.with-scroll .panel-body {
+        height: calc(100% - 39px);
+        overflow-y: auto;
+    }
+
+    .metricbeat-info {
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .usecharts {
+        width: 100%;
+        height: 400px;
+    }
+
+    .processes-table-div {
+        overflow-y: auto;
+        height: 90px;
+    }
+
+    .searchform-flex {
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .searchform-flex .form-group {
+        width: -webkit-calc(100% - 18px);
+        width: -moz-calc(100% - 18px);
+        width: calc(100% - 18px);
+
+    }
+
+    .searchform-flex .input-group-btn {
+        width: auto;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">监控数据</h3>
+    <small class="text-muted h5 font-title-des">
+        {{vm.agent.name}}  [ 服务器名:{{vm.agent.agentHost.name}} IP:{{vm.agent.agentHost.ip}} ]
+    </small>
+
+    <div class="pull-right">
+        <a href=""><i class="glyphicon glyphicon-play text-primary" title="启动"></i></a>
+        <a href=""><i class="glyphicon glyphicon-stop text-primary" title="停止"></i></a>
+        <!--<a href=""><i class="glyphicon glyphicon-refresh text-warning"  title="重启"></i></a>-->
+        <a href=""><i class="glyphicon glyphicon-cog text-primary" title="设置" ng-click="vm.showSettingModal()"></i></a>
+    </div>
+</div>
+<div class="wrapper">
+    <div>
+        <dashboard-pie-chart></dashboard-pie-chart>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">title</div>
+                </div>
+                <div class="panel-body">
+                    <traffic-chart></traffic-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">title</div>
+                </div>
+                <div class="panel-body">
+                    <div id="area-chart" class="ct-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">title</div>
+                </div>
+                <div class="panel-body">
+                    <div id="bi-chart" class="ct-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--<div class="row">-->
+        <!--<div class="col-sm-12">-->
+            <!--<div class="panel widget mg-top10">-->
+                <!--<div class="panel-heading">-->
+                    <!--System Navigation [Metricbeat System]-->
+                    <!--<full-size></full-size>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>CPU Usage Gauge [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<simple-echarts options="vm.cpuUsageCharts"></simple-echarts>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Memory Usage Gauge [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<simple-echarts options="vm.MemoryUsageCharts"></simple-echarts>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Load Gauge [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<simple-echarts options="vm.loadUsageCharts"></simple-echarts>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Inbound Traffic [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<span>Inbound Traffic</span>-->
+                                    <!--&lt;!&ndash; <h4>14.493MB/s</h4> &ndash;&gt;-->
+                                    <!--<h4>0</h4>-->
+                                    <!--<div class="totallast">-->
+                                        <!--<span>Total Transferred</span><b>0</b>-->
+                                    <!--</div>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Outbound Traffic [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<span>Outbound Traffic</span>-->
+                                    <!--<h4>0</h4>-->
+                                    <!--&lt;!&ndash; <h4>16.091MB/s</h4> &ndash;&gt;-->
+                                    <!--<div class="totallast">-->
+                                        <!--<span>Total Transferred</span><b>0</b>-->
+                                        <!--&lt;!&ndash; <span>Total Transferred</span><b>13.362GB</b> &ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Packetloss [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<span>In Packetloss</span>-->
+                                    <!--<h4>0</h4>-->
+                                    <!--<div class="totallast">-->
+                                        <!--<span>Out Packetloss</span><b>0</b>-->
+                                    <!--</div>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Swap usage [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<simple-echarts options="vm.swapUsageCharts"></simple-echarts>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Memory usage vs total</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<span>Memory usage</span>-->
+                                    <!--<h4>{{vm.systemNavigationData.mem_used_bytes}}</h4>-->
+                                    <!--<div class="totallast">-->
+                                        <!--<span>Total Memory</span><b>{{vm.systemNavigationData.mem_total_bytes}}</b>-->
+                                    <!--</div>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Number of processes [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<h1>{{vm.systemNavigationData.process_num}}</h1>-->
+                                    <!--<b>Processes</b>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Disk used [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info">-->
+                                    <!--<simple-echarts options="vm.diskUsedCharts"></simple-echarts>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-4">-->
+                            <!--<dl class="monitorinfo-list">-->
+                                <!--<dt>Disk Usage [Metricbeat System]</dt>-->
+                                <!--<dd class="index-info processes-table-div">-->
+                                    <!--<table class="processes-table">-->
+                                        <!--<tbody>-->
+                                        <!--<tr ng-repeat="disk in vm.systemNavigationData.disk_usage | filter: vm.greaterThan('used_pct', 0) ">-->
+                                            <!--<th>{{disk.device_name}}</th>-->
+                                            <!--<td>-->
+                                                <!--<div class="inner-bar-box">-->
+                                                    <!--<div class="processes-inner-bar"-->
+                                                         <!--style="width: {{disk.used_pct}}%;"></div>-->
+                                                <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td>{{disk.used_pct}}%</td>-->
+                                        <!--</tr>-->
+                                        <!--</tbody>-->
+                                    <!--</table>-->
+                                <!--</dd>-->
+                            <!--</dl>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-6">-->
+            <!--<div class="panel large-panel-300 with-scroll">-->
+                <!--<div class="panel-heading">-->
+                    <!--<div class="panel-title">-->
+                        <!--CPU-->
+                        <!--<full-size></full-size>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="metricbeat-info">-->
+                        <!--<div class="usecharts">-->
+                            <!--<simple-echarts options="vm.CPUUsage"></simple-echarts>-->
+                            <!--&lt;!&ndash;<div id="bi-chart" class="ct-chart"></div>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+            <!--<div class="panel large-panel-300 with-scroll">-->
+                <!--<div class="panel-heading">-->
+                    <!--内存-->
+                    <!--<full-size></full-size>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="metricbeat-info">-->
+                        <!--<div class="usecharts">-->
+                            <!--<simple-echarts options="vm.CPUUsage"></simple-echarts>-->
+                            <!--&lt;!&ndash;<simple-echarts options="vm.systemLoad"></simple-echarts>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+            <!--<div class="panel large-panel-300 with-scroll">-->
+                <!--<div class="panel-heading">-->
+                   <!--IO-->
+                    <!--<full-size></full-size>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="usecharts">-->
+                        <!--<simple-echarts options="vm.CPUUsage"></simple-echarts>-->
+                        <!--&lt;!&ndash;<simple-echarts options="vm.memoryUsage"></simple-echarts>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6">-->
+            <!--<div class="panel large-panel-300 with-scroll">-->
+                <!--<div class="panel-heading">-->
+                   <!--磁盘-->
+                    <!--<full-size></full-size>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="metricbeat-info">-->
+                        <!--<div class="usecharts">-->
+                            <!--<simple-echarts options="vm.CPUUsage"></simple-echarts>-->
+                            <!--&lt;!&ndash;<simple-echarts options="vm.diskIO"></simple-echarts>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Network Traffic (Packets) [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="metricbeat-info">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="usecharts">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<simple-echarts options="vm.networkTraffic"></simple-echarts>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Network Traffic (Bytes) [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="metricbeat-info">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="usecharts">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<simple-echarts options="vm.networkTrafficBytes"></simple-echarts>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Processes By Memory [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<table class="processes-table">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tr ng-repeat="row in vm.processesByMemoryData">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<th>{{row.x}}</th>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="inner-bar-box">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="processes-inner-bar" style="width: {{row.y}}%;"></div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>{{row.y}}%</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Top Processes By CPU [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<table class="processes-table">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tbody ng-repeat="row in vm.topProcessesByCPUData">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<th>{{row.x}}</th>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="inner-bar-box">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="processes-inner-bar" style="width: {{row.y}}%;"></div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>{{row.y}}%</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Interfaces by Incoming traffic [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<table class="processes-table">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tr ng-repeat="row in vm.interfacesTrafficData">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<th>{{row.name}}</th>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="inner-bar-box"> {{row.time}}&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash; <div class="processes-inner-bar" style="width: 100%;"></div> &ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>{{row.in}}</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel large-panel-300 with-scroll">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Interfaces by Outgoing traffic [Metricbeat System]&ndash;&gt;-->
+                    <!--&lt;!&ndash;<full-size></full-size>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-body">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<table class="processes-table">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tr ng-repeat="row in vm.interfacesTrafficData">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<th>{{row.name}}</th>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="inner-bar-box"> {{row.time}}&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash; <div class="processes-inner-bar" style="width: 100%;"></div> &ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td>{{row.out}}</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+
+
+</div>

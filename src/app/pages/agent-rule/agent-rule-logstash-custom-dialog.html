@@ -1,0 +1,176 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建自定义脚本采集任务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        
+        <div class="logstash-tcp logstash-custom">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                        <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group ">
+                        <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                        <select  class="form-control small-w">
+                          
+                            <option value="">0-50</option>
+                            
+                        </select>
+                        <em class="gb-icon">GB</em>
+                        <input type="text" class="form-control small-w" />
+                        <span>分区数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="control-label">备注</label>
+                        <textarea class="form-control" name="sample" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bor-top">
+                    <div class="form-group">
+                        <label class="control-label">脚本</label>
+                        <ul class="set-list">
+                            <li>
+                                <label><input type="radio" name="1" value="fail" checked="checked"> 上传脚本</label>
+                            </li>
+                            <li>
+                                <label><input type="radio" name="1" value="spool"> 路径脚本</label>
+                            </li>
+                            
+                        </ul>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                            <span class="ion-document-text"></span>&nbsp;<span>上传脚本</span>
+                        </button>
+                        <span class="help-block">注：目前支持Unix或Linux shell脚本</span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">输出结果</label>
+                        <ul class="set-list">
+                            <li>
+                                <label><input type="radio" name="1" value="fail" checked="checked"> 不分割</label>
+                            </li>
+                            <li>
+                                <label><input type="radio" name="1" value="spool"> 按行分割</label>
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-12 row-section">
+                    <div class="form-group">
+                        <label class="control-label">采集周期<span>7位Cron表达式<i class="ion-help"></i></span></label>
+                        
+                        <input type="text" class="form-control" >
+                        <a href="javascript:;">Cron执行模拟器</a>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                        <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>创建处理任务</span>
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                   
+                        <table  class="table event-rule-table" ng-table="vm.tableParams">
+                            <tr ng-repeat="eventRule in $data">
+                              
+                                <td data-title="'对象'" sortable="'name'">
+                                  </td>
+                                <td data-title="'IP'" sortable="'category.name'">
+                                    <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                                </td>
+                                <td data-title="'操作系统'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                                
+                                <td data-title="'操作'" class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" ui-sref="event-rule-detail({id:eventRule.id})" class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ui-sref="event-rule.edit({id:eventRule.id})" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>                                
+                                        <button type="submit" ui-sref="event-rule.clone({id:eventRule.id})" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-duplicate"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ng-disabled="eventRule.category.name=='_STANDARD_'" ui-sref="event-rule.delete({id:eventRule.id})" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                              
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                     
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

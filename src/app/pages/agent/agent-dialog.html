@@ -1,0 +1,98 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentLabel">创建/编辑 介质</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.agent.id">
+            <label for="id">编号</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.agent.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.agent.name"
+                    required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_version">版本</label>
+            <input type="text" class="form-control" name="version" id="field_version"
+                    ng-model="vm.agent.version"
+                    />
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_sourcePath">数据源</label>-->
+            <!--<input type="text" class="form-control" name="sourcePath" id="field_sourcePath"-->
+                    <!--ng-model="vm.agent.sourcePath"-->
+                    <!--required/>-->
+            <!--<div ng-show="editForm.sourcePath.$invalid">-->
+                <!--<p class="help-block"-->
+                    <!--ng-show="editForm.sourcePath.$error.required">-->
+                    <!--*必填项-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label class="control-label" for="field_scriptPath">脚本路径</label>
+            <!-- <input type="text" ng-pattern="/([^<>/\\\|:\"\"\*\?]+)\.\w+$/" class="form-control" name="scriptPath" id="field_scriptPath" -->
+            <input type="text" class="form-control" name="scriptPath" id="field_scriptPath"
+                    ng-model="vm.agent.scriptPath"
+                    required/>
+            <div ng-show="editForm.scriptPath.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.scriptPath.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.scriptPath.$error.pattern">
+                    这个路径是非法的
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">描述</label>
+            <textarea class="form-control" name="description" id="field_description" rows="5" cols="80" ng-model="vm.agent.description"></textarea>
+        </div>
+        <!-- <div class="form-group"> -->
+            <!-- <label class="control-label" for="field_status">状态</label>
+            <switcher ng-model="vm.agent.status"
+                  true-value="'1'"
+                  false-value="'0'"
+                  class="styled"
+                >
+            </switcher> -->
+           <!--  <switch color="primary" id="field_status" ng-model="vm.agent.status" ng-change="vm.changeStatus(vm.agent)" for="field_status" ng-true-value="'1'" ng-false-value="'0'"></switch> -->
+            <!-- <input
+                bs-switch
+                switch-size="small"
+                ng-model="vm.agent.status"
+                type="checkbox"
+                ng-change="vm.changeStatus(vm.agent)"
+                ng-true-value="1"
+                ng-false-value="0"
+                for="field_status"
+                name="status"
+                id="field_status"
+                class="form-control"> -->
+        <!-- </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

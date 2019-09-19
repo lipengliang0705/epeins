@@ -1,0 +1,242 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+	<uib-tabset active="active">
+    <uib-tab index="0">
+		<uib-tab-heading>
+		  <a href="#"><i class="fa fa-table"></i>表格</a>
+		</uib-tab-heading>
+			<div style="overflow: auto">
+			<table class="table table-hover " ng-table-dynamic="vm.tableParams with vm.dataHead" export-csv="csv" separator=",">
+
+					<tr ng-repeat="row in $data">
+			          <td ng-repeat="col in $columns">{{row[col.field]}}</td>
+			        </tr>
+			</table>
+		    </div>
+			<a class="btn" title="Export Table" ng-click='csv.generate()' ng-href="{{ csv.link() }}"
+			  download="myTable.csv">
+			 <i class="glyphicon glyphicon-new-window"></i> &#160;Export
+		   </a>
+	</uib-tab>
+	<uib-tab index="1">
+		<uib-tab-heading>
+		  <a href="#"><i class="fa fa-pie-chart"></i>环形图</a>
+		</uib-tab-heading>
+			<div style="overflow: auto" class="row">
+				<div class="col-sm-3">
+					
+					<div class="form-group">
+				        <label class="control-label">数值</label>
+				        <div >
+
+				            <ui-select ng-model="vm.chartCountSelect.selected" theme="bootstrap">
+					            <ui-select-match placeholder="选择数值">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in vm.chartCountSelect.data | filter: $select.search">
+					                <div ng-bind-html="item.title | highlight: $select.search" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+
+				        </div>
+				        
+				    </div>
+					<div class="form-group">
+				        <label class="control-label">图例</label>
+				        <div >
+				            <ui-select ng-model="vm.chartLegendSelect.selected" theme="bootstrap">
+					            <ui-select-match placeholder="选择图例">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in vm.chartLegendSelect.data | filter: $select.search" >
+					                <div ng-bind-html="item.field | highlight: $select.search" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+
+				        </div>
+				       
+				    </div>
+				
+			   </div>
+				<div class="col-sm-9">
+	
+                <div class="dashcharts">
+                	<simple-echarts options="vm.optionPie"></simple-echarts>
+                </div> 
+                                   
+		        </div>
+	        </div>
+	</uib-tab>
+	<uib-tab index="2">
+		<uib-tab-heading>
+		  <a href="#"><i class="fa fa-bar-chart-o"></i>柱状图</a>
+		</uib-tab-heading>
+			<div style="overflow: auto" class="row">
+				<div class="col-sm-3 aside-select">
+					
+					<div class="form-group">
+				        <label class="control-label">数值</label>
+				        <div ng-repeat="input in vm.numerical_group.getNumericalInputGroup()" ng-if="input.show" class="numerical">
+
+				            <ui-select ng-model="input.selected" theme="bootstrap">
+					            <ui-select-match placeholder="选择数值">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in input.getCanSelectGroup()">
+					                <div ng-bind-html="item.title" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+				            <div class="cutline-icon"> <i class="glyphicon glyphicon-plus-sign" ng-click="input.addoption()" ng-show="input.canAdd()"></i></div>
+				        	<div class="cutline-icon"> <i class="glyphicon glyphicon-minus-sign" ng-click="input.rmmyself()" ng-hide="input.isuniq()"></i></div>
+				        </div>
+				    </div>
+					<div class="form-group">
+				        <label class="control-label">图例</label>
+				        <div >
+				            <ui-select ng-model="vm.chartLegendSelect.selected" theme="bootstrap">
+					            <ui-select-match ng-placeholder="选择图例">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in vm.chartLegendSelect.data | filter: $select.search" >
+					                <div ng-bind-html="item.field | highlight: $select.search" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+
+				        </div>
+				       
+				    </div>
+				
+			   </div>
+				<div class="col-sm-9">
+			
+                    <div class="dashcharts" ><simple-echarts options="vm.optionBar"></simple-echarts></div> 
+                                   
+		        </div>
+	        </div>
+	</uib-tab>
+	<uib-tab index="3">
+		<uib-tab-heading>
+		  <a href="#"><i class="fa fa-line-chart"></i>折线图</a>
+		</uib-tab-heading>
+			<div style="overflow: auto" class="row">
+				<div class="col-sm-3 aside-select">
+					
+					<div class="form-group">
+				        <label class="control-label">数值</label>
+				        <div ng-repeat="line in vm.line_numerical_group.getLineNumericalInputGroup()" ng-if="line.show" class="numerical">
+
+				            <ui-select ng-model="line.selected" theme="bootstrap">
+					            <ui-select-match placeholder="选择数值">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in line.getCanSelectGroup()">
+					                <div ng-bind-html="item.title" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+				            <div class="cutline-icon"> <i class="glyphicon glyphicon-plus-sign" ng-click="line.addoption()" ng-show="line.canAdd()"></i></div>
+				        	<div class="cutline-icon"> <i class="glyphicon glyphicon-minus-sign" ng-click="input.rmmyself()" ng-hide="line.isuniq()"></i></div>
+				        </div>
+				    </div>
+					<div class="form-group">
+				        <label class="control-label">图例</label>
+				        <div >
+				            <ui-select ng-model="vm.chartLegendSelect.selected" theme="bootstrap">
+					            <ui-select-match ng-placeholder="选择图例">{{$select.selected.field}}</ui-select-match>
+					            <ui-select-choices repeat="item in vm.chartLegendSelect.data | filter: $select.search" >
+					                <div ng-bind-html="item.field | highlight: $select.search" ></div>
+					            </ui-select-choices>
+				            </ui-select>
+
+				        </div>
+				       
+				    </div>
+				
+			   </div>
+				<div class="col-sm-9">
+			
+                    <div class="dashcharts" ><simple-echarts options="vm.optionLine"></simple-echarts></div> 
+                                   
+		        </div>
+	        </div>
+	</uib-tab>
+    <uib-tab disable="true">
+		<uib-tab-heading>
+		  <a href="#"><i class="glyphicon glyphicon-random"></i></a>
+		</uib-tab-heading>
+        <div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+				<div class="search-field">
+					<div class="field-left">
+						<div class="form-group">
+				            <div class="input-group m-b">
+				                <span class="input-group-btn">
+				                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+				                </span>
+				                <input type="text" class="form-control">
+				            </div>
+				        </div>
+				        <h4 class="field-title"><i class="fa fa-caret-up"></i>数值</h4>
+				        <div class="form-group">
+				        	<ui-select ng-model="person.selected" theme="bootstrap">
+		                        <ui-select-match placeholder="选择字段">{{$select.selected.name}}</ui-select-match>
+		                        <ui-select-choices repeat="item in people | filter: $select.search">
+		                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+		                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+		                        </ui-select-choices>
+		                    </ui-select>
+				        </div>
+				        <h4 class="field-title"><i class="fa fa-caret-up"></i>字符串</h4>
+				        <div class="form-group">
+				        	<ui-select ng-model="person.selected" theme="bootstrap">
+		                        <ui-select-match placeholder="选择字段">{{$select.selected.name}}</ui-select-match>
+		                        <ui-select-choices repeat="item in people | filter: $select.search">
+		                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+		                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+		                        </ui-select-choices>
+		                    </ui-select>
+				        </div>
+					</div>
+					<div class="field-right">
+						<h4 class="field-title field-title-xs"><i class="fa fa-caret-up"></i>数值</h4>
+				        <div class="form-group">
+				        	<ui-select ng-model="person.selected" theme="bootstrap">
+		                        <ui-select-match placeholder="选择字段">{{$select.selected.name}}</ui-select-match>
+		                        <ui-select-choices repeat="item in people | filter: $select.search">
+		                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+		                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+		                        </ui-select-choices>
+		                    </ui-select>
+				        </div>
+				        <h4 class="field-title"><i class="fa fa-caret-up"></i>字符串</h4>
+				        <div class="form-group">
+				        	<ui-select ng-model="person.selected" theme="bootstrap">
+		                        <ui-select-match placeholder="选择字段">{{$select.selected.name}}</ui-select-match>
+		                        <ui-select-choices repeat="item in people | filter: $select.search">
+		                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+		                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+		                        </ui-select-choices>
+		                    </ui-select>
+				        </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+				<table class="jh-table table table-striped table-bordered table-hover " ng-table="vm.tableParams">
+					<thead>
+			            <th ng-repeat="d in vm.dataHead">{{d}}</th>
+			        </thead>
+					<tbody>
+						<tr ng-repeat="row in $data">
+							<td ng-repeat="d in vm.dataHead" data-title="d" sortable="d">{{row[d]}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </uib-tab>
+	 <!-- <uib-tab index="0">
+		<uib-tab-heading>
+		  <a href="#"><i class="fa fa-bar-chart-o"></i></a>
+		</uib-tab-heading>
+	</uib-tab>
+	<uib-tab index="0">
+		<uib-tab-heading>
+		  	<a href="#"><i class="icon-pie-chart"></i></a>
+		</uib-tab-heading>
+	</uib-tab> -->
+  </uib-tabset>
+    </div>
+</div>

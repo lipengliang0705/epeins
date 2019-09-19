@@ -1,0 +1,64 @@
+<style type="text/css">
+    .dashcharts-dialog{
+        width:100% !important;
+        height:200px !important;
+    }
+    .panel{
+        border:1px solid #ddd;
+    }
+</style>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myalarmRuleLabel">统计,业务名称:{{vm.categoryName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel">
+                    <div class="dashcharts-dialog">
+                        <div mix-chart config="vm.optionBarCharts.config" data="vm.optionBarCharts.data" class="charts-xl" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel">
+                    <div class="dashcharts-dialog">
+                        <div mix-chart config="vm.mapAlarmLevelCharts.config" data="vm.mapAlarmLevelCharts.data" class="charts-xl" ></div>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel">
+                    <div class="dashcharts-dialog">
+                        <div mix-chart config="vm.mapAlarmRuleCharts.config" data="vm.mapAlarmRuleCharts.data" class="charts-xl" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel">
+                    <div class="dashcharts-dialog">
+                        <div mix-chart config="vm.mapEventRuleCharts.config" data="vm.mapEventRuleCharts.data" class="charts-xl" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel">
+                    <div class="dashcharts-dialog">
+                        <div mix-chart config="vm.mapReadCountCharts.config" data="vm.mapReadCountCharts.data" class="charts-xl" ></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+    <div class="modal-footer alarm-result-detail-btngroup">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()" style="right:10px;">
+            <span>取消</span>
+        </button>
+      
+    </div>
+

@@ -1,0 +1,387 @@
+<div id="log-statistics">
+    <div class="log-statistics-body">
+        <ul class="statistics-list">
+            <li ng-class="{'active': vm.options == '0'}" ng-click="vm.method.selectedList(0)">事件计数</li>
+            <li ng-class="{'active': vm.options == '1'}" ng-click="vm.method.selectedList(1)">字段值统计</li>
+            <li ng-class="{'active': vm.options == '2'}" ng-click="vm.method.selectedList(2)">字段值分类</li>
+            <li ng-class="{'active': vm.options == '3'}" ng-click="vm.method.selectedList(3)">累计百分比</li>
+            <li ng-class="{'active': vm.options == '4'}" ng-click="vm.method.selectedList(4)">数值分段统计</li>
+            <li ng-class="{'active': vm.options == '5'}" ng-click="vm.method.selectedList(5)">时间分段统计</li>
+        </ul>
+
+        <div class="statistics-options">
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 0">
+                <h4>事件计数</h4>
+                <div class="col-sm-12 row-top">
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control">
+                            <option value="now-1d" selected>timestamp</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>展现方式</label>
+                        <select class="form-control" ng-model="vm.chart.event_count.config.type" ng-init="vm.chart.event_count.config.type= 'bar'">
+                            <option value="line">线图</option>
+                            <option value="bar">柱状图</option>
+                            <option value="table">表格</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>频率</label>
+                        <select class="form-control" ng-model="vm.chart.event_count.interval" ng-init="vm.chart.event_count.interval = '30'">
+                            <option value="1">一分钟</option>
+                            <option value="5">五分钟</option>
+                            <option value="10">十分钟</option>
+                            <option value="30">三十分钟</option>
+                            <option value="60">一小时分钟</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button class="btn btn-primary" ng-click="vm.chart.event_count.setEvevtCount()"><i
+                                class="fa fa-bar-chart-o"></i> 生成图表</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 1">
+                <div class="col-sm-12 row-top">
+                    <h4>字段值统计</h4>
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control" ng-model="vm.chart.field_statistics.field">
+                            <option value="pycname" ng-repeat="d in vm.chart.field_statistics.getFields() track by $index"
+                                ng-value="d['name']">{{d['title'] || d['name']}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>展现方式</label>
+                        <select class="form-control" ng-model="vm.chart.field_statistics.config.type" ng-init="vm.chart.field_statistics.config.type= 'bar'">
+                            <option value="line">线图</option>
+                            <option value="bar">柱状图</option>
+                            <option value="table">表格</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>频率</label>
+                        <select class="form-control" ng-model="vm.chart.field_statistics.interval" ng-init="vm.chart.field_statistics.interval = '30'">
+                            <option value="1">一分钟</option>
+                            <option value="5">五分钟</option>
+                            <option value="10">十分钟</option>
+                            <option value="30">三十分钟</option>
+                            <option value="60">一小时分钟</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" ng-init="groupList = [{'title': '平均值','value': 'avg'},{'title': '最大值', 'value': 'max'},{'title': '最小值', 'value': 'min'},{'title': '总数', 'value': 'count'}]">
+                        <label>聚合方式</label>
+                        <select class="form-control" ng-model="vm.chart.field_statistics.polymerType" ng-init="vm.chart.field_statistics.polymerType='avg'">
+                            <option ng-repeat="type in groupList" value="{{type['value']}}">{{type['title']}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button class="btn btn-primary" ng-click="vm.chart.field_statistics.setFieldStatistics()"><i
+                                class="fa fa-bar-chart-o"></i> 生成图表</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 2">
+                <div class="col-sm-12 row-top">
+                    <h4>字段值分类</h4>
+
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control" ng-model="vm.chart.field_group.field">
+                            <option ng-repeat="d in vm.fields track by $index" ng-value="d['name']"
+                                ng-selected="d.name == vm.chart.field_group.field">{{d['title'] || d['name']}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>展现方式</label>
+                        <select class="form-control" ng-model="vm.chart.field_group.config.type">
+                            <option value="pie">饼图</option>
+                            <option value="bar">柱状图</option>
+                            <option value="table">表格</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>TOP</label>
+                        <select class="form-control" ng-model="vm.chart.field_group.top" ng-init="vm.chart.field_group.top = '30'">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button class="btn btn-primary" ng-click="vm.chart.field_group.setFieldGroup()"><i
+                                class="fa fa-bar-chart-o"></i> 生成图表</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 3">
+                <div class="col-sm-12 row-top">
+                    <h4>累计百分比</h4>
+
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control" ng-model="vm.chart.cumulative_percentage.field">
+                            <option value="pycname" ng-repeat="d in vm.chart.cumulative_percentage.getFields()"
+                                ng-value="d['name']">{{d['title'] || d['name']}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>展现方式</label>
+                        <select class="form-control">
+                            <option value="now-1d">表格</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button class="btn btn-primary" ng-click="vm.chart.cumulative_percentage.setCumulativePercentage()"><i
+                                class="fa fa-bar-chart-o"></i> 生成图表</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 4">
+                <div class="col-sm-12 row-top">
+                    <h4>数值分段统计</h4>
+
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control" ng-model="vm.chart.numerical_group.field">
+                            <option value="pycname" ng-repeat="d in vm.chart.numerical_group.getFields()"
+                                ng-value="d['name']">{{d['title'] || d['name']}}</option>
+                        </select>
+                    </div>
+
+                    <div ng-repeat="input in vm.chart.numerical_group.getNumericalInputGroup()" ng-if="input['show']">
+                        <div class="row input-add-row">
+
+                            <div class="form-group form-group-flex form-bottom-nb">
+                                <div class="group-flex-label">从</div>
+                                <input class="form-control" type="nubmer" ng-model="input['before']">
+                            </div>
+                            <div class="form-group form-group-flex">
+                                <div class="group-flex-label">到</div>
+                                <input class="form-control" type="nubmer" ng-model="input['after']">
+                                <div class="cutline-trash" ng-click="input.rmmyself(input)" ng-hide="input.isuniq()"> <i class="fa fa-trash"></i></div>
+                            </div>
+
+                            <!-- <div class="cutline-icon"> <i class="glyphicon glyphicon-minus-sign" ng-click="input.rmmyself(input)" ng-hide="input.isuniq()"></i></div> -->
+                            <div class="cutline-icon"> <i class="glyphicon glyphicon-plus-sign" ng-click="input.addoption(input)"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button type="button" name="button" class="btn btn-primary" ng-click="vm.chart.numerical_group.setNumericalGroup()"><i class="fa fa-bar-chart-o"></i>
+                            生成图表</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.options == 5">
+                <div class="col-sm-12 row-top">
+                    <h4>时间分段统计</h4>
+
+                    <div class="form-group">
+                        <label>字段</label>
+                        <select class="form-control">
+                            <option value="now-1d" selected>timestamp</option>
+                        </select>
+                    </div>
+
+                    <div ng-repeat="input in vm.chart.timeslicing_group.getTimeslicingInputGroup()" ng-hide="input['show'] == false">
+                        <div class="row input-add-row form-row">
+                            <div class="form-group form-group-time">
+                                <input date-range-picker options="vm.dateRangeOptions" ng-model="vm.chart.timeslicing_group.inputGroup[$index]" class="form-control">
+                                <div class="cutline-trash"> <i class="fa fa-trash" ng-click="input.rmmyself(input)" ng-hide="input.isuniq()"></i></div>
+                            </div>
+                            <!-- <i class="col-md-1 text-center glyphicon glyphicon-minus-sign" ng-click="input.rmmyself(input)" ng-hide="input.isuniq()"> </i>
+                                    <i class="col-md-1 text-center glyphicon glyphicon-plus-sign" ng-click="input.addoption(input)"> </i> -->
+                            <!-- <div class="cutline-icon"> <i class="glyphicon glyphicon-minus-sign" ng-click="input.rmmyself(input)" ng-hide="input.isuniq()"></i></div> -->
+                            <div class="cutline-icon"> <i class="glyphicon glyphicon-plus-sign" ng-click="input.addoption(input)"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="filter-btn-group">
+                        <!-- <button type="button" class="btn btn-default"
+                            ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button> -->
+                        <button class="btn btn-primary" ng-click="vm.chart.timeslicing_group.setTimeslicingGroup()"><i
+                                class="fa fa-bar-chart-o"></i> 生成图表</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="statistics-charts">
+            <a href="" ng-click="vm.method.showSaveModal()">
+                <i class="fa fa-download" aria-hidden="true"></i> 保存图表
+            </a>
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 0">
+                <!-- 事件计数-->
+                <div class="col-sm-12">
+                    <div ng-if="vm.chart.event_count.config.type !='table'">
+                        <div mix-chart config="vm.chart.event_count.config" data="vm.chart.event_count.data" class="charts-xl">
+                        </div>
+                    </div>
+
+                    <div ng-if="vm.chart.event_count.config.type =='table'" class="view-table">
+                        <table class="table table-striped table-bordered" ng-table='vm.tableParams' show-filter="false">
+                            <tr ng-repeat="row in $data" ng-if="!vm.isnull()">
+                                <td data-title="'timestamp'" sortable="'x'">{{row.x}}</td>
+                                <td data-title="'value'" sortable="'y'">{{row.y || '-'}}</td>
+                            </tr>
+                            <tr ng-if="vm.isnull()">
+                                <td colspan="2" class="text-center">暂时没有数据</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 1">
+                <!--字段值统计-->
+                <div class="col-sm-12">
+                    <div ng-if="vm.chart.field_statistics.config.type !='table'">
+                        <div mix-chart config="vm.chart.field_statistics.config" data="vm.chart.field_statistics.data" class="charts-xl">
+                        </div>
+                    </div>
+
+                    <div ng-if="vm.chart.field_statistics.config.type =='table'" class="view-table">
+                        <table class="table table-striped table-bordered" ng-table='vm.tableParams' show-filter="false">
+                            <tr ng-repeat="row in $data" ng-if="!vm.isnull()">
+                                <td data-title="vm.chart.field_statistics.field" sortable="'x'">{{row.x}}</td>
+                                <td data-title="'value'" sortable="'y'">{{row.y || '-'}}</td>
+                            </tr>
+                            <tr ng-if="vm.isnull()">
+                                <td colspan="2" class="text-center">暂时没有数据</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 2">
+                <!--字段值分类-->
+                <div class="col-sm-12">
+                    <div ng-if="vm.chart.field_group.config.type !='table'">
+                        <div mix-chart config="vm.chart.field_group.config" data="vm.chart.field_group.data" class="charts-xl"></div>
+                    </div>
+                    <div ng-if="vm.chart.field_group.config.type =='table'" class="view-table">
+                        <table class="table table-striped table-bordered" ng-table='vm.tableParams' show-filter="false">
+                            <tr ng-repeat="row in $data" ng-if="!vm.isnull()">
+                                <td data-title="vm.chart.field_group.field" sortable="'x'">{{row.x}}</td>
+                                <td data-title="'value'" sortable="'y'">{{row.y}}</td>
+                            </tr>
+                            <tr ng-if="vm.isnull()">
+                                <td colspan="2" class="text-center">暂时没有数据</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 3">
+                <!--累计百分比-->
+                <div class="col-sm-12">
+                    <div class="charts-xl view-table" style="width: 100%;">
+                        <table ng-table="vm.chart.cumulative_percentage.tableParams" class="table table-striped table-bordered" show-filter="false">
+                            <tr ng-repeat="rows in $data">
+                                <!-- <td ng-repeat="(key,val) in v" sortable="'{{key}}'">{{val}}</td> -->
+                                <td data-title="'1.0'">{{rows["1.0"]}}</td>
+                                <td data-title="'5.0'">{{rows["5.0"]}}</td>
+                                <td data-title="'25.0'">{{rows["25.0"]}}</td>
+                                <td data-title="'50.0'">{{rows["50.0"]}}</td>
+                                <td data-title="'75.0'">{{rows["75.0"]}}</td>
+                                <td data-title="'95.0'">{{rows["95.0"]}}</td>
+                                <td data-title="'99.0'">{{rows["99.0"]}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 4">
+                <!--数值分段统计-->
+                <div class="col-sm-12">
+                    <div>
+                        <div mix-chart config="vm.chart.numerical_group.config" data="vm.chart.numerical_group.data" class="charts-xl"> </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+
+            <div class="view-row" ng-hide="vm.optionsShow" ng-if="vm.chartfilter.options == 5">
+                <!--时间分段统计-->
+                <div class="col-sm-12">
+                    <div>
+                        <div mix-chart config="vm.chart.timeslicing_group.config" data="vm.chart.timeslicing_group.data" class="charts-xl"> </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="logtable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="statistic-view-select">
+        <select class="form-control" ng-model="vm.options" style="width:200px;" ng-init="vm.options = '0'">
+            <option value="">统计过滤条件</option>
+            <option value="0">事件计数</option>
+            <option value="1">字段值统计</option>
+            <option value="2">字段值分类</option>
+            <option value="3">累计百分比</option>
+            <option value="4">数值分段统计</option>
+            <option value="5">时间分段统计</option>
+        </select>
+    </div> -->
+
+    <!--   <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.chartfilter.filterStatus = false">关闭/删除</button>
+    <button type="button" class="btn btn-black"  ng-click="vm.chartfilter.addFilter(vm.chartfilter.entityFilter)">生成图表</button>
+  </div> -->
+</div>

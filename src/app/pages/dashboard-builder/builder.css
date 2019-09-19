@@ -1,0 +1,355 @@
+@-ms-viewport {
+  width: device-width;
+}
+
+body {
+  /*font-family: 'Open Sans', sans-serif;*/
+  margin: 0;
+  -ms-content-zooming: none;
+  touch-action: none;
+}
+
+.builder-header {
+  background-color: #333;
+  padding: 0 20px;
+}
+
+.builder-title {
+  color: #f0f0f0;
+  display:inline-block;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 42px;
+  text-decoration: none;
+}
+
+.builder-config {
+  float: right;
+  line-height: 40px;
+}
+
+.builder-config input[type="number"] {
+  background-color: #555;
+  border: none;
+  color: white;
+  padding: 3px 6px;
+  margin-left: 5px;
+  max-width: 42px;
+}
+
+.builder-config label {
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.builder-config input+label {
+  margin-left: 12px;
+}
+
+.builder-config-grid {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.builder-grid {
+/*  background-color: #FAFAFA;*/
+/*  background-color: #000000;*/
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 200px;
+}
+
+.builder-grid-dimensions {
+  position: absolute;
+  bottom: 0;
+  z-index: 15;
+  
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #e0e0e0;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.builder-btn {
+  background-color: rgb(20, 103, 157);
+  border: none;
+  border-radius: 2px;
+  color: #DDD;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.builder-btn-edit {
+  background-color: rgb(59, 100, 127);
+  font-size: 12px;
+  line-height: 24px;
+  width: 66px;
+}
+
+.builder-btn-edit:hover {
+  background-color: rgb(22, 97, 146);
+}
+
+.builder-btn-edit.editing {
+  background-color: rgb(20, 103, 157);
+}
+
+.builder-btn-add-widget {
+  background-color: rgb(59, 100, 127);
+  font-size: 12px;
+  line-height: 24px;
+  margin-right: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.builder-btn-add-widget.inactive {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.builder-btn-remove-widget {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 30;
+  
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.builder-btn-edit.editing:hover,
+.builder-btn-add-widget:not(.inactive):hover,
+.builder-btn-remove-widget:hover {
+  background-color: rgb(0, 145, 240);
+  color: white;
+}
+
+.builder-greeting {
+  color: #f0f0f0;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px;
+}
+
+@media (max-width: 699px) {
+  .hidden-xs {
+    display: none;
+  }
+}
+
+
+
+
+/* Menu */
+
+ul.menu {
+    position: absolute;
+    list-style-type: none;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+ul.ng-scope {
+    padding: 0px;
+}
+
+ul.menu li.title {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: default;
+    color: rgba(0, 0, 0, .5);
+    border-bottom: 1px solid rgba(0, 0, 0, .15);
+    background: linear-gradient(to bottom, #ededed 0%, #dedede 100%);
+}
+
+ul.menu li {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    transition: background-color .25s;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+ul.menu li:hover a {
+/*    color: dodgerblue;*/
+    color: #CC6633;
+    text-decoration : none;
+}
+
+.ng-aside .modal-content {
+/*    background-color: #336699;*/
+    filter:alpha(opacity=100);  /* ie 有效*/
+    -moz-opacity:1; /* Firefox  有效*/
+    opacity: 1; /* 通用，其他浏览器  有效*/
+}
+
+.ng-aside .modal-header {
+  padding: 5px;
+}
+
+.ng-aside .modal-body {
+  padding: 5px;
+}
+
+.ng-aside .panel-heading {
+  padding: 5px;
+}
+
+.ng-aside .panel-body {
+  padding: 5px;
+}
+
+.ng-aside .tab-content {
+  padding: 0px;
+  padding-top: 10px;
+}
+
+.ng-aside .form-group {
+  margin-bottom: 5px;
+}
+
+
+.ng-aside .col-sm-12, .ng-aside .col-sm-8, .ng-aside .col-sm-6, .ng-aside .col-sm-4,
+.ng-aside .col-sm-3, .ng-aside .col-sm-2, .ng-aside .col-sm-10, .ng-aside .col-sm-9, .modal-header .col-sm-4  
+{
+  padding: 0px;
+  padding-right: 3px;
+}
+
+.cur-widget {
+  border: 1px solid #369;
+}
+
+.default-widget {
+  border: 1px solid #E0E0E0;
+}
+
+.ng-aside .table-condensed>tbody>tr>td {
+  padding: 1px 5px;
+}
+
+td .form-control {
+  height: 25px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.ng-hide, [ng-cloak] {
+    display: none !important;
+}
+
+.ng-show {
+    display: block !important;
+}
+
+.show-mode {
+  /*background-color: black;*/
+}
+
+
+/*****自定义展现****/
+.wg-widget-content {
+    overflow: initial;
+}
+.title-div-space{ 
+    overflow-y:auto;
+    overflow-x:hidden;
+    color: #e4f5fc;
+    min-width:30px;
+    min-height:40px;
+    text-align: left;
+    line-height: 26px;
+    padding: 10px 0;    
+    border-radius: 3px;
+    box-shadow: 0 0 3px #e4f5fc;
+    background: rgba(39,59,69,.8);
+    position: fixed;
+    right:0;
+    top:104px;
+    z-index: 1000;
+}
+
+.title-div-space .showList{
+  transition: all  0.5s;
+  height:500px;
+}
+.title-div-space .showList.ng-hide{
+  
+  height:0;
+ 
+}
+.title-div-space .icon-show{
+  position: absolute;
+  top:14px;
+  left:8px;
+  outline: none;
+}
+.title-div-space .showList h4{
+  margin:0;
+  padding-left:30px;
+  padding-right: 30px;
+}
+.title-div-space .showList ul{
+  padding:0;
+}
+.title-div-space .showList ul li{
+  padding:0 10px 0 30px;
+}
+.title-div-space .showList ul li:hover,
+.title-div-space .showList ul li:focus,
+.title-div-space .showList ul li.focus{
+  background: #0e1518;
+}
+.title-div-space .input-group{
+  padding:0 15px;
+}
+.title-div-space .input-group .form-control{
+  margin-bottom: 10px;
+}
+
+.aside-select .form-group::after{
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.numerical .ui-select-container{
+  width:80%;
+  float: left;
+  margin-bottom: 10px;
+}
+.numerical .cutline-icon{
+  width:30px;
+  height: 30px;
+  float: left;
+}
+.btn-add-host, .btn-add-tr {
+    height: 150px;
+    padding: 0;
+    color: #3a5560;
+    background: none;
+    font-size: 150px;
+    margin: 20px auto;
+}

@@ -1,0 +1,61 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">数据字典</h3>
+    <small class="text-muted h5 font-title-des">配置数据字典</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <div class="panel-heading">
+                    <button class="btn btn-primary" ng-click="vm.method.showAddModal()"><i class="fa fa-plus"></i>&nbsp;新建</button>
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm"
+                                   ng-model="vm.globalSearchTerm" required/>
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit"
+                                    ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table" ng-table="vm.tableParams">
+                            <tr ng-repeat="file in $data track by $index">
+                                <td data-title="'字段名'" sortable="'dictKey'">{{file.dictKey}}</td>
+                                <td data-title="'值'" sortable="'dictValue'">{{file.dictValue }}
+                                </td>
+                                <td data-title="'分类'" sortable="'dictType'">{{file.dictType}}
+                                </td>
+                                <td data-title="'描述'" sortable="'description'">{{file.description}}</td>
+
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" class="btn-reset" ng-click="vm.method.showMidifyModal(file)">
+                                            修改
+                                        </button>
+                                        <button type="submit"  class="btn-reset text-delete" ng-click="vm.method.showDeleteModal(file)">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

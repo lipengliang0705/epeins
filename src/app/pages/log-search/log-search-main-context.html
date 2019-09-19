@@ -1,0 +1,25 @@
+<div class="widget">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            ng-click="vm.cancel()">&times;</button>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i data-dismiss="modal"
+        ng-class="{true:'glyphicon glyphicon-resize-full resize', false: 'glyphicon glyphicon-resize-small resize'}[vm.urlParams.type == 'lg']" ng-click="vm.fullScreen(vm.urlParams.type)"></i>
+        </button> -->
+        <h4 class="modal-title">上下文详情</h4>
+    </div>
+    <div class="modal-body" tabindex="1" ng-keyup="vm.keyup($event)">
+        <button class="btn btn-primary" ng-click="vm.upLinenum()">
+            上
+        </button>
+        <p>
+            <pre class="pre_width">
+       <div ng-repeat="_d in vm.esContext" ng-class="{true:'text-danger border-danger',false:''}[vm.urlParams.linenum==_d['sort'][0]]">{{_d["source"]["@message"]}}</div>
+         </pre>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.cancel()">关闭</button>
+        <button class="btn btn-primary" ng-click="vm.downLinenum()">下</button>
+    </div>
+</div>

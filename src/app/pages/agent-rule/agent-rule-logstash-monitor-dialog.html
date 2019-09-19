@@ -1,0 +1,238 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建监控采集任务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        
+        <div class="logstash-tcp logstash-monitor">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                        <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group ">
+                        <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                        <select  class="form-control small-w">
+                          
+                            <option value="">0-50</option>
+                            
+                        </select>
+                        <em class="gb-icon">GB</em>
+                        <input type="text" class="form-control small-w" />
+                        <span>分区数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="control-label">备注</label>
+                        <textarea class="form-control" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bor-top">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">监控系统类型</label>
+                            <ul class="set-list" ng-model="vm.setValue">
+                            <li ng-class="{ 'active' : vm.setList.current == 1 }" ng-click="vm.setActions.setCurrent(1)">
+                                <label><input type="radio" name="1" value="fail" checked="checked"> BMC TrueSight</label>
+                            </li>
+                            <li ng-class="{ 'active' : vm.setList.current == 2 }" ng-click="vm.setActions.setCurrent(2)">
+                                <label><input type="radio" name="1" value="spool"> Zabbix</label>
+                            </li>
+                            
+                        </ul>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="tabrow" ng-if="vm.setList.current == 1">
+                <div class="table-responsive">
+                   
+                    <table  class="table event-rule-table" ng-table="vm.tableParams">
+                        <tr ng-repeat="eventRule in $data">
+                          
+                            <td data-title="'选择'" sortable="'name'">
+                              </td>
+                            <td data-title="'主机名/IP地址'" sortable="'category.name'">
+                                <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                            </td>
+                            <td data-title="'状态'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                            <td data-title="'协议'" sortable="'eventType'">{{{'SEPARATED': '分隔符','KEYVALUE': '健值对'
+                                ,'TEXT': '文本','XML': 'XML','JSON': 'JSON','NMON': 'NMON'}[eventRule.eventType]}}</td>
+                            <td data-title="'端口'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                            <td data-title="'租户'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                            <td data-title="'版本'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                          
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                 
+                    </table>
+                </div> 
+            </div>
+
+            <div class="tabrow" ng-if="vm.setList.current == 2">
+                <div class="table-responsive">
+               
+                    <table  class="table event-rule-table" ng-table="vm.tableParams">
+                        <tr ng-repeat="eventRule in $data">
+                          
+                            <td data-title="'选择'" sortable="'name'">
+                              </td>
+                            <td data-title="'主机名/IP地址'" sortable="'category.name'">
+                                <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                            </td>
+                            <td data-title="'状态'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                            <td data-title="'协议'" sortable="'eventType'">{{{'SEPARATED': '分隔符','KEYVALUE': '健值对'
+                                ,'TEXT': '文本','XML': 'XML','JSON': 'JSON','NMON': 'NMON'}[eventRule.eventType]}}</td>
+                            <td data-title="'端口'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                            <td data-title="'租户'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                            <td data-title="'版本'" sortable="'dataSource.name'">
+                                <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                            </td>
+                          
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                 
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 bor-top">
+                    <div class="form-group">
+                            <label class="control-label">选择数据类型</label>
+                            <ul class="set-list" ng-model="vm.setValue">
+                            <li >
+                                <label><input type="radio" name="1" value="fail" checked="checked"> 性能指标</label>
+                            </li>
+                            <li >
+                                <label><input type="radio" name="1" value="spool"> 告警事件</label>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="wrap-bor">
+                        <h5>采集配置</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>数据同步起始时间<i class="ion-help"></i></label>
+                                    <input type="text" class="form-control" />
+                                    <p class="help-block">提示后无法修改</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>数据更新间隔<i class="ion-help"></i></label>
+                                    <input type="text" class="form-control" />秒
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>采集并发数<i class="ion-help"></i></label>
+                                    <input type="text" class="form-control" />个
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                            <label class="control-label">类型</label>
+                            <ul class="set-list">
+                            <li >
+                                <label><input type="radio" name="1" value="fail" checked="checked"> 组对象</label>
+                            </li>
+                            <li >
+                                <label><input type="radio" name="1" value="spool"> 指标对象</label>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+
+           
+           
+           
+            
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

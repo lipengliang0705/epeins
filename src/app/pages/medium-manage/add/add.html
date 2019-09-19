@@ -1,0 +1,65 @@
+<style>
+    label[for="file-input"] {
+    display: block;
+    margin-bottom: 1em;
+    font-size: 1em;
+    color: #fff;
+    opacity: .9;
+    font-weight: bold;
+    }
+    input[type="file"] {
+        cursor: pointer !Important;
+        outline: none;
+    }
+    input[type="file"]::-webkit-file-upload-button {
+        background: #009cef;
+        border: 0;
+        padding: 6px 2em;
+        cursor: pointer;
+        color: #fff;
+        border-radius: .2em;
+    }
+    input[type="file"]::-ms-browse {
+        background: #009cef;
+        border: 0;
+        padding: 6px 2em;
+        cursor: pointer;
+        color: #fff;
+        border-radius: .2em;
+    }
+</style>
+<form novalidate angular-validator angular-validator-submit="vm.method.submit()" name="formName">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">上传介质</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <div class="form-group">
+                <label for="">介质名称</label>
+                <input type="text" name="name" class="form-control" placeholder="请填写介质名称" ng-model="vm.data.name" required validate-on="blur" required-message="'名称不能为空'" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="">上传介质</label>
+                    <input id="lefile" type="file" style="display:none">
+                    <input type="file" name="file-input" id="file-input">
+            </div>
+            <div class="form-group">
+                <label for="">状态</label>
+                <select class="form-control" name="status" ng-model="vm.data.status" required validate-on="blur" required-message="'状态不能为空'" autocomplete="off">
+                    <option>success</option>
+                    <option>fail</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary" type="submit">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

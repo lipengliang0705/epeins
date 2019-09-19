@@ -1,0 +1,80 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        知识库
+        <!-- <button class="btn btn-primary pull-right" ng-click="vm.method.showAddModal()">新建</button> -->
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">用户自定义综合视图</small> -->
+</div>
+
+<div class="wrapper" id="knowledge-base">
+    <div class="row">
+        <div class="sol-sm-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputName2">标题</label>
+                    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入搜索内容..."
+                        ng-model="vm.data.search" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">时间段</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="选择时间"
+                        date-range-picker options="vm.data.dateRangeOptions" ng-model="vm.data.date" autocomplete="off">
+                </div>
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="panel widget">
+                <div class="panel-body panel-body-scroll">
+                    <!-- <div class="input-group">
+                        <input type="text" class="form-control" placeholder="输入搜索内容..." name="searchTerm"
+                            ng-model="vm.data.search" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit">
+                                <span class="ion-search"></span>
+                            </button>
+                        </span>
+                    </div> -->
+
+                    <div class="configure" ng-repeat="item in vm.resoures.list | filter:vm.data.search">
+                        <h3>
+                            <a href="" ng-click="vm.method.getId(item.id)">{{item.title}}</a>
+                        </h3>
+                        <div class="con-content">{{item.subTitle}}</div>
+                        <ul class="help">
+                            <li>
+                                <span>阅读:<b>{{item.viewCount}}</b></span>
+                                <span>回复:<b>1</b></span>
+                            </li>
+                            <li><span>已编辑</span></li>
+                        </ul>
+                        <div class="timeshow">{{item.modifiedTime}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="panel widget">
+                <div class="panel-body panel-body-scroll">
+                    <div class="configure-detail">
+                        <h3>{{vm.resoures.details.title}}</h3>
+                        <dl class="detail-label">
+                            <dt>知识库 > 知识库查看</dt>
+                            <dd>
+                                <label>标签</label>
+                                <button ng-repeat="labeltext in vm.labelArr"
+                                    class="btn btn-primary btn-sm">{{labeltext}}</button>
+                            </dd>
+                            <dd>
+                                <span>
+                                    发布时间：<b>{{vm.resoures.details.createdTime | date:'yyyy-MM-dd HH:mm:ss'}}</b>
+                                </span>
+                            </dd>
+                        </dl>
+                        <div class="detail-content" ng-bind-html="vm.resoures.details.content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

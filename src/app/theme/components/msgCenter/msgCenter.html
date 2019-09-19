@@ -1,0 +1,75 @@
+<div class="toast"><ng-toast></ng-toast></div>
+<ul class="al-msg-center clearfix">
+  <li uib-dropdown>
+    <a href uib-dropdown-toggle>
+     <i class="fa fa-bell"></i><span> {{vm.unCheckedCount || "0"}}</span>
+
+      <div class="notification-ring"></div>
+    </a>
+
+    <div uib-dropdown-menu class="top-dropdown-menu">
+      <i class="dropdown-arr"></i>
+
+      <div class="header clearfix">
+        <strong>告警通知</strong>
+        <a href ng-click="vm.markAllAsRead()">Mark All as Read</a>
+        <!-- <a href>Settings</a> -->
+      </div>
+      <div class="msg-list">
+
+          <ul class="msg-area">
+            <li ng-repeat="msg in vm.alarmNoticeResult" >
+              <div ui-sref="alarm-result-detail({id:msg.alarmInfo.id})">
+                <i class="icon" ng-class="msg.color"></i>
+                <p><span>名称：</span>{{msg.alarmInfo.name}}</p>
+                <p><span>等级：</span>{{msg.alarmLevelName}}
+                   <span>业务：</span>{{msg.categoryName}}
+                   <span>规则：</span>{{msg.eventRuleName}}
+                </p>
+                <p class="time">{{vm.formatTime(msg.timestamp)}} </p>
+             </div>
+            </li>
+          </ul>
+      <!--   <a href class="clearfix" ng-repeat="msg in vm.alarmNoticeResult">
+
+          <div >
+
+            <span>{{ msg }}</span>
+          </div>
+        </a> -->
+       <!--  <a href class="clearfix" ng-repeat="msg in notifications">
+          <div class="img-area"><img ng-class="{'photo-msg-item' : !msg.image}" ng-src="{{::( msg.image ||  (users[msg.userId].name | profilePicture) )}}"></div>
+          <div class="msg-area">
+            <div ng-bind-html="getMessage(msg)"></div>
+            <span>{{ msg.time }}</span>
+          </div>
+        </a> -->
+      </div>
+      <a href ui-sref="alarm-result">See all notifications</a>
+    </div>
+  </li>
+<!--   <li uib-dropdown>
+    <a href class="msg" uib-dropdown-toggle>
+      <i class="fa fa-envelope-o"></i><span>5</span>
+      <div class="notification-ring"></div>
+    </a>
+    <div uib-dropdown-menu class="top-dropdown-menu">
+      <i class="dropdown-arr"></i>
+      <div class="header clearfix">
+        <strong>Messages</strong>
+        <a href>Mark All as Read</a>
+        <a href>Settings</a>
+      </div>
+      <div class="msg-list">
+        <a href class="clearfix" ng-repeat="msg in messages">
+          <div class="img-area"><img class="photo-msg-item" ng-src="{{::( users[msg.userId].name | profilePicture )}}"></div>
+          <div class="msg-area">
+            <div>{{ msg.text }}</div>
+            <span>{{ msg.time }}</span>
+          </div>
+        </a>
+      </div>
+      <a href>See all messages</a>
+    </div>
+  </li> -->
+</ul>

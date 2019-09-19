@@ -1,0 +1,67 @@
+<div class="page-top clearfix" scroll-position="scrolled" max-height="50" ng-class="{'scrolled': scrolled}">
+    <a href="#/home" class="al-logo clearfix" title="{{$menuNameDesc}}">
+        <!-- {{$menuName}} -->
+        <img src="../assets/img/logonew.png" alt="">
+        <span class="logo-title">日志分析平台</span>
+    </a>
+    <!-- loginsight-->
+
+    <a href class="collapse-menu-link ion-navicon" ba-sidebar-toggle-menu></a>
+
+    <!--   <div class="search">
+    <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
+    <input id="searchInput" type="text" placeholder="Search for...">
+  </div> -->
+
+    <div>
+        <div class="al-user-profile" uib-dropdown>
+            <a uib-dropdown-toggle class="profile-toggle-link">
+                <i class="fa fa-user"></i> {{account.login}} <span class="caret"></span>
+
+                <!-- <img ng-src="{{::( 'Nasta' | profilePicture )}}"> -->
+            </a>
+            <ul class="top-dropdown-menu profile-dropdown" uib-dropdown-menu>
+                <!-- <li><i class="dropdown-arr"></i></li> -->
+                <li>
+                    <a ui-sref="user-management-password"><i class="fa fa-lock"></i>密码</a>
+                </li>
+                <li>
+                    <a class="signout" href="###" ng-click="logout()" id="logout"><i class="fa fa-power-off"></i>退出</a>
+                </li>
+
+
+                <!--   <li  ng-switch-when="false">
+            <a href="" ui-sref="login" ng-click="collapseNavbar()" id="login">
+                <span class="fa fa-log-in"></span>&nbsp;
+                <span>登录</span>
+            </a>
+        </li> -->
+                <!--  <li  ng-switch-when="false">
+            <a ui-sref="register" ng-click="collapseNavbar()">
+                <span class="fa fa-plus-sign"></span>&nbsp;
+                <span>注册</span>
+            </a>
+        </li> -->
+            </ul>
+        </div>
+        <div class="al-user-profile" uib-dropdown has-authority="ROLE_ADMIN">
+            <a uib-dropdown-toggle class="profile-toggle-link" id="admin-menu">
+          管理<span class="caret"></span>
+          <!-- <img ng-src="{{::( 'Nasta' | profilePicture )}}"> -->
+        </a>
+            <ul class="top-dropdown-menu profile-dropdown" uib-dropdown-menu>
+                <!-- <li><i class="dropdown-arr"></i></li> -->
+                <li ui-sref="user-management" ng-click="collapseNavbar()"><a><i class="fa fa-user"></i>用户管理</a></li>
+                <!--      <li><a href><i class="fa fa-dashboard"></i>度量</a></li>
+          <li><a href><i class="fa fa-heart"></i>健康</a></li>
+          <li><a href><i class="fa fa-list-alt"></i>配置</a></li>
+          <li><a href><i class="fa fa-bell"></i>审计</a></li>
+          <li><a href><i class="fa fa-tasks"></i>日志</a></li>
+          <li><a href><i class="fa fa-book"></i>API</a></li> -->
+            </ul>
+        </div>
+    </div>
+    <msg-center></msg-center>
+</div>
+
+</div>

@@ -1,0 +1,10 @@
+[
+    {"time":"10:00", "currentTrade": 13, "lastWeekTrade":66, "yesterdayTrade":16},
+    {"time":"10:20", "currentTrade": 15, "lastWeekTrade":34, "yesterdayTrade":21},
+    {"time":"10:40", "currentTrade": 23, "lastWeekTrade":22, "yesterdayTrade":57},
+    {"time":"11:00", "currentTrade": 27, "lastWeekTrade":19, "yesterdayTrade":15},
+    {"time":"11:20", "currentTrade": 48, "lastWeekTrade":29, "yesterdayTrade":33},
+    {"time":"11:40", "currentTrade": 17, "lastWeekTrade":27, "yesterdayTrade":31},
+    {"time":"12:40", "currentTrade": 22, "lastWeekTrade":21, "yesterdayTrade":20}
+
+]

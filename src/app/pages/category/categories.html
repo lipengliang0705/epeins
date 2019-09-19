@@ -1,0 +1,87 @@
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">业务管理</h3>
+    <small class="text-muted h5 font-title-des">规范业务管理</small>
+</div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                  <button class="btn btn-primary" ui-sref="category.new"><i class="fa fa-plus"></i>&nbsp;新建</button>
+                  <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                   <!--  <form class="input-group">
+                        <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="search">
+                   
+                    </form> -->
+                    <div class="table-responsive">
+                     <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                    <table  class="table" ng-table="vm.tableParams">
+                       <!--  <thead class="black-muted-bg">
+                            <tr>
+                                <th>
+                                    <span>ID</span>
+                                </th>
+                                <th>
+                                    <span>名称</span>
+                                </th>
+                                <th>
+                                    <span>业务缩写</span>
+                                </th>
+                                <th>
+                                    <span>标题</span>
+                                </th>
+                                <th>
+                                    <span>描述</span>
+                                </th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody> -->
+                            <tr ng-repeat="category in $data  | filter:search">
+                               <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="category-detail({id:category.id})">{{category.id}}</a></td> -->
+                                <td data-title="'名称'" sortable="'name'">{{category.name}}</td>
+                                <td data-title="'业务缩写'" sortable="'alias'">{{category.alias}}</td>
+                                <td data-title="'标题'" sortable="'title'">{{category.title}}</td>
+                                <td data-title="'描述'" sortable="'description'">{{category.description}}</td>                                
+                                <td data-title="'标签'" >
+                                    <span ng-repeat="tag in category.tags" class="badge-text-info-span"> 
+                                        <!-- <a class="form-control-static">{{tag.name}}</a>{{$last ? '' : '   '}} -->
+                                        <label class="badge-text-info">{{tag.name}}</label>
+                                    </span> 
+                                </td>
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <a ui-sref="category-detail({id:category.id})">查看</a>
+                                        <a ui-sref="category.edit({id:category.id})">编辑</a>
+                                        <a ui-sref="category.delete({id:category.id})" class="text-delete">删除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="6" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="6" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                       <!--  </tbody> -->
+                    </table>
+                   
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>

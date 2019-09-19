@@ -1,0 +1,36 @@
+#toast-container {
+    .toast.toast-custom {
+        opacity: 1;
+        color: #333;
+        box-shadow: 0 0 10px #999;
+        &.toast-success {
+            background: #fff!important;
+        }
+        &.toast-info {
+            background: #fff!important;
+        }
+        &.toast-error {
+            background: #fff!important;
+        }
+        &.toast-warning {
+            background: #fff!important;
+        }
+        &:hover {
+            box-shadow: 0 0 10px #999;
+        }
+        .toast-icon {
+            max-width: 23px;
+            max-height: 23px;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            margin-top: -10px;
+        }
+        .toast-title {
+            margin-bottom: 6px;
+        }
+    }
+    .toast-close-button {
+        color: #999;
+    }
+}

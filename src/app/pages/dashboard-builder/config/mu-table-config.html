@@ -1,0 +1,282 @@
+<div style="margin-top: 5px;" class="col-sm-12">
+  <div class="form-group col-sm-3" style="margin-bottom: 15px;" >
+    <label>类别</label>
+    <select ng-model="widget.category" class="form-control" ng-disabled="true" ng-options="item.value as item.name for item in widgetCategories">
+    </select> 
+  </div>
+<!--   <div class="form-group col-sm-9" style="margin-bottom: 15px;" >
+    <label>类别</label>
+    <select ng-model="widget.category" class="form-control" ng-disabled="true" ng-options="item.value as item.name for item in widgetCategories">
+    </select> 
+  </div> -->
+</div>
+
+
+<div ng-tabs class="tabbable">
+    <ul class="nav nav-tabs">
+        <li ng-tab-head="on">
+            <a href="#" ng-click="$event.preventDefault()">数据源</a>
+        </li>
+        <li ng-tab-head="on">
+            <a href="#" ng-click="$event.preventDefault()">数据</a>
+        </li>
+        <li ng-tab-head>
+            <a href="#" ng-click="$event.preventDefault()">基本</a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+
+
+<!-- 数据源 开始 -->
+  <div ng-tab-body class="tab-pane">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          数据源
+        </div>
+        <div class="panel-body">
+          <div class="form-group col-sm-4">
+            <label>数据源类别</label>
+            <select ng-model="widget.attrs.config.datasource.type" ng-options="item.value as item.name for item in datasources" class="form-control">
+            </select> 
+          </div>
+          <div class="form-group col-sm-2">
+            <label>最大数据量</label>
+            <input type="number" ng-model="widget.attrs.config.datasource.maxCount" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+          </div>
+          <div class="form-group col-sm-2">
+            <label>刷新率(秒)</label>
+            <input type="number" ng-model="widget.attrs.config.datasource.interval" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+          </div>
+          <div class="form-group col-sm-2 pull-right">
+            <label>&nbsp;</label>
+            <button class="btn btn-info" ng-click="tabs.index = 2; getData()">获取数据</button> 
+          </div>
+          <div ng-if="widget.attrs.config.datasource.type=='es'" > 
+            <div class="form-group col-sm-4"> 
+              <label>业务</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_index" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.title}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_indexs | filter: $select.search">
+                    <div ng-bind-html="item.title | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label>解析规则</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_type" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_types | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>                
+            <div class="form-group col-sm-4">
+              <label>统计视图</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_view" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_views | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label>字段</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_field" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_fields | filter: $select.search">
+                    <div ng-bind-html="item.name  | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>             
+            <div class="form-group col-sm-4">
+              <label>时间段</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_range" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_ranges | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label>频率</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_interval" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_intervals | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.es_view.name=='字段值统计'">
+              <label>聚合方式</label>
+              <ui-select ng-model="widget.attrs.config.datasource.es_function" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in es_functions | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>                 
+            <div class="form-group" ng-class="{true:'col-sm-8',false:'col-sm-12'}[widget.attrs.config.datasource.es_view.name=='字段值统计']">
+              <label>Query String</label>
+              <input ng-model="widget.attrs.config.datasource.queryString" class="form-control" />
+            </div>  
+          </div>
+
+          <div ng-if="['rest', 'rest_post', 'socket'].includes(widget.attrs.config.datasource.type)">  
+            <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.type!='rest_post'">
+              <label>数据源Host</label>
+              <ui-select ng-model="widget.attrs.config.datasource.host" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in dataStores | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div> 
+            <div class="form-group col-sm-8">
+              <label>数据源地址</label>
+              <input ng-model="widget.attrs.config.datasource.url" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4" ng-if="widget.attrs.config.datasource.type=='rest_post'">
+              <label>返回类型</label>
+              <ui-select ng-model="widget.attrs.config.datasource.postType" theme="bootstrap">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in postTypes | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group col-sm-12" ng-if="widget.attrs.config.datasource.type=='rest' || widget.attrs.config.datasource.type=='rest_post'">
+              <label>返回值path</label>
+              <input ng-model="widget.attrs.config.datasource.retPath" ng-model-options="{updateOn: 'blur'}" class="form-control" />
+            </div>
+            <div class="form-group col-sm-12" ng-show="widget.attrs.config.datasource.type=='rest_post' || widget.attrs.config.datasource.type=='es'">
+              <label>BODY参数 (变量：${target}, ${indicator}, ${timeStart}, ${timeEnd})</label>
+              <textarea class="form-control" rows="10" ng-model="widget.attrs.config.datasource.postbody" ng-model-options="{updateOn: 'blur'}"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel panel-default" ng-if="widget.category=='ng-table-factory'">
+        <div class="panel-heading">
+          字段内容转化:<button ng-click="addFormatter()" class="btn-xs btn-primary pull-right">添加字段</button>
+        </div>
+        <div class="panel-body">
+          <div class="col-sm-12">
+            <table class="table table-condensed table-bordered" style="margin: 0px">
+              <tr class="bg-info">
+                <!-- <th width="15%">类别</th> -->
+                <th width="25%">字段</th>
+                <th width="25%">名称</th>
+                <th width="20%">宽度</th>
+                <th width="30%">操作</th>
+              </tr>
+              <tr ng-repeat="field in widget.attrs.config.fieldMap.formatter">
+                <!-- <td>数值(Y)</td> -->
+                <td><select ng-model="field.field" ng-options="item as item for item in widget.attrs.config.fields" class="form-control"></select></td>
+                <td><input ng-model="field.name" class="form-control" ng-model-options="{updateOn: 'blur'}"/></td>
+                <td><input ng-model="field.width"  class="form-control" ng-model-options="{updateOn: 'blur'}"></input></td>
+                <td><button ng-click="delFormatter($index)" class="btn-xs btn-danger">删除</button>
+                    <button ng-click="setFormatter(field, $index)" class="btn-xs btn-primary">配置</button>
+                </td>
+              </tr>
+            </table>
+            <div class="form-group col-sm-12">
+              <label>当前字段：{{curFormatter.field}}</label>
+              <textarea ng-disabled="curFormatter==null" class="form-control" rows="20" ng-model="curFormatter.formatter" ng-model-options="{updateOn: 'blur'}"></textarea>
+            </div> 
+          </div>
+        </div>
+      </div>
+
+
+
+  </div>
+
+<!-- 数据源 结束 -->
+
+<!-- 数据 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              数据
+            </div>
+            <div class="panel-body">
+              <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:100%" class="col-sm-12">
+                <table ng-table-dynamic="tableParams with cols" class="table table-condensed table-bordered table-striped">
+                  <tr ng-repeat="row in $data">
+                    <td ng-repeat="col in $columns" noWrap="noWrap">{{row[col.field]}}</td>
+                  </tr>
+                </table> 
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- 数据 结束 -->
+
+
+<!-- 基本 开始 -->
+        <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                标题
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-4">
+                  <label>标题内容</label>
+                  <input ng-model="group.title" class="form-control" /> 
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>标题颜色</label>
+                    <spectrum-colorpicker ng-model="group.titleColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </div>    
+                <div class="form-group col-sm-4">
+                  <label>标题图标(font awesome)</label>
+                  <input ng-model="group.icon" class="form-control" /> 
+                </div>
+                <div class="form-group col-sm-2">
+                  <label>图标颜色</label>
+                    <spectrum-colorpicker ng-model="group.iconColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+                </div>         
+
+              </div>
+          </div>
+
+          <div class="panel panel-default" ng-if="widget.category=='html-bind'">
+              <div class="panel-heading">
+                HTML文本控件
+              </div>
+              <div class="panel-body">
+                <div class="form-group col-sm-12">
+                  <label>HTML文本内容（参数形式:  ${field}）</label>
+                  <textarea class="form-control" rows="25" ng-model="widget.attrs.config.htmlContents" ng-model-options="{updateOn: 'blur'}"></textarea>
+                </div>             
+
+              </div>
+          </div>
+
+
+      </div>
+
+<!-- XXX 开始 -->
+<!--         <div ng-tab-body class="tab-pane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              特效文字
+            </div>
+            <div class="panel-body">
+              <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:100%" class="col-sm-12">
+              特效文字
+              </div>
+            </div>
+          </div>
+        </div> -->
+<!-- XXX 结束 -->
+
+    </div>
+</div>

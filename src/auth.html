@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LogInsight</title>
+
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900&subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'> -->
+
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon-96x96.png">
+    <!--
+    <script src="../bower_components/jquery/dist/jquery.min.js">
+    </script> -->
+
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp/serve,src}) styles/auth.css -->
+    <!-- inject:css -->
+    <!-- css files will be automatically insert here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+    <script type="text/javascript">
+        // window.onload = function() {
+        // 登陆
+
+        var login = function (username, password, rememberMe) {
+
+            console.log("1------------1");
+
+            var data = JSON.stringify({
+                "username": username,
+                "password": password,
+                "rememberMe": true
+            });
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    try {
+                        var data = JSON.parse(this.responseText);
+                        if (data.id_token) {
+                            console.log('验证成功');
+                            window.localStorage.setItem("authenticationToken", data.id_token);
+                            location.href = "/#/home"
+                        } else {
+                            console.log(err, "------------");
+                            document.getElementById('inputName').value = '';
+                            document.getElementById('inputPassword').value = '';
+                            document.getElementById('authenticationError').style.display = 'block';
+                            document.getElementById('authenticationEmpty').style.display = 'none';
+                        }
+                        console.log("this.responseText", data);
+
+
+                    } catch (err) {
+                        // 登录失败 异常
+                        document.getElementById('inputName').value = '';
+                        document.getElementById('inputPassword').value = '';
+                        document.getElementById('authenticationError').style.display = 'block';
+                        document.getElementById('authenticationEmpty').style.display = 'none';
+                    }
+                }
+            });
+
+            xhr.open("POST", "/api/authenticate");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("cache-control", "no-cache");
+
+            xhr.send(data);
+        }
+
+        function checked(e) {
+            e.preventDefault();
+            console.log('checked');
+            // event.preventDefault();
+            // vm.authenticationError = true;
+            var inputName = document.getElementById('inputName').value;
+            var inputPassword = document.getElementById('inputPassword').value;
+            if (inputName == '' || inputPassword == '') {
+                document.getElementById('authenticationEmpty').style.display = 'block';
+                document.getElementById('authenticationError').style.display = 'none';
+                return false;
+            }
+            login(inputName, inputPassword, true);
+            return false;
+        }
+        // }
+    </script>
+</head>
+<style>
+    /*font字体引用*/
+
+    @font-face {
+        font-family: Wblack;
+        src: url("assets/fonts/Wblack.ttf")
+    }
+
+    #body-login {
+        background: url(../assets/img/login/login_bg.jpg) center center no-repeat #fafafa;
+        /* background-size: 70% auto; */
+        background-size: cover;
+        position: relative;
+    }
+
+    .auth-flex {
+        display: -webkit-flex;
+        /* Safari */
+        display: flex;
+        justify-content: center;
+        position: relative;
+        /* top: -14%; */
+        z-index: 999;
+    }
+
+    .login-block {
+        /* background: rgba(255, 255, 255); */
+        min-width: 570px;
+        /* padding: 40px 30px 30px 30px; */
+        /* border-radius: 2px; */
+    }
+    .login-block form{
+        background: #fff;
+        padding: 40px 35px 30px 35px;
+        border-radius: 2px;
+    }
+
+    .login-block h2 {
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-top: 0;
+        margin-bottom: 50px;
+        font-weight: normal;
+        font-family: 'Wblack';
+        align-items: center;
+    }
+
+    .login-block h2 b {
+        float: left;
+        width: 50px;
+        height: auto;
+    }
+
+    .login-block h2 img {
+        width: 90%;
+    }
+
+    .login-block h2 span {
+        font-size: 4.2rem;
+    }
+
+    .btn {
+        display: block;
+        padding: 10px;
+        width: 100%;
+        border-radius: 2px;
+    }
+
+    input:-webkit-autofill {
+        background-image: none;
+        -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
+    }
+
+    input:-internal-autofill-selected {
+        background: none;
+    }
+
+    .login—form .form-group {
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .login—form .form-group:last-child{
+        margin-bottom: 0;
+    }
+
+    .form-group .form-label {
+        margin-bottom: 14px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .form-group .form-control {
+        /* padding: 8px; */
+        border-radius: 2px;
+        height: 42px;
+        color: #333;
+        background: #fff;
+        font-size: 16px;
+    }
+
+    .form-group button.btn.btn-primary {
+        font-size: 14px !important;
+        padding: 9px 12px;
+        margin-top: 30px;
+        width: 20%;
+        border-radius: 2px;
+    }
+
+    .copyright {
+        text-align: center;
+        color: #f5f5f5;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+</style>
+
+<body id="body-login">
+    <!-- <div class="login-bottom-bg"></div> -->
+    <main class="auth-main auth-flex">
+        <div class="login-block">
+            <h2>
+                <b>
+                    <!-- <img src="../assets/img/login/favicon-96x96.png"> -->
+                    <img src="../assets/img/logonew.png" alt="">
+                </b>
+                <span>大数据日志分析平台</span>
+            </h2>
+            <form onsubmit="checked(event);">
+                <div class="login—form">
+                    <div class="form-group">
+                        <div class="form-label">用户名</div>
+                        <input type="text" class="form-control" id="inputName" placeholder="用户名" ng-model="vm.username">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">密码</div>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="密码"
+                            ng-model="vm.password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">登 录</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="copyright">© 2006 - 2019 德讯科技股份有限公司 版权所有</div>
+        </div>
+    </main>
+</body>
+
+</html>

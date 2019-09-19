@@ -1,0 +1,151 @@
+
+    
+   
+    <div class=" title-wrapper">
+        <h3 class="m-n font-thin h3">告警列表</h3>
+        <small class="text-muted h5 font-title-des">告警信息明细列表</small>
+   
+    </div>
+    <jhi-alert></jhi-alert>
+<div class="wrapper" >
+    <div class="panel panel-default widget">
+     
+        <div class="container-fluid">
+            <!-- <div class="row">
+                <div class="col-xs-4 no-padding-left">
+                    <button class="btn btn-primary" ui-sref="alarm-rule.new" >
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span >
+                            创建规则
+                        </span>
+                    </button>
+                </div>
+            </div> -->
+        </div>
+
+      
+        <div class="panel-body">
+            <div class="table-responsive">
+               <!--  <form class="input-group">
+                        <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="search">
+                   
+                </form> -->
+                <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                <table class="table"  ng-table="vm.tableParams">
+<!--                     <thead class="black-muted-bg">
+                        <tr>
+                            <th><span>ID</span></th>
+                            <th><span>告警等级</span></th>
+                            <th><span>业务</span></th>
+                            <th><span>告警规则</span></th>
+                            <th sortable="'vm.sortables.name.sortable'"><span>告警名称</span></th>
+                       
+                            <th sortable="'vm.sortables.checked.sortable'"><span>已读/未读</span></th>
+                            <th><span>时间</span></th>
+                            <th><span>操作</span></th>
+                        </tr>
+                    </thead>
+                    <tbody> -->
+                        <tr ng-repeat="alarmResult in $data">
+                           <!--  <td data-title="'ID'" sortable="'id'">{{alarmResult.id}}</td> -->
+                            <!--<td data-title="'告警等级'" sortable="'alarmRule.alarmLevel.name'">{{alarmResult.alarmRule.alarmLevel.name}}</td>-->
+                            
+                            <td data-title="'业务'" sortable="'alarmRule.eventRule.category.name'">{{alarmResult.alarmRule.eventRule.category.name}}</td>
+                            
+                            <td data-title="'告警规则'" sortable="'alarmRule.eventRule.name'">{{alarmResult.alarmRule.eventRule.name}}</td>
+                            <td data-title="'告警名称'" sortable="' name '">{{alarmResult.name}}</td>
+                           <!--  <td>{{alarmResult.info}}</td> -->
+                            <td data-title="'已读/未读'" sortable="'checked'">
+                                 <button class="btn btn-warning btn-xs" ng-click="vm.setChecked(alarmResult, true)"   ng-if="!alarmResult.checked" >未读</button>
+                                 <button class="btn btn-info btn-xs" ng-click="vm.setChecked(alarmResult, false)"  ng-if="alarmResult.checked">已读</button> 
+                            </td>
+                            <td data-title="'时间'" sortable="'createdTime'">{{alarmResult.createdTime}}</td>
+                            <td data-title="'操作'">
+                                <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                ui-sref="alarm-result-detail({id:alarmResult.id})"
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="alarm-result.delete({id:alarmResult.id})"
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                        <!-- <tr ng-repeat="alarmRule in vm.alarmRules track by alarmRule.id">
+                            <td><a ui-sref="alarm-rule-detail({id:alarmRule.id})">{{alarmRule.id}}</a></td>
+                            <td>{{alarmRule.name}}</td>
+                            <td ng-switch="alarmRule.alarmType">
+                                <div ng-switch-when="KEYWORDS">关键字告警</div>
+                                <div ng-switch-when="BEYOND_EVENT_COUNT">事件告警</div>
+                            </td>
+
+                            <td ng-switch="alarmRule.notifyType">
+                                <div ng-switch-when="NULL">不通知</div>
+                                <div ng-switch-default>{{alarmRule.notifyType}}</div>
+                            </td>
+                            <td>{{alarmRule.notifyRole}}</td>
+                            <td>{{alarmRule.notifyMember}}</td>
+                            <td>
+                                <a ui-sref="event-rule-detail({id:alarmRule.eventRule.id})">{{alarmRule.eventRule.name}}</a>
+                            </td>
+                            <td>
+                                <input
+                                    bs-switch
+                                    switch-size="small"
+                                    ng-model="alarmRule.status"
+                                    type="checkbox"
+                                    ng-change="vm.changeStatus(alarmRule)"
+                                    ng-true-value="'1'"
+                                    ng-false-value="'0'">
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="alarm-rule-detail({id:alarmRule.id})"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="alarm-rule.edit({id:alarmRule.id})"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="alarm-rule.delete({id:alarmRule.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr> -->
+                    <!-- </tbody> -->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

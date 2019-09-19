@@ -1,0 +1,440 @@
+<style> 
+    .mg-top10{
+        margin-top: 10px;
+    }  
+
+    .monitorinfo-list{
+        margin: 0;
+    }
+    .monitorinfo-list dt{
+        color: #78a100;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+    .monitorinfo-list dd{
+        font-weight: normal;
+        margin:5px 0;
+    }
+    .monitorinfo-list dd.sinkchart{
+        width: 100%;
+        height: 80px;
+    }
+    .monitorinfo-list dd.index-info{
+        text-align: center;
+    }
+    .monitorinfo-list dd.index-info{
+        min-height: 80px;
+    }
+    .monitorinfo-list dd.index-info span{
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+        text-align: left;
+    }
+    .monitorinfo-list dd.index-info b{
+        color: #000;
+        font-size: 12px;
+    }
+    .monitorinfo-list dd.index-info h4{
+        margin-bottom: 0;
+    }
+    .totallast{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+    .monitorinfo-list dd b{
+        font-weight: normal; 
+    }
+    .large-panel-300{
+        height: 300px;
+    }
+    .processes-table{
+        width: 100%;
+    }
+    .processes-table tbody tr:hover{
+        background: #e5e5e5;
+    }
+    .processes-table tbody tr th,.processes-table tbody tr td{
+        padding: 4px 10px;
+    }
+    .processes-table tbody tr th{
+        width:20%;
+        color: rgba(0, 0, 0, 0.4);
+    }
+    .processes-table tbody tr td:last-child{
+        width: 10%;
+        color: color: rgba(0, 0, 0, 0.4);
+    }
+    .inner-bar-box{
+        width:100%;
+        min-height: 16px;
+    }
+    .processes-inner-bar{
+        background-color: rgb(104, 188, 0);
+        min-height: 16px;
+    }
+    .panel.with-scroll .panel-body {
+        height: calc(100% - 39px);
+        overflow-y: auto;
+    }
+    .metricbeat-info{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content:space-between;
+    }
+    .usecharts{
+        width: 100%;
+        height: 200px;
+    }
+    .processes-table-div{ overflow-y: auto; height: 90px;}
+    .searchform-flex{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content:space-between;
+    }
+    .searchform-flex .form-group{
+        width:-webkit-calc(100% - 18px); 
+        width:-moz-calc(100% - 18px); 
+        width:calc(100% - 18px); 
+
+    }
+    .searchform-flex .input-group-btn{
+        width: auto;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">服务器性能</h3>
+    <small class="text-muted h5 font-title-des">大数据平台服务器性能信息</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <form name="searchForm" class="form-validation  col-md-12 col-sm-12" ng-submit="vm.searchClick()">  
+            <div class="searchform-flex"> 
+                <div class="form-group"> 
+                    <ui-select ng-model="vm.host"  class="btn-group bootstrap-select form-control" on-select="vm.changeView()">
+                        <ui-select-match placeholder="选择目标主机">{{$select.selected.name}}  {{$select.selected.ip}}</ui-select-match>
+                        <ui-select-choices repeat="d in vm.hosts | filter: $select.search">
+                            <div ng-bind-html="d.name + ' ' + d.ip | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="form-group">
+                    <input date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" class="form-control" type="text"/>
+                    <!-- {{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}} --> 
+                </div> 
+                <span class="input-group-btn">
+                    <button class="btn btn-primary search-btn" type="submit" ng-disabled="searchForm.$invalid">
+                      <span class="ion-search"></span>
+                  </button>
+                </span>
+            </div> 
+        </form> 
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget mg-top10">
+                <div class="panel-heading">
+                    System Navigation [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>CPU Usage Gauge [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <simple-echarts options="vm.cpuUsageCharts"></simple-echarts>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Memory Usage Gauge [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <simple-echarts options="vm.MemoryUsageCharts"></simple-echarts>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Load Gauge [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <simple-echarts options="vm.loadUsageCharts"></simple-echarts>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Inbound Traffic [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <span>Inbound Traffic</span>
+                                    <!-- <h4>14.493MB/s</h4> -->
+                                    <h4>0</h4>
+                                    <div class="totallast">
+                                        <span>Total Transferred</span><b>0</b>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Outbound Traffic [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <span>Outbound Traffic</span>
+                                    <h4>0</h4> 
+                                    <!-- <h4>16.091MB/s</h4> -->
+                                    <div class="totallast">
+                                        <span>Total Transferred</span><b>0</b>
+                                        <!-- <span>Total Transferred</span><b>13.362GB</b> -->
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Packetloss [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <span>In Packetloss</span>
+                                    <h4>0</h4>
+                                    <div class="totallast">
+                                        <span>Out Packetloss</span><b>0</b>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Swap usage [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <simple-echarts options="vm.swapUsageCharts"></simple-echarts>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Memory usage vs total</dt>
+                                <dd class="index-info">
+                                    <span>Memory usage</span>
+                                    <h4>{{vm.systemNavigationData.mem_used_bytes}}</h4>
+                                    <div class="totallast">
+                                        <span>Total Memory</span><b>{{vm.systemNavigationData.mem_total_bytes}}</b>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Number of processes [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <h1>{{vm.systemNavigationData.process_num}}</h1>
+                                    <b>Processes</b>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-2">
+                            <dl class="monitorinfo-list">
+                                <dt>Disk used [Metricbeat System]</dt>
+                                <dd class="index-info">
+                                    <simple-echarts options="vm.diskUsedCharts"></simple-echarts>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-4">
+                            <dl class="monitorinfo-list">
+                                <dt>Disk Usage [Metricbeat System]</dt>
+                                <dd class="index-info processes-table-div">
+                                    <table class="processes-table">
+                                        <tbody>
+                                            <tr ng-repeat="disk in vm.systemNavigationData.disk_usage | filter: vm.greaterThan('used_pct', 0) ">
+                                                <th>{{disk.device_name}}</th>
+                                                <td>
+                                                    <div class="inner-bar-box">
+                                                        <div class="processes-inner-bar" style="width: {{disk.used_pct}}%;"></div>
+                                                    </div>
+                                                </td>
+                                                <td>{{disk.used_pct}}%</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    CPU Usage [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="metricbeat-info">
+                        <div class="usecharts"><simple-echarts options="vm.CPUUsage"></simple-echarts></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    System Load [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="metricbeat-info">
+                        <div class="usecharts"><simple-echarts options="vm.systemLoad"></simple-echarts></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Memory Usage [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="usecharts"><simple-echarts options="vm.memoryUsage"></simple-echarts></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Disk IO (Bytes) [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="metricbeat-info">
+                        <div class="usecharts"><simple-echarts options="vm.diskIO"></simple-echarts></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Network Traffic (Packets) [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="metricbeat-info">
+                        <div class="usecharts"><simple-echarts options="vm.networkTraffic"></simple-echarts></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Network Traffic (Bytes) [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <div class="metricbeat-info">
+                        <div class="usecharts"><simple-echarts options="vm.networkTrafficBytes"></simple-echarts></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Processes By Memory [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <table class="processes-table">
+                        <tbody>
+                            <tr ng-repeat="row in vm.processesByMemoryData">
+                                <th>{{row.x}}</th>
+                                <td>
+                                    <div class="inner-bar-box">
+                                        <div class="processes-inner-bar" style="width: {{row.y}}%;"></div>
+                                    </div>
+                                </td>
+                                <td>{{row.y}}%</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Top Processes By CPU [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <table class="processes-table">
+                        <tbody ng-repeat="row in vm.topProcessesByCPUData">
+                            <tr>
+                                <th>{{row.x}}</th>
+                                <td>
+                                    <div class="inner-bar-box">
+                                        <div class="processes-inner-bar" style="width: {{row.y}}%;"></div>
+                                    </div>
+                                </td>
+                                <td>{{row.y}}%</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Interfaces by Incoming traffic [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <table class="processes-table">
+                        <tbody>
+                            <tr ng-repeat="row in vm.interfacesTrafficData">
+                                <th>{{row.name}}</th>
+                                <td>
+                                    <div class="inner-bar-box"> {{row.time}}
+                                        <!-- <div class="processes-inner-bar" style="width: 100%;"></div> -->
+                                    </div>
+                                </td>
+                                <td>{{row.in}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel large-panel-300 with-scroll">
+                <div class="panel-heading">
+                    Interfaces by Outgoing traffic [Metricbeat System]
+                    <full-size></full-size>
+                </div>
+                <div class="panel-body">
+                    <table class="processes-table">
+                        <tbody>
+                            <tr ng-repeat="row in vm.interfacesTrafficData">
+                                <th>{{row.name}}</th>
+                                <td>
+                                    <div class="inner-bar-box"> {{row.time}}
+                                        <!-- <div class="processes-inner-bar" style="width: 100%;"></div> -->
+                                    </div>
+                                </td>
+                                <td>{{row.out}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

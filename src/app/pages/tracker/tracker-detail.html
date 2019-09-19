@@ -1,0 +1,92 @@
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myalarmRuleLabel">详细,业务名称:{{vm.categoryName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="panel panel-body" ng-hide="vm.trackerDetailShow"> 
+            <div class="table-responsive"> 
+                <table  class="table" ng-table="vm.tableParams"> 
+                    <tr ng-repeat="alarmResult in $data">
+                       
+                        <td data-title="'业务'" sortable="'alarmRule.eventRule.category.name'">{{alarmResult.alarmRule.eventRule.category.name}}</td>
+                        <td data-title="'等级'" sortable="'alarmRule.alarmLevel.name'">{{alarmResult.alarmRule.alarmLevel.name}}</td>
+                        
+                        <td data-title="'规则'" sortable="'alarmRule.eventRule.name'">{{alarmResult.alarmRule.eventRule.name}}</td>
+                        
+                        <td data-title="'已读/未读'" sortable="'checked'">
+                             <button class="btn btn-warning btn-xs" ng-click="vm.setChecked(alarmResult, true)"   ng-if="!alarmResult.checked" >未读</button>
+                             <button class="btn btn-info btn-xs" ng-click="vm.setChecked(alarmResult, false)"  ng-if="alarmResult.checked">已读</button> 
+                        </td>
+                        <td data-title="'时间'" sortable="'createdTime'">{{alarmResult.createdTime}}</td>
+                        <td data-title="'操作'">
+                            <div class="btn-group flex-btn-group-container">
+                                
+                                    <button type="submit" ng-click="vm.trackerDialogDeatil(alarmResult)"
+                                            
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <!-- <button type="submit"
+                                            ui-sref="tracker.delete({id:alarmResult.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button> -->
+                                </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                        <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                    </tr>
+                    <tr ng-if="vm.dataload">
+                        <td colspan="8" class="table-data-alert">数据加载中...</td>
+                    </tr> 
+                </table> 
+            </div>
+        </div>
+          
+
+        <ul class="alarm-result-detail-area" ng-hide="!vm.trackerDetailShow">
+            <li class="checked">
+                <div class="check-true" ng-click="vm.setChecked(vm.alarmDetailResult, false)" ng-if="vm.alarmDetailResult.checked">
+                    <i class="ion-checkmark-circled"></i>
+                    已读
+                </div>
+                <div class="check-false" ng-click="vm.setChecked(vm.alarmDetailResult, true)" ng-if="!vm.alarmDetailResult.checked">
+                    <i class="ion-close-round"></i>
+                    未读
+                </div>
+            </li>
+            <li>
+                <span><i class="fa fa fa-address-book"></i>告警名称：</span>{{vm.alarmDetailResult.name}}
+            </li>
+            <li>
+                <span><i class="ion-alert-circled"></i>告警等级：</span>{{vm.alarmDetailResult.alarmRule.alarmLevel.name}}
+            </li>
+            <li>
+                <span><i class="fa fa fa-briefcase"></i>告警业务：</span>{{vm.alarmDetailResult.alarmRule.eventRule.category.name}}
+            </li>
+            <li>
+                <span><i class="ion-wrench"></i>告警规则：</span>{{vm.alarmDetailResult.alarmRule.eventRule.name}}
+            </li>
+            <li>
+                <span><i class="fa fa fa-clock"></i>告警时间：</span>{{vm.alarmDetailResult.createdTime}}
+            </li>
+            <li>
+                <span><i class="ion-clipboard"></i>告警详情：</span>{{vm.alarmDetailResult.info}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer alarm-result-detail-btngroup">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()" style="right:10px;" ng-hide="vm.trackerDetailShow">
+            <span>取消</span>
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.trackerDetailShow=false" style="right:10px;" ng-hide="!vm.trackerDetailShow">
+            <span>取消</span>
+        </button>
+        
+    </div>
+

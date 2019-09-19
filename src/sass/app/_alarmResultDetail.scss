@@ -1,0 +1,66 @@
+ul,li{
+	list-style:none;
+}
+.alarm-result-detail-area{
+	width:100%;
+	clear:both;
+	overflow:hidden;
+	li{
+		margin-bottom:20px;
+		width:50%;
+		float:left;
+		padding:5px;
+		span{
+			font-weight:bold;
+			width:120px;
+			line-height:20px;
+		}
+		i{
+			font-size:18px;
+			width:18px;
+			height:18px;
+			margin-right:5px;
+			position:relative;
+			top:3px;
+			display:inline-block;
+		}
+		
+	}
+	li:last-child{
+			width:100%;
+		}
+	.checked{
+		width:45%;
+		height:250px;
+		float:right;
+		font-size:40px;
+		text-align:center;
+		i{
+			width: 100px;
+		    height: 100px;
+		    display: block;
+		    margin: 20px auto;
+		    font-size: 100px;
+		}
+		.check-true{
+			color:#2dacd1 !important;
+		}
+		.check-false{
+			color:#90b900 !important;
+		}
+	}
+
+}
+.alarm-result-detail-btngroup{
+	position:relative;
+	.btn{
+		position:absolute;
+		bottom:10px;
+	}
+	.btn-default{
+		right:130px;
+	}
+	.btn-primary,.btn-black{
+		right:15px;
+	}
+}

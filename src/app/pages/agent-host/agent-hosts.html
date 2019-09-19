@@ -1,0 +1,156 @@
+<script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-click="vm.selectAll(_status)" ng-model="_status" class="select-all" value="" />
+</script>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">目标主机管理</h3>
+    <small class="text-muted h5 font-title-des">纳管服务器信息</small>
+</div>
+<div class="wrapper" >
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="panel widget">
+            <div class="panel-heading">
+              <button class="btn btn-primary" ui-sref="agent-host.new"><i class="fa fa-plus"></i>&nbsp;新建</button>
+
+              <!-- <button class="btn btn-primary" ui-sref="agent-host.multiple"><i class="fa fa-plus"></i>&nbsp;批量上传</button>
+              <full-size></full-size> -->
+        </div>
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+
+                    <div class="handle-box">
+                        <!-- <button type="button" class="btn btn-sm btn-primary" ng-click="vm.batchDeploy()">  <span class="glyphicon glyphicon-cloud-download"></span>   部署</button> -->
+                        <!--<ul class="handlebabel">-->
+                            <!--<li>-->
+                                <!--<i class="fa fa-check-circle-o"></i>-->
+                                <!--<i class="fa fa-play-circle-o"></i>-->
+                                <!--<i class="fa fa-clock-o"></i>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    </div>
+                    <table  class="table" ng-table="vm.tableParams">
+                            <tr ng-repeat="agentHost in $data">
+                                <!--<td header="'headerCheckbox.html'"><input type="checkbox" name="id" ng-model="vm.selected[agentHost.id]" /> </td>-->
+                               <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="agent-host-detail({id:agentHost.id})">{{agentHost.id}}</a></td> -->
+                                <td data-title="'名称'" sortable="'name'">{{agentHost.name}}</td>
+                                <td data-title="'Ip地址'" sortable="'ip'">{{agentHost.ip}}</td>
+                                <td data-title="'端口号'" sortable="'port'">{{agentHost.port}}</td>
+                                <td data-title="'agent数量'" sortable="'agentCount'">{{agentHost.alias||0}}</td>
+                                <td data-title="'主机类型'" sortable="'agentHost.osType'">
+                                    <span ng-if="agentHost.osType==3">Windows</span>
+                                    <span ng-if="agentHost.osType==2">Linux</span>
+                                    <span ng-if="agentHost.osType==1">Unix</span>
+                                </td>
+                                <td data-title="'登录类型'" sortable="'agentHost.loginType'">
+                                    <span ng-if="agentHost.loginType==1">SSH</span>
+                                    <span ng-if="agentHost.loginType!=1">other</span>
+                             </td>
+                                <td data-title="'用户名'" sortable="'loginInfo.userName'">{{agentHost.loginInfo.userName}}</td>
+                                <!-- <td data-title="'部署路径'" sortable="'depolyPath'">{{agentHost.depolyPath}}</td>
+                                <td data-title="'部署状态'" >
+
+                                 <switcher ng-model="agentHost.status"
+                                              true-value="'1'"
+                                              false-value="'0'"
+                                              class="styled"
+                                            >
+                                 </switcher> -->
+                                  <!--   <pre>{{agentHost.status}}</pre> -->
+
+                                  <!--   <input
+                                        bs-switch
+                                        switch-size="small"
+                                        ng-model="agentHost.status"
+                                        type="checkbox"
+
+                                        ng-true-value="1"
+                                        ng-false-value="0"> -->
+                                </td>
+                                <!-- <td data-title="'Agent'" >
+                                    <span ng-repeat="agent in agentHost.agents">
+                                        <a class="form-control-static" ui-sref="agent-detail({id: agent.id})">{{agent.name}}</a>{{$last ? '' : '  '}}
+                                    </span>
+                                </td>
+                                <td data-title="'标签'" >
+                                    <span ng-repeat="tag in agentHost.tags" class="badge-text-info-span"> 
+                                        <label class="badge-text-info">{{tag.name}}</label>
+                                    </span> 
+                                </td> -->
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                ui-sref="agent-host-detail({id:agentHost.id})"
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="agent-host.edit({id:agentHost.id})"
+                                                class="btn-reset">
+                                            编辑
+                                        </button>
+                                        <button type="submit" ng-click="vm.testHost(agentHost)"
+                                                class="btn-reset">
+                                            测试主机
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="agent-host.delete({id:agentHost.id})"
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                        <!-- </tbody> -->
+                    </table>
+
+            </div>
+    </div>
+</div>
+<!-- <script type="text/ng-template" id="anget-hosts-tooltip.html">
+    <div class="host-tooltip">
+        ID: {{agentHost.id}}<br />
+        名称: {{agentHost.name}}<br />
+        Ip地址: {{agentHost.ip}}<br />
+        操作系统类型: {{agentHost.osType}}<br />
+        登录类型: {{agentHost.loginType}}<br />
+        用户名: {{agentHost.user}}<br />
+        密码: {{agentHost.passWord}}<br />
+        发布地址: {{agentHost.depolyPath}}<br />
+        状态: <input bs-switch switch-size="small" ng-model="agent.status" type="checkbox" ng-change="vm.changeStatus(agent)" ng-true-value="'1'" ng-false-value="'0'"><br />
+        Agent: <span ng-repeat="agent in agentHost.agents">
+                    <a class="form-control-static" ui-sref="agent-detail({id: agent.id})">{{agent.name}}</a>{{$last ? '' : ', '}}
+                </span><br />
+        操作：<button type="submit"
+                                ui-sref="agent-host.edit({id:agentHost.id})"
+                                class="btn  btn-sm" tooltip-placement="bottom" uib-tooltip="编辑">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-sm-down"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="agent-host.delete({id:agentHost.id})"
+                                class="btn  btn-sm" tooltip-placement="bottom" uib-tooltip="删除">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-sm-down"></span>
+                        </button>
+
+   </div>
+</script>

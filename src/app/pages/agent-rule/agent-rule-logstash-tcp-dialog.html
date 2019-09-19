@@ -1,0 +1,286 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建TCP与UDP采集任务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+       
+        <div class="logstash-tcp">
+            <div class="logstash-tcp-top">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                            <input type="text" class="form-control" placeholder="请填写" />
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group ">
+                            <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                            <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                              
+                                <option value="">0-50</option>
+                                
+                            </select>
+                            <em class="gb-icon">GB</em>
+                            <input type="text" class="form-control small-w" />
+                            <span>分区数</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="control-label">备注</label>
+                            <textarea class="form-control" name="sample" style="white-space: pre-wrap"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bor-top">
+                    <div class="form-group">
+                        <label class="control-label">协议</label>
+                        <select  style="width:150px;" class="form-control" ng-model="vm.agentRule.sourceType">
+                          
+                            <option value="tcp">TCP</option>
+                            <option value="udp">UDP</option>
+                            
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wrap-bor" ng-if="vm.agentRule.sourceType == 'tcp'">
+               
+                
+                    <div class="form-group" >
+                        <label class="control-label">监听端口</label>
+                        <input type="text" class="form-control" />
+                        <span>监听端口范围为0-65535</span>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">字符集</label>
+                        <select ng-model="sample.type" class="form-control {{sample.type == null ? 'empty' : ''}}" name="sample_type" id="sample_type" ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                              
+                            <option value="">utf-8</option>
+                            
+                            
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">分隔方式</label>
+                        <select ng-model="sample.type" class="form-control {{sample.type == null ? 'empty' : ''}}" name="sample_type" id="sample_type" ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                              
+                            <option value="">按行分隔</option>
+                            
+                            
+                        </select>
+                    </div>
+                    
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>添加采集器</span>
+                        </button>
+                   
+                    
+                    <div class="table-responsive">
+                   
+                        <table  class="table event-rule-table" ng-table="vm.tableParams">
+                            <tr ng-repeat="eventRule in $data">
+                              <!--   <td data-title="'ID'" sortable="'id'">
+                                    <a ui-sref="event-rule-detail({id:eventRule.id})">{{eventRule.id}}</a>
+                                </td> -->
+                               
+                                <td data-title="'对象'" sortable="'name'">
+                                  <div class="name"><span><img src="assets/img/apache.svg" width="18" height="18" ng-show="{{eventRule.alias == 'httpd'}}"/>     
+                                   <img src="assets/img/mysql.svg" width="18" height="18" ng-show="{{eventRule.alias == 'mysqld'}}"/>   
+                                   <img src="assets/img/redis.svg" width="18" height="18" ng-show="{{eventRule.alias == 'redis'}}"/> 
+                                   <img src="assets/img/ibm-db2.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'db2diag'}}"/>     
+                                   <img src="assets/img/ibm-websphere.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'systemout'}}"/>   
+                                   <img src="assets/img/ibm-mq.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'amqerr'}}"/>    
+                                   <img src="assets/img/icon-event-rule.png" width="18" height="18" ng-show="{{eventRule.alias == null || eventRule.alias == ''}}"/> </span>
+                                {{eventRule.name}}</div></td>
+                                <td data-title="'监听IP'" sortable="'category.name'">
+                                    <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                                </td>
+                                <td data-title="'监听端口'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                                <td data-title="'字符集'" sortable="'eventType'">{{{'SEPARATED': '分隔符','KEYVALUE': '健值对'
+                                    ,'TEXT': '文本','XML': 'XML','JSON': 'JSON','NMON': 'NMON'}[eventRule.eventType]}}</td>
+                                <td data-title="'分隔方式'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+
+                                <td data-title="'操作'" class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" ui-sref="event-rule-detail({id:eventRule.id})" class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ui-sref="event-rule.edit({id:eventRule.id})" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>                                
+                                        <button type="submit" ui-sref="event-rule.clone({id:eventRule.id})" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-duplicate"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ng-disabled="eventRule.category.name=='_STANDARD_'" ui-sref="event-rule.delete({id:eventRule.id})" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                     
+                        </table>
+                    </div>
+                   111
+               
+            </div>
+            <div class="wrap-bor" ng-if="vm.agentRule.sourceType == 'udp'">
+               222
+                
+                    <div class="form-group" >
+                        <label class="control-label">监听端口</label>
+                        <input type="text" class="form-control" />
+                        <span>监听端口范围为0-65535</span>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">字符集</label>
+                        <select ng-model="sample.type" class="form-control {{sample.type == null ? 'empty' : ''}}" name="sample_type" id="sample_type" ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                              
+                            <option value="">utf-8</option>
+                            
+                            
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">分隔方式</label>
+                        <select ng-model="sample.type" class="form-control {{sample.type == null ? 'empty' : ''}}" name="sample_type" id="sample_type" ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                              
+                            <option value="">按行分隔</option>
+                            
+                            
+                        </select>
+                    </div>
+                    
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>添加采集器</span>
+                        </button>
+                    
+                    
+                    <div class="table-responsive">
+                   
+                        <table  class="table event-rule-table" ng-table="vm.tableParams">
+                            <tr ng-repeat="eventRule in $data">
+                              <!--   <td data-title="'ID'" sortable="'id'">
+                                    <a ui-sref="event-rule-detail({id:eventRule.id})">{{eventRule.id}}</a>
+                                </td> -->
+                               
+                                <td data-title="'对象'" sortable="'name'">
+                                  <div class="name"><span><img src="assets/img/apache.svg" width="18" height="18" ng-show="{{eventRule.alias == 'httpd'}}"/>     
+                                   <img src="assets/img/mysql.svg" width="18" height="18" ng-show="{{eventRule.alias == 'mysqld'}}"/>   
+                                   <img src="assets/img/redis.svg" width="18" height="18" ng-show="{{eventRule.alias == 'redis'}}"/> 
+                                   <img src="assets/img/ibm-db2.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'db2diag'}}"/>     
+                                   <img src="assets/img/ibm-websphere.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'systemout'}}"/>   
+                                   <img src="assets/img/ibm-mq.jpg" width="18" height="18" ng-show="{{eventRule.alias == 'amqerr'}}"/>    
+                                   <img src="assets/img/icon-event-rule.png" width="18" height="18" ng-show="{{eventRule.alias == null || eventRule.alias == ''}}"/> </span>
+                                {{eventRule.name}}</div></td>
+                                <td data-title="'监听IP'" sortable="'category.name'">
+                                    <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                                </td>
+                                <td data-title="'监听端口'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                                <td data-title="'字符集'" sortable="'eventType'">{{{'SEPARATED': '分隔符','KEYVALUE': '健值对'
+                                    ,'TEXT': '文本','XML': 'XML','JSON': 'JSON','NMON': 'NMON'}[eventRule.eventType]}}</td>
+                                <td data-title="'分隔方式'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+
+                                <td data-title="'操作'" class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" ui-sref="event-rule-detail({id:eventRule.id})" class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ui-sref="event-rule.edit({id:eventRule.id})" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>                                
+                                        <button type="submit" ui-sref="event-rule.clone({id:eventRule.id})" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-duplicate"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ng-disabled="eventRule.category.name=='_STANDARD_'" ui-sref="event-rule.delete({id:eventRule.id})" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                     
+                        </table>
+                    </div>
+                   
+               
+            </div>
+             <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+            
+           
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,68 @@
+<style type="text/css">
+  /*.panel { 
+    background-color: inherit;
+    border: 0px solid transparent; 
+  }
+  .wg-widget-content {
+      overflow: initial;
+  }*/
+</style>  
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">仪表板 > <a ui-sref="dashboards()">自定义展现<a> <span ng-if="vm.dataDashboard !=''"> > {{vm.dataDashboard.name}}  </span> </h3> 
+    <small class="text-muted h5 font-title-des">用户自定义综合视图</small>
+</div> 
+<div id="dashboard-space"> 
+  	<!-- <div style="width: 100%; height: 100%; background-color:{{vm.backgroundColor}}">
+      <gridster options="vm.gridOptions">
+        <gridster-item item="group" ng-repeat="group in vm.myWidgets track by $index"> 
+          <div class="panel panel-default m-b-sm">
+            <div class="panel-heading" style="border-bottom:0px; background-color: {{group.titleBgColor}}"  ng-if="group.title!=null&&group.title!=''" >
+              <i ng-class="group.icon" style="color: {{group.iconColor}}"></i>&nbsp;<span style="color: {{group.titleColor}}">{{group.title}}</span>
+            </div>
+            <div style="background-color: {{group.backgroundColor}}" >
+              <div group-container>
+                 <wg-grid columns="12" rows="12" options="vm.options" style="width: 100%;"
+                  ng-class="{false:'show-mode', true:''}[vm.options.editable]" >
+                  <wg-widget ng-repeat="chart in group.charts track by $index" position="chart.position" > 
+                    <div widget-container="chart">
+                    </div>
+                  </wg-widget> 
+                 </wg-grid>
+              </div>  
+            </div>  
+          </div>
+        </gridster-item>
+      </gridster>
+    </div>  -->
+    <div style="width: 100%; height: 100%; background-color:{{vm.backgroundColor}}"> 
+        <gridster options="vm.gridOptions">
+          <gridster-item item="group" ng-repeat="group in vm.myWidgets track by $index">
+            <div class="panel panel-default" ng-mouseup="vm.clickWidget(group)" ng-class="{true:'cur-widget',false:''}[vm.options.editable && group==vm.curWidget]">
+              <div class="panel-heading" style="border-bottom:0px; background-color: {{group.titleBgColor}}" ng-if="group.title!=''" >
+                <i ng-class="group.icon" style="color: {{group.iconColor}}"></i>&nbsp;<span style="color: {{group.titleColor}}">{{group.title}}</span>
+              </div>
+              <div style="background-color: {{group.backgroundColor}}" >
+                <div group-container>
+                  <wg-grid columns="12" rows="12" options="vm.options" style="width: 100%;"
+                    ng-class="{false:'show-mode', true:''}[vm.options.editable]" >
+                    <wg-widget wg-resizable wg-movable editable="{{vm.options.editable && chart.position==vm.curChart.position}}" ng-repeat="chart in group.charts track by $index" position="chart.position" ng-mouseup="vm.clickChart(group, chart)" > 
+                      <div ng-if="chart.category=='mu-echarts'">
+                        <div widget-container="chart">
+                        </div>
+                      </div>
+                      <div ng-if="chart.category=='ng-table-factory'" style="background-color: {{chart.attrs.config.backgroundColor}}"> 
+                        <div widget-container="chart">
+                        </div>
+                      </div>
+                    </wg-widget>
+                  </wg-grid> 
+                </div>  
+              </div>                  
+            </div>  
+          </gridster-item>
+        </gridster>
+    </div>   
+
+
+</div>
+ 

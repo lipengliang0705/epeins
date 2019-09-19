@@ -1,0 +1,76 @@
+
+    <!-- <link rel="stylesheet" href="app/pages/dashboard-builder/builder.css"> -->
+     
+    
+    <!-- <div class=" panel title-wrapper">
+        <h3 class="m-n font-thin h3">仪表盘 > 自定义展现 > {{vm.dataDashboardName || 'new' }} </h3>
+         <small class="text-muted h5 font-title-des">自定义展现</small> 
+    </div> 
+ -->
+    <div class="title-wrapper">
+        <h3 class="m-n font-thin h3">仪表板 > 自定义展现 </h3>
+        <small class="text-muted h5 font-title-des">用户自定义综合视图</small>
+    </div> 
+    <div class="row" ng-if="vm.loadimg">
+      <!-- <div class="col-sm-12" style="text-align: center;">
+          <img src="assets/img/loadings.gif" width="200" height="200"/> 
+      </div> -->
+      <div class="spinner">
+        <div class="spinner-container container1">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+          <div class="circle3"></div>
+          <div class="circle4"></div>
+        </div>
+      </div>  
+    </div>
+                                
+    <div class="row" ng-if="!vm.loadimg">
+      <div class="col-sm-4" ng-repeat="dashboard in vm.dashboards track by $index">
+        
+          <div class="panel">
+            <div class="panel-heading builder-heading">
+              <a>{{dashboard.name}}</a>
+              <div class="btn-group">
+                <button type="submit" class="btn btn-info btn-sm" ui-sref="dashboard-detail({id:dashboard.id})">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    <span class="hidden-sm-down"></span>
+                </button>
+                <button type="submit" class="btn btn-primary btn-sm" ui-sref="dashboard-builder({id:dashboard.id})">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-sm-down"></span>
+                </button>
+                <button type="submit" class="btn btn-danger btn-sm" ui-sref="dashboards.delete({id:dashboard.id})">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    <span class="hidden-sm-down"></span>
+                </button>
+              </div>
+            </div>
+            <div class="panel-body builder-body">
+                <div style="width: 100%; height: 100%;"> 
+                  <img src="{{dashboard.description}}" width="100%" height="100%" /> 
+                </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="col-sm-4">        
+          <div class="panel">            
+            <div class="panel-body builder-body" style="text-align: center;">
+                <a ui-sref="dashboard-builder()" style="font-size:30px;line-height: 330px;display: block;cursor: pointer;">自定义视图</a>
+            </div>
+          </div>
+      </div>
+    </div>  

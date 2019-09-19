@@ -1,0 +1,35 @@
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title" id="myAgentHostLabel">详情： <span>菜单</span> {{vm.menu.id}}</h4>
+</div>
+<div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.menu.name}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.menu.description}}</span>
+        </dd>
+        <dt><span>Info</span></dt>
+        <dd>
+            <span>
+                <div js-tree="vm.basicConfig" ng-model="vm.treeData" tree="basicTree"></div>
+            </span>
+        </dd> 
+    </dl>
+</div>
+<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>取消</span>
+    </button>
+
+
+    <button type="button" ui-sref="menu-management-detail.edit({id:vm.menu.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> 编辑</span>
+    </button> -->
+</div>

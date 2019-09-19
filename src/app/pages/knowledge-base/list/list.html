@@ -1,0 +1,88 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        知识库管理
+        <!-- <button class="btn btn-primary pull-right" ng-click="vm.method.showAddModal()">新建</button> -->
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">用户自定义综合视图</small> -->
+</div>
+<div class="wrapper" id="knowledge-base">    
+    <div class="row">
+        <div class="sol-sm-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="exampleInputTitle">标题</label>
+                    <input type="text" class="form-control" id="exampleInputTitle" placeholder="输入搜索内容..."
+                        ng-model="vm.data.title" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputDate">时间段</label>
+                    <input type="text" class="form-control" id="exampleInputDate" placeholder="选择时间"
+                        date-range-picker options="vm.data.dateRangeOptions" ng-model="vm.data.dateRange" autocomplete="off">
+                </div>
+                <button type="submit" class="btn btn-primary" ng-click="vm.method.search()">搜索</button>
+                <a class="btn btn-primary" ui-sref="knowledge-base-add" style="float:right;">
+                    <i class="fa fa-plus"></i>
+                    &nbsp;添加知识
+                </a>
+            </form>
+        </div>
+        <div class="col-lg-12">
+            <div class="knowledgeleft">
+                <div class="panel widget">
+                    <div class="panel-heading clearfix">
+                        <span>知识库分类</span>
+                        <b class="fa fa-plus-square-o" ng-click="vm.method.showAddClassifyModal(item)"></b>
+                    </div>
+                    <div class="panel-body panel-body-scroll">
+                        <ul class="classify">
+                            <li ng-repeat="kcat in vm.kcategory.list" ng-class="{'selected': vm.data.selectedIndex == $index}" ng-click="vm.method.selectedMenu($index)" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                                <span ng-click="vm.method.getkcategoryId(kcat.id)">{{kcat.title}}({{kcat.count}})</span>
+                                <div class="handle" ng-show="show">
+                                    <i class="fa fa-pencil-square-o" ng-click="vm.method.categoryUpdateModal(kcat)"></i>
+                                    <i class="fa fa-trash-o" ng-click="vm.method.categoryDeleteModal(kcat)"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="knowledgeright clearfix">
+                <div class="panel  widget">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table knowledge-table" ng-table="vm.data.tableParams">
+                                <tr ng-repeat="item in $data">
+                                    <td data-title="'标题'" sortable="'title'">
+                                        <a href="" ng-click="vm.method.checkKnowledgeModal(item)">{{item.title}}</a>
+                                    </td>
+                                    <td data-title="'描述'" sortable="'content'">
+                                        <span>{{item.subTitle}}</span>
+                                    </td>
+                                    <td data-title="'创建时间'" sortable="'createdTime'">
+                                        {{item.createdTime | date:'yyyy-MM-dd HH:mm'}}
+                                    </td>
+                                    <td data-title="'修改时间'" sortable="'createdTime'">
+                                        {{item.modifiedTime | date:'yyyy-MM-dd HH:mm'}}
+                                    </td>
+                                    <td data-title="'操作'">
+                                        <a href="" style="margin-right: 10px" ng-click="vm.method.checkKnowledgeModal(item)">
+                                            <span>查看</span>
+                                        </a>
+                                        <a href="" ui-sref="knowledge-base-modify(item)" style="margin-right: 10px">
+                                            <span>编辑</span>
+                                        </a>
+                                        <a style="color:red;" href="" ng-click="vm.method.showDeleteModal(item.id)">
+                                            <span>删除</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>

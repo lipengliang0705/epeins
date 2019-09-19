@@ -1,0 +1,125 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">数据备份与恢复</h3>
+    <small class="text-muted h5 font-title-des">ES与HIVE数据转换</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="panel widget">
+            <div class="panel-heading">
+              <button class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;批量操作</button>
+              <full-size></full-size>
+        </div>
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <form name="vm.searchForm" novalidate >
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm"  required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+
+                    <table  class="table">
+                    	<thead>
+                    		<tr>
+                    			<th><input type="checkbox" name="id" /></th>
+                    			<th>业务</th>
+                    			<th>状态</th>
+                    			<th>备份时间</th>
+                    			<th>操作</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr>
+                                <td><input type="checkbox" name="id" /> </td>
+                                <td><a href="javascript:;">gdpoc</a></td>
+                                <td>
+                                	<switcher ng-model="agentRule.status" true-value="'1'" false-value="'0'" class="styled ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty" ng-change="vm.changeStatus(agentRule)"><div class="switcher active" ng-class="{active:shadowModel,disabled:disabled}"><span class="switcher-label false ng-binding" ng-bind-html="trustedHtml(falseLabel)" ng-click="set(false)">Off</span><label class="switcher-line"><input type="checkbox" ng-model="shadowModel" ng-disabled="disabled" ng-change="onChange()" class="ng-pristine ng-untouched ng-valid ng-not-empty"></label><span class="switcher-label true ng-binding" ng-bind-html="trustedHtml(trueLabel)" ng-click="set(true)">On</span></div></switcher>
+                                </td>
+                                <td>2019-01-10T16:20:40Z</td>
+                                <td>
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            编辑
+                                        </button>
+                                        <button type="submit"                                               
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="id" /> </td>
+                                <td><a href="javascript:;">afa</a></td>
+                                <td>
+                                	<switcher ng-model="agentRule.status" true-value="'1'" false-value="'0'" class="styled ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty" ng-change="vm.changeStatus(agentRule)"><div class="switcher active" ng-class="{active:shadowModel,disabled:disabled}"><span class="switcher-label false ng-binding" ng-bind-html="trustedHtml(falseLabel)" ng-click="set(false)">Off</span><label class="switcher-line"><input type="checkbox" ng-model="shadowModel" ng-disabled="disabled" ng-change="onChange()" class="ng-pristine ng-untouched ng-valid ng-not-empty"></label><span class="switcher-label true ng-binding" ng-bind-html="trustedHtml(trueLabel)" ng-click="set(true)">On</span></div></switcher>
+                                </td>
+                                <td>2019-01-10T16:20:40Z</td>
+                                <td>
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            编辑
+                                        </button>
+                                        <button type="submit"                                               
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="id" /> </td>
+                                <td><a href="javascript:;">gdpoc</a></td>
+                                <td>
+                                	<switcher ng-model="agentRule.status" true-value="'1'" false-value="'0'" class="styled ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty" ng-change="vm.changeStatus(agentRule)"><div class="switcher active" ng-class="{active:shadowModel,disabled:disabled}"><span class="switcher-label false ng-binding" ng-bind-html="trustedHtml(falseLabel)" ng-click="set(false)">Off</span><label class="switcher-line"><input type="checkbox" ng-model="shadowModel" ng-disabled="disabled" ng-change="onChange()" class="ng-pristine ng-untouched ng-valid ng-not-empty"></label><span class="switcher-label true ng-binding" ng-bind-html="trustedHtml(trueLabel)" ng-click="set(true)">On</span></div></switcher>
+                                </td>
+                                <td>2019-01-10T16:20:40Z</td>
+                                <td>
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            查看
+                                        </button>
+                                        <button type="submit"                                                
+                                                class="btn-reset">
+                                            编辑
+                                        </button>
+                                        <button type="submit"                                               
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                           <!--  <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据加载中...</td>
+                            </tr> -->
+                    	</tbody>
+                            
+                        <!-- </tbody> -->
+                    </table>
+
+            </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-click="vm.selectAll(_status)" ng-model="_status" class="select-all" value=""/>
+</script>
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">归档任务</h3>
+    <small class="text-muted h5 font-title-des">归档任务设置和操作</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                    <!-- <span class="font13">归档文件</span> -->
+                    <button class="btn btn-primary" ng-click="vm.method.showSettingModal()">
+                        <i class="fa fa-plus"></i>
+                        新建
+                    </button>
+                    <!--<button class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;删除</button>-->
+                    <!--<full-size></full-size>-->
+                </div>
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm"
+                                   ng-model="vm.globalSearchTerm" required/>
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit"
+                                    ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                    <!--<p class="">-->
+                        <!--<button type="button" class="btn btn-sm btn-primary" ng-click="vm.test()" ng-disabled="!vm.batchStatus"-->
+                               <!--&gt;<span class="glyphicon glyphicon-play"></span> 启动-->
+                        <!--</button>-->
+
+                        <!--<button type="button" class="btn btn-sm btn-danger" ng-click="vm.batchStop()" ng-disabled="!vm.batchStatus"-->
+                               <!--&gt;<span class="glyphicon glyphicon-stop"></span> 停止-->
+                        <!--</button>-->
+                    <!--</p>-->
+                    <div class="table-responsive">
+                        <table class="table" ng-table="vm.tableParams">
+                            <!--{-->
+                            <!--"id" : 66,-->
+                            <!--"archiveName" : "归档模块1",-->
+                            <!--"indexRange" : "index_aa",-->
+                            <!--"modifiedTime" : "2019-08-29T03:52:34+08:00",-->
+                            <!--"modifiedBy" : "admin",-->
+                            <!--"createdTime" : "2019-07-16T15:08:27+08:00",-->
+                            <!--"createdBy" : "admin",-->
+                            <!--"status" : 0,-->
+                            <!--}-->
+                            <!--"xxlJobJson" : {-->
+                            <!--"alarmEmail" : "",-->
+                            <!--"glueUpdatetime" : 1567049734000,-->
+                            <!--"executorParam" : "66",-->
+                            <!--"jobStatus" : "PAUSED",-->
+                            <!--"addTime" : 1567049734000,-->
+                            <!--"executorBlockStrategy" : "SERIAL_EXECUTION",-->
+                            <!--"author" : "liangrui",-->
+                            <!--"executorRouteStrategy" : "FIRST",-->
+                            <!--"childJobId" : "",-->
+                            <!--"jobCron" : "0 */1 * * * ?",-->
+                            <!--"updateTime" : 1567133691000,-->
+                            <!--"jobGroup" : 2,-->
+                            <!--"glueRemark" : "GLUE代码初始化",-->
+                            <!--"jobDesc" : "测试接口",-->
+                            <!--"glueSource" : "",-->
+                            <!--"executorFailStrategy" : "FAIL_ALARM",-->
+                            <!--"glueType" : "BEAN",-->
+                            <!--"executorHandler" : "demoJobHandler",-->
+                            <!--"id" : 1-->
+                            <!--}-->
+                            <tr ng-repeat="file in $data track by $index">
+                                <!--<td header="'headerCheckbox.html'">-->
+                                    <!--<input type="checkbox" name="id" ng-model="vm.selected[file.id]"/>-->
+                                <!--</td>-->
+                                <td data-title="'归档名称'" sortable="'archiveName'">{{file.archiveName}}</td>
+                                <!--<td data-title="'归档周期'" sortable="'cycle'">{{vm.cronChangeDate(file.xxlJobJson.jobCron).loopType==='WEEKLY'?'周':'天'}}</td>-->
+                                <td data-title="'归档时间'" sortable="'startTime'">
+                                    <span ng-if="vm.cronChangeDate(file.xxlJobJson.jobCron).loopType==='WEEKLY'">
+                                        每周{{vm.fromNumToDay(vm.cronChangeDate(file.xxlJobJson.jobCron).loopValue)}}
+                                    </span>
+                                    <span ng-if="vm.cronChangeDate(file.xxlJobJson.jobCron).loopType==='DAILY'">
+                                        每天
+                                    </span>
+                                    {{(vm.returnDate(vm.cronChangeDate(file.xxlJobJson.jobCron).loopTime)) | date:'HH:mm'}}
+                                </td>
+                                <td data-title="'索引范围'" sortable="'indexRange'">{{file.indexRange}}</td>
+                                <td data-title="'创建时间'" sortable="'createdTime'">{{file.modifiedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td data-title="'操作用户'" sortable="'modifiedBy'">{{file.modifiedBy}}</td>
+                                <td data-title="'是否删除日志'" sortable="'isDelete'">{{file.isDelete?'是':'否'}}</td>
+
+                                <td data-title="'状态'" sortable="'status'">
+                                    <span ng-if="file.xxlJobJson.triggerStatus==0">
+                                        <span class="label label-warning">停止</span>
+                                    </span>
+                                    <span ng-if="file.xxlJobJson.triggerStatus==1">
+                                        <span class="label label-success">运行</span>
+                                    </span>
+                                </td>
+
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <!--<button type="submit"-->
+                                                <!--ng-click="vm.method.showSearchModal(file)"-->
+                                                <!--class="btn-reset">-->
+                                            <!--查看-->
+                                        <!--</button>-->
+                                        <button type="submit"
+                                                ng-click="vm.method.showMidifyModal(file)"
+                                                class="btn-reset">
+                                            修改
+                                        </button>
+                                        <button type="submit" class="btn-reset" ng-click="vm.method.tigger(file)">执行</button>
+                                        <button type="submit" class="btn-reset" ng-click="vm.method.stop(file)" ng-if="file.xxlJobJson.triggerStatus==1">暂停</button>
+                                        <button type="submit" class="btn-reset" ng-click="vm.method.start(file)"  ng-if="file.xxlJobJson.triggerStatus==0">启动</button>
+                                        <button type="submit"
+                                                ng-click="vm.method.showDeleteModal(file)"
+                                                class="btn-reset text-delete">
+                                            删除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

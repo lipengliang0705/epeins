@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title" id="myAgentHostLabel">详情： <span>介质</span> {{vm.agent.id}}</h4>
+</div>
+<div class="modal-body"> 
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="entity-details">
+        <dt><span>名称</span></dt>
+        <dd>
+            <span>{{vm.agent.name}}</span>
+        </dd>
+        <dt><span>版本</span></dt>
+        <dd>
+            <span>{{vm.agent.version}}</span>
+        </dd>
+        <dt><span>数据源</span></dt>
+        <dd>
+            <span>{{vm.agent.sourcePath}}</span>
+        </dd>
+        <dt><span>脚本路径</span></dt>
+        <dd>
+            <span>{{vm.agent.scriptPath}}</span>
+        </dd>
+        <dt><span>描述</span></dt>
+        <dd>
+            <span>{{vm.agent.description}}</span>
+        </dd>
+        <!-- <dt><span>状态</span></dt>
+        <dd>
+            <span><switcher ng-model="vm.agent.status"
+                  true-value="'1'"
+                  false-value="'0'"
+                  class="styled"
+                >
+            </switcher></span>
+        </dd> -->
+    </dl> 
+</div>
+
+<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>取消</span>
+    </button>
+
+
+    <button type="button" ui-sref="agent-detail.edit({id:vm.agent.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> 编辑</span>
+    </button> -->
+</div>

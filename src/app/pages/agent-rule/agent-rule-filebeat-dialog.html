@@ -1,0 +1,182 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建/编辑 FileBeat远程采集规则</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.agentRule.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" ng-model="vm.agentRule.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.agentRule.name" required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ruleType">规则类型</label>
+            <input type="text" class="form-control" name="ruleType" id="field_ruleType" ng-model="vm.agentRule.ruleType" required/>
+            
+            <div ng-show="editForm.ruleType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.ruleType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_detail">详情</label>
+            <input type="text" class="form-control" name="detail" id="field_detail" ng-model="vm.agentRule.detail" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_sourceType">来源类型</label>
+            <ul class="set-list" ng-model="vm.setValue">
+                <li ng-class="{ 'active' : vm.setList.current == 1 }" ng-click="vm.setActions.setCurrent(1)">
+                    <label><input type="radio" name="1" value="fail" checked="checked"> fail</label>
+                </li>
+                <li ng-class="{ 'active' : vm.setList.current == 2 }" ng-click="vm.setActions.setCurrent(2)">
+                    <label><input type="radio" name="1" value="spool"> spool</label>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="form-group">
+            <!-- <label class="control-label" for="field_conf">配置</label> -->
+            <div class="">
+                <div class="col-sm-12 col-md-12">
+
+                    <uib-accordion close-others="oneAtATime">
+                            <div uib-accordion-group class="panel-default" is-open="true">
+                              <uib-accordion-heading>
+                                基本设置
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                              </uib-accordion-heading>
+                               <div ng-if="vm.setList.current == 1">
+                                <div class="form-group">
+                                    <label>文件路径</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <label>编码类型</label>
+                                    <ul class="type-list">
+                                        <li><label><input type="radio" name="2" value="Plain"> Plain</label></li>
+                                        <li><label><input type="radio" name="2" checked="checked" value="utf-8"> utf-8</label></li>
+                                        <li><label><input type="radio" name="2" value="jbk"> jbk</label></li>
+                                       
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <label >忽略文件</label>
+                                    <input type="text" class="form-control" >
+                                    <p class="tip-gray">*支持正则表达式</p>
+                                </div>    
+                                   
+                               </div>
+
+                               <div ng-if="vm.setList.current == 2">
+                               
+                                    <ul class="set-list">
+                                        <li><label><input type="checkbox" name="1" value="CPU"> CPU</label></li>
+                                        <li><label><input type="checkbox" name="1" value="Load"> Load</label></li>
+                                    
+                                    </ul>
+                                    <div class="interval-time"><span>间隔时间：</span>
+                                        <select class="form-control">
+                                            <option>10秒</option>
+                                            <option>30秒</option>
+                                            <option>1分钟</option>
+                                            <option>1小时</option>
+                                        </select>
+                                    </div>
+                               </div>
+
+                                 
+                            </div>
+                     </uib-accordion>
+
+                    <uib-accordion close-others="oneAtATime">
+                            <div uib-accordion-group class="panel-default" is-open="status.open">
+                              <uib-accordion-heading>
+                                高级设置
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                              </uib-accordion-heading>
+                                  <div class="form-group">
+                                        <label >不采集行</label>
+                                        <input type="text" class="form-control" >
+                                  </div> 
+                                  <div class="form-group">
+                                        <label >Button设置大小</label>
+                                        <input type="text" class="form-control" >
+                                  </div> 
+                                  <div class="form-group">
+                                        <label >多行采集正则</label>
+                                        <input type="text" class="form-control" >
+                                  </div> 
+                            </div>
+                     </uib-accordion>
+                </div>
+            </div>
+            <!-- <input type="text" class="form-control" name="conf" id="field_conf" ng-model="vm.agentRule.conf" /> -->
+        </div>
+        <div class="form-group">
+            <label for="field_agentHost">目标主机</label>
+            <select class="form-control" id="field_agentHost" name="agentHost" ng-model="vm.agentRule.agentHost" ng-options="agentHost as agentHost.name for agentHost in vm.agenthosts track by agentHost.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_category">业务</label>
+            <select class="form-control" id="field_category" name="category" ng-model="vm.agentRule.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                <option value=""></option>
+            </select>
+        </div>
+         <div class="form-group" ng-if="vm.agentRule.id">
+            <label for="field_category">状态</label>
+            <switcher ng-model="vm.agentRule.status"
+                  true-value="'1'"
+                  false-value="'0'"
+                  class="styled"
+                >
+            </switcher>
+           <!--  <switch 
+                color="primary" 
+                id="field_status"
+                type="checkbox"
+                ng-model="vm.agentRule.status"
+                ng-change="vm.changeStatus(vm.agentRule)" 
+                ng-true-value=1
+                ng-false-value=0
+                for="field_status"
+                name="status"></switch> -->
+           <!-- <input
+                bs-switch
+                switch-size="small"
+                ng-model="vm.agentRule.status"
+                type="checkbox"
+                ng-change="vm.changeStatus(vm.agentRule)"
+                ng-true-value=1
+                ng-false-value=0
+                for="field_status"
+                name="status"
+                class="form-control"> -->
+        </div> 
+
+    </div>
+    <div class="modal-footer"> 
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+           <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

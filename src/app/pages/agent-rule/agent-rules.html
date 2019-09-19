@@ -1,0 +1,155 @@
+<script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-click="vm.selectAll(_status)" ng-model="_status" class="select-all" value="" />
+</script>
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">探针管理</h3>
+    <small class="text-muted h5 font-title-des">数据采集客户端探针管理</small>
+</div>
+<div class="panel">
+    <!--<div class="panel-heading">下载：-->
+       <!--<a class="btn btn-primary" href="">Flume的打包介质</a>-->
+        <!--<span><a class="btn btn-primary" href="">HP-UX脚本</a></span>-->
+        <!--<span><a class="btn btn-primary" href="">X86脚本</a></span>-->
+        <!--<span><a class="btn btn-primary" href="">AIX脚本</a></span>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+        <!--<div><a href="">Flume的打包介质</a></div>-->
+        <!--<div>-->
+            <!--<a href="">HP-UX脚本</a>-->
+            <!--<a href="">X86脚本</a>-->
+            <!--<a href="">AIX脚本</a>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+<div class="wrapper" >
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                  <button class="btn btn-primary" ui-sref="agent-rule.new-flume"><i class="fa fa-plus"></i>&nbsp;新建</button>
+                  <full-size></full-size>
+                </div>
+                <div class="panel-body" style="overflow: auto">
+                    <!-- <form class="input-group">
+                        <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="searchFilter">
+
+                    </form> -->
+                    <div class="table-responsive">
+                         <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                            <div class="input-group">
+
+                              <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                                  <span class="ion-search"></span>
+                              </button>
+                              </span>
+                            </div>
+                        </form>
+                        <!--<p class="">-->
+
+                            <!--<button type="button" class="btn btn-sm btn-primary" ng-click="vm.start()" ng-disabled="!vm.batchStatus">  <span class="glyphicon glyphicon-play"></span>   启动</button>-->
+
+                            <!--<button type="button" class="btn btn-sm btn-danger" ng-click="vm.stop()" ng-disabled="!vm.batchStatus">  <span class="glyphicon glyphicon-stop"></span>   停止</button>-->
+                            <!--&lt;!&ndash;<button type="button" class="btn btn-sm btn-primary" ng-click="vm.deploy()" ng-disabled="!vm.batchStatus">  <span class="glyphicon glyphicon-cloud-download"></span>   部署</button>&ndash;&gt;-->
+                        <!--</p>-->
+                        <table  class="table" ng-table="vm.tableParams">
+                                <tr ng-repeat="agentRule in $data track by $index">
+                                    <!--<td header="'headerCheckbox.html'" data-title="'选择'"><input type="checkbox" name="id" ng-model="vm.selected[agentRule.id]" /> </td>-->
+
+                                   <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="agent-rule-detail({id:agentRule.id})">{{agentRule.id}}</a></td> -->
+                                    <!-- <td data-title="'业务'" sortable="'category.name'">
+                                        <a ui-sref="category-detail({id:agentRule.category.id})">{{agentRule.category.name}}</a>
+                                    </td> -->
+                                    <td data-title="'目标主机'" sortable="'agentHost.name'">
+                                        <!--<a ui-sref="agent-host-detail({id:agentRule.agentHost.id})">{{agentRule.agentHost.name}}</a>-->
+                                        {{agentRule.agentHost.name}}
+                                    </td>
+                                    <td data-title="'名称'" sortable="'name'">{{agentRule.name}}</td>
+                                    <!-- <td data-title="'别名'" sortable="'alias'">{{agentRule.alias}}</td> -->
+                                    <td data-title="'部署路径'" sortable="'deployPath'">{{agentRule.deployPath}}</td>
+                                    <td data-title="'描述'" sortable="'description'">{{agentRule.description}}</td>
+                                    <!--<td data-title="'部署状态'" sortable="'deployStatus'">{{agentRule.deployStatus?'已部署':'未部署'}}</td>-->
+                                    <!-- <td data-title="'来源类型'" sortable="'sourceType'">{{agentRule.sourceType}}</td> -->
+                                    <!-- <td data-title="'详情'" sortable="'detail'">{{agentRule.detail}}</td> -->
+                                    <!-- <td data-title="'配置'" sortable="'conf'">{{agentRule.conf}}</td> -->
+                                    <!-- <td data-title="'采集文件/文件夹'">{{agentRule.conf.spoolDir}}{{agentRule.conf.tailFile}}</td>  -->
+                                    <td data-title="'探针状态'">
+                                        <!--<switcher ng-model="agentRule.status"-->
+                                                     <!--true-value="'1'"-->
+                                                     <!--false-value="'0'"-->
+                                                     <!--class="styled"-->
+                                                     <!--ng-change="vm.changeStatus(agentRule)"-->
+                                                   <!--&gt;-->
+                                        <!--</switcher>-->
+
+                                        <!--<switcher ng-model="agentRule.status"-->
+                                                  <!--true-value="true"-->
+                                                  <!--false-value="false"-->
+                                                  <!--class="styled"-->
+                                                  <!--ng-change="vm.setActive(user, user.activated?false:true)"-->
+                                        <!--&gt;-->
+                                        <!--</switcher>-->
+                                        <span class="label label-success" ng-if="agentRule.status==1">在线</span>
+                                        <span class="label label-warning" ng-if="agentRule.status==0">离线</span>
+                                    </td>
+                                    <td class="text-right" data-title="'操作'" >
+                                        <div class="btn-group" style="width:100px">
+                                            <button type="submit"
+                                                    ui-sref="agent-rule-detail({id:agentRule.id})"
+                                                    class="btn-reset">
+                                                查看
+                                            </button>
+                                            <button type="submit"
+                                                    ng-click="vm.openEdit(agentRule.id, agentRule.ruleType)"
+                                                    class="btn-reset">
+                                                编辑
+                                            </button>
+                                            <button type="submit"
+                                                    ng-click="vm.scan(agentRule)"
+                                                    class="btn-reset" ng-disabled="agentRule.scaning" >
+                                                <span ng-if="agentRule.scaning">扫描中...</span>
+                                                <span  ng-if="!agentRule.scaning">扫描</span>
+
+                                            </button>
+                                            <button type="submit" class="btn-reset" ng-click="vm.changeStatus(agentRule)" ng-if="agentRule.status==0">启动</button>
+                                            <button type="submit" class="btn-reset" ng-click="vm.changeStatus(agentRule)" ng-if="agentRule.status==1">停止</button>
+                                            <button type="submit"
+                                                    ui-sref="host-monitor({agentId:agentRule.id})"
+                                                    class="btn-reset">
+                                                监控
+                                            </button>
+
+                                            <!--<button type="submit"-->
+                                                    <!--class="btn-reset">-->
+                                                <!--启动-->
+                                            <!--</button>-->
+
+                                            <!--<button type="submit"-->
+                                                    <!--class="btn-reset text-delete">-->
+                                                <!--停止-->
+                                            <!--</button>-->
+                                            <button type="submit"
+                                                    ui-sref="agent-rule.delete({id:agentRule.id})"
+                                                    class="btn-reset text-delete">
+                                                删除
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="10" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                           <!--  </tbody> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

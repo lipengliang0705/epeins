@@ -1,0 +1,51 @@
+<!-- <div class="modal-header"> -->
+<div class="row" style="margin: 5px">  
+    <div class="col-sm-10">
+      背景色<spectrum-colorpicker ng-model="group.backgroundColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+      标题背景<spectrum-colorpicker ng-model="group.titleBgColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+      <!-- 主题<select ng-model="theme"  ng-change="chgTheme()">   
+        <option value="dark">dark</option>
+      	<option value="macarons">macarons</option>
+        <option value="shine">shine</option>
+        <option value="rome">roma</option>
+        <option value="vintage">vintage</option>
+        <option value="infographic">infographic</option>
+      </select> &nbsp; -->
+      图形背景<spectrum-colorpicker ng-model="widget.attrs.config.backgroundColor" format="'hex3'" options="colorPicker1"></spectrum-colorpicker>
+    </div>
+    <button class="btn btn-warning pull-right" ng-click="ok($event)">关闭</button>
+</div>
+<!-- <div class="row" style="margin: 5px">  
+    <div class="col-sm-10">
+      背景色<spectrum-colorpicker ng-model="backgroundColor" format="'hex3'" options="colorPicker1" on-hide="chgBackground(color)"></spectrum-colorpicker>
+      标题背景<spectrum-colorpicker ng-model="titleBgColor" format="'hex3'" options="colorPicker1" on-hide="chgTitleBgColor(color)"></spectrum-colorpicker>
+
+      主题:<select ng-model="theme" ng-change="chgTheme()">   
+        <option value="dark">dark</option>
+        <option value="macarons">macarons</option>
+        <option value="shine">shine</option>
+        <option value="rome">roma</option>
+        <option value="vintage">vintage</option>
+        <option value="infographic">infographic</option>
+      </select> &nbsp;
+      图形背景：<spectrum-colorpicker ng-model="bgcolor" format="'hex3'" options="colorPicker1" on-hide="chgChartBackground(color)"></spectrum-colorpicker>
+    </div>
+    <button class="btn btn-warning pull-right" ng-click="ok($event)">关闭</button>
+</div> -->
+
+<!-- <div class="modal-body"> -->
+<div class="row" style="margin: 5px">
+    <div class="form-group col-sm-3" ng-show="widget.category==null">
+      <label>类别</label>
+      <select ng-model="widget.category" class="form-control" ng-options="item.value as item.name for item in widgetCategories" ng-change="selCategory(widget)">
+      </select> 
+    </div>
+
+
+	<!-- <div ng-include="configTemplate"></div> -->
+	<div ng-include="'app/pages/dashboard-builder/config/mu-echarts-config.html'" ng-if="widget.category=='mu-echarts'"></div>
+  <div ng-include="'app/pages/dashboard-builder/config/mu-table-config.html'" ng-if="widget.category=='ng-table-factory'"></div>
+	<!-- <div ng-include="'app/pages/dashboard-builder/config/mu-table-config.html'" ng-if="['ng-table-factory','html-bind'].includes(widget.category)"></div> -->
+
+
+</div>

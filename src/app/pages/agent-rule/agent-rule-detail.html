@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title" id="myAgentHostLabel">详情： <span>远程采集规则</span> {{vm.agentRule.id}}</h4>
+</div>
+<div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="entity-details">
+        <!--<dt><span>别名</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.alias}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>规则类型</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.ruleType}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>详情</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.detail}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>来源类型</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.sourceType}}</span>-->
+        <!--</dd>-->
+
+        <!--<dt><span>示例</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.example}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>配置</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.conf}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>主题</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.topic}}</span>-->
+        <!--</dd>-->
+        <!--<dt><span>数据源</span></dt>-->
+        <!--<dd>-->
+            <!--<span>{{vm.agentRule.dataSource.id}}</span>-->
+            <!--&lt;!&ndash; <a ui-sref="data-source-detail({id:vm.agentRule.dataSource.id})">{{vm.agentRule.dataSource.id}}</a> &ndash;&gt;-->
+        <!--</dd>-->
+        <dt><span>目标主机</span></dt>
+        <dd>
+            <span>{{vm.agentRule.agentHost.name}}</span>
+            <!-- <a ui-sref="agent-host-detail({id:vm.agentRule.agentHost.id})">{{vm.agentRule.agentHost.id}}</a> -->
+        </dd>
+        <dt><span>名称</span></dt>
+        <dd>
+            <span>{{vm.agentRule.name}}</span>
+        </dd>
+        <dt><span>部署路径</span></dt>
+        <dd>
+            <span>{{vm.agentRule.deployPath}}</span>
+        </dd>
+        <dt><span>描述</span></dt>
+        <dd>
+            <span>{{vm.agentRule.description}}</span>
+        </dd>
+        <dt><span>探针状态</span></dt>
+        <dd>
+            <span>{{vm.agentRule.status==1?'在线':'离线'}}</span>
+        </dd>
+        <!--<dt><span>业务</span></dt>-->
+        <!--<dd>-->
+           <!--<span>{{vm.agentRule.category.name}}</span>-->
+           <!--&lt;!&ndash; <a ui-sref="category-detail({id:vm.agentRule.category.id})">{{vm.agentRule.category.id}}</a> &ndash;&gt;-->
+        <!--</dd>-->
+        
+    </dl>
+ 
+</div>
+<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>取消</span>
+    </button>
+
+
+    <button type="button" ui-sref="agent-rule-detail.edit({id:vm.agentRule.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> 编辑</span>
+    </button> -->
+</div>

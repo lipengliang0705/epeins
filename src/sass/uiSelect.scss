@@ -1,0 +1,6 @@
+body > .ui-select-bootstrap.open{
+  z-index: 1100;
+  .ui-select-match-item.btn{
+    color:inherit;
+  }
+}

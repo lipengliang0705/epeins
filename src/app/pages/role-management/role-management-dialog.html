@@ -1,0 +1,81 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentLabel">创建/编辑 角色</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>  
+        <div class="form-group" ng-show="vm.role.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.role.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name"  maxlength="20" id="field_name" ng-pattern="/^[_A-Z]*$/"
+                    ng-model="vm.role.name"
+                    required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength">
+                    您输入的字符不能超过20个
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.pattern">
+                    有效输入[_A-Z]
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="resources">选择业务组</label>
+            <select  class="form-control" name="resources" id="resources"
+                     ng-model="vm.role.businessGroup" ng-options="menu as menu.name for menu in vm.resourceGroups track by menu.id"
+                     required>
+            </select>
+            <div ng-show="editForm.resources.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.resources.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">选择菜单</label>
+            <select  class="form-control" name="menuTree" id="field_menuTree"
+                     ng-model="vm.role.menuTree" ng-options="menu as menu.name for menu in vm.menus track by menu.id"
+                     required>
+            </select>
+            <div ng-show="editForm.menuTree.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.menuTree.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">描述</label>
+            <input type="text" class="form-control" name="description"  maxlength="100" id="field_description"
+                    ng-model="vm.role.description" />
+            <div ng-show="editForm.description.$invalid"> 
+                <p class="help-block" ng-show="editForm.description.$error.maxlength">
+                    您输入的字符不能超过100个
+                </p>
+            </div>
+        </div> 
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,33 @@
+<div class="popover-header">
+    <p>{{sub.name}}</p>
+    <div class="content">
+        <div class="search-bar">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text" class="form-control form-control-s" ng-model="search"> {{search}}
+        </div>
+        <i class="fa fa-times" aria-hidden="true" title="关闭" ng-click="sub.onOff()"></i>
+    </div>
+</div>
+
+<div class="widget">
+    <div class="popover-body">
+        <ul class="popover-list">
+            <li>
+                <div>字段</div>
+                <div>事件数</div>
+            </li>
+            <li ng-repeat="item in sub.sub">
+                <div>
+                    <label style="font-weight:normal;">
+                        <input type="checkbox" name="sub.name" ng-model="item.status"> {{item.name}}
+                    </label>
+                </div>
+                <div>{{item.value}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="sub.filterAggregations(item,sub, 0)">屏蔽选中字段</button>
+        <button class="btn btn-primary" ng-click="sub.filterAggregations(item,sub, 1)">查询选中字段</button>
+    </div>
+</div>

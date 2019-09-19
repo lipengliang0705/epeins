@@ -1,0 +1,75 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        业务分组管理
+        <!-- <button class="btn btn-primary pull-right" ng-click="vm.method.showAddModal()">新建</button> -->
+    </h3>
+     <small class="text-muted h5 font-title-des">对业务进行统一分组管理</small>
+</div>
+
+<div class="wrapper" id="knowledge-base">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <!-- <div class="panel-heading">
+                        <button class="btn btn-primary">新建</button>
+                    </div> -->
+                <div class="panel-heading">
+                    <button class="btn btn-primary" ng-click="vm.method.showAddModal()">
+                        <i class="fa fa-plus"></i>
+                        &nbsp;新建
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                    <table  class="table" ng-table="vm.tableParams">
+
+                        <tbody>
+                        <tr ng-repeat="item in vm.tableParams.data track by $index">
+                            <!--<td  data-title="'id'" sortable="'id'">-->
+                                <!--<a href="">{{item.id}}</a>-->
+                            <!--</td>-->
+                            <td data-title="'分组名'" sortable="'name'">{{item.name}}</td>
+                            <!--<td>-->
+                            <!--{{item.type}}-->
+                            <!--</td>-->
+                            <td data-title="'描述'" sortable="'description'">
+                                {{item.description}}
+                            </td>
+                            <td  data-title="'等级'" sortable="'level'">
+                                <span ng-if="item.level==0">不重要</span>
+                                <span ng-if="item.level==1">一般</span>
+                                <span ng-if="item.level==2">重要</span>
+                            </td>
+                            <td data-title="'操作'">
+                                <a href="" ng-click="vm.method.showMidifyModal(item)" style="margin-right: 10px;">
+                                    编辑
+                                </a>
+                                <a href="" ng-click="vm.method.showDeleteModal(item)" style="color: red">
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

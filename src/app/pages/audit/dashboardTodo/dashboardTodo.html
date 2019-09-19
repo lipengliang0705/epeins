@@ -1,0 +1,30 @@
+<style>
+    ul.todo-list li{
+        cursor: pointer;
+    }
+</style>
+<div class="task-todo-container" ng-class="{'transparent': transparent}">
+    <form>
+        <!--<input date-range-picker options="dateRangeOptions" ng-model="dateRange" on-change="handleChangeDate()"-->
+               <!--class="form-control task-todo"-->
+               <!--type="text"/>-->
+        <div class="box-shadow-border"></div>
+        <ul class="todo-list">
+            <li ng-repeat="item in todoList track by $index" ng-init="activeItem=false"
+                ng-class="{checked: true, active: activeItem}"
+                ng-mouseenter="activeItem=true"
+                ng-mouseleave="activeItem=false"
+                ng-click="handleSelectItem($index)"
+            >
+                <div class="blur-container">
+                    <div class="blur-box"></div>
+                </div>
+                <i class="mark" style="background-color: {{::item.color}}"></i>
+                <label class="todo-checkbox custom-checkbox custom-input-success">
+                    <input type="radio" name="selected" value="{{$index}}" ng-model="selected">
+                    <span class="cut-with-dots">{{ item.text }}</span>
+                </label>
+            </li>
+        </ul>
+    </form>
+</div>

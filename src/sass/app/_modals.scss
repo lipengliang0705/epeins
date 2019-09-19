@@ -1,0 +1,138 @@
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+  color: #333333;
+}
+.modal-backdrop.in{
+  filter: alpha(opacity=30);
+  opacity: .3;
+}
+.modal-content{
+  -webkit-box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+}
+.modal-header {
+  color: $label-text;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  .modal-title {
+    color: $dropdown-text;
+  }
+}
+
+.modal-buttons {
+  margin-top: -12px;
+  margin-right: -22px;
+  button {
+    float: left;
+    margin-right: 24px;
+    margin-top: 12px;
+  }
+  &.same-width {
+    button {
+      width: 160px;
+      text-align: center;
+    }
+  }
+}
+
+$modal-input-border: #e7e7e7;
+
+.modal {
+  text-align: center;
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+    .form-control{
+      color: $github-color;
+      font-size: 13px;
+      background-color: transparent;
+      border: 1px solid $modal-input-border;
+      @include placeholderStyle($dropdown-text, 0.9);
+    }
+    .modal-body p, .modal-body div, .modal-body span{
+      color: $dropdown-text;
+    }
+  }
+  .modal-body .btn-primary .fa{
+    color: #fff;
+  }
+  .modal-header {
+    background: #f6f7fb;
+    border-bottom: 0;
+    padding: 12px 15px;
+    h4{
+       font-size: 1.4rem;
+       font-weight: normal;
+       color: #333;
+    }
+    .close{
+      margin-top: -3px;
+      color: #333;
+    }
+  }
+  .modal-xlg{
+    width: 70%!important;
+    .body-scollvh{
+      max-height: calc(100vh - 200px);  
+      overflow-y: auto;
+    }
+  }
+  .modal-footer {
+    border: none;
+    height:44px;
+    padding: 0 15px;
+    .btn-default{
+      color: #333;
+    }
+  }
+  .modal-icon{
+    margin-right: 3px;
+  }
+  .sn-link-close {
+    color: $dropdown-text;
+    font-size: 30px;
+    &:hover {
+      color: $danger;
+    }
+  }
+}
+
+@media screen and (min-width: $resM) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.message-modal {
+  .modal-header {
+    text-align: center;
+    i {
+      font-size: 32px;
+    }
+  }
+  .modal-title {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+    margin-top: 18px;
+  }
+  .modal-body {
+    text-align: center;
+    padding: 0;
+    font-size: 14px;
+  }
+  .modal-footer {
+    margin: 24px 0 12px;
+    text-align: center;
+  }
+}
+.modal-scrolly{
+  overflow-y: auto!important;
+  height: 400px!important;
+}

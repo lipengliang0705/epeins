@@ -1,0 +1,79 @@
+<style>
+    .panel > .panel-heading{
+        padding:10px;
+    }
+    .div-content{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 450px;
+    }
+    .div-contact{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 250px;
+    }
+    .div-title{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100px;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">告警方式配置</h3>
+    <small class="text-muted h5 font-title-des">包括邮件和短信告警方式配置</small>
+</div>
+
+<div class="wrapper" id="knowledge-base">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <div class="panel-heading">
+                    <button class="btn btn-primary" ng-click="vm.method.showAddModal()">
+                        <i class="fa fa-plus"></i>
+                        &nbsp;新建
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <table class="table" ng-table="vm.tableParams">
+                        <tbody>
+                        <tr ng-repeat="item in $data track by $index">
+                            <td data-title="'名称'" sortable="'name'">{{item.name}}</td>
+                            <td data-title="'类型'" sortable="'type'">
+                                <span ng-if="item.type==0">邮箱</span>
+                                <span ng-if="item.type==1">短信</span>
+                            </td>
+                            <td data-title="'接收人'" sortable="'contactWay'">
+                                <div class="div-contact">{{item.contactWay}} </div>
+                            </td>
+
+                            <td data-title="'标题'" sortable="'title'">
+                                <div class="div-title">{{item.title}}</div>
+                            </td>
+                            <td data-title="'内容'" sortable="'content'" width="50">
+                                <div class="div-content">{{item.content}}</div>
+                            </td>
+                            <td data-title="'操作'">
+                                <a href="" ng-click="vm.method.showMidifyModal(item)" style="margin-right: 10px;">
+                                    编辑
+                                </a>
+                                <a href="" ng-click="vm.method.showDeleteModal(item)" style="color: red">
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

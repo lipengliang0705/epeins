@@ -1,0 +1,20 @@
+<form>
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">删除报表</h4>
+    </div>
+    <div class="modal-body">
+        <p style="color: red">你确定删除[{{vm.data.title}}]报表吗？</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.method.cancel()">
+            <!-- <span class="glyphicon glyphicon-ban-circle"></span> -->
+            <span>取消</span>
+        </button>
+
+        <button class="btn btn-primary" ng-click="vm.method.submit(vm.data.id)">
+            <!-- <span class="glyphicon glyphicon-save"></span> -->
+            <span>确定</span>
+        </button>
+    </div>
+</form>

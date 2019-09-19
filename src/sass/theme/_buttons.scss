@@ -1,0 +1,328 @@
+$hover: 24;
+.btn:focus, .btn:active:focus, .btn.active:focus,
+.btn.focus, .btn:active.focus, .btn.active.focus {
+  outline: none;
+}
+
+@mixin styleButton($color, $borderColor) {
+  background: $color;
+  border-color: $borderColor;
+}
+
+@mixin buttonColor($color, $borderColor) {
+  @include styleButton($color, $borderColor);
+
+  &.disabled, &[disabled], fieldset[disabled] &, &.disabled:hover, &[disabled]:hover,
+  fieldset[disabled] &:hover, &.disabled:focus, &[disabled]:focus, fieldset[disabled] &:focus,
+  &.disabled.focus, &[disabled].focus, fieldset[disabled] &.focus, &.disabled:active,
+  &[disabled]:active, fieldset[disabled] &:active, &.disabled.active, &[disabled].active,
+  fieldset[disabled] &.active {
+    // @include styleButton($color, $borderColor + $hover/2);
+    @include styleButton($color, lighten($borderColor, 12));
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &:hover, &:focus, &.focus, &:active, &.active {
+    // @include styleButton($color, $borderColor - $hover);
+    @include styleButton($color, lighten($borderColor, 24));
+  }
+}
+
+@mixin openDropdownButton($color, $dark-color) {
+  // @include styleButton($color, $color - $hover);
+  @include styleButton($color, lighten($color, 24));
+  background-color: $dark-color;
+  border-color: $dark-color;
+}
+
+.open > .btn.dropdown-toggle {
+  &.btn.btn-primary {
+    @include openDropdownButton($primary, $primary-dark)
+  }
+  &.btn-success {
+    @include openDropdownButton($success, $success-dark)
+  }
+  &.btn-info {
+    @include openDropdownButton($info, $info-dark)
+  }
+  &.btn-warning {
+    @include openDropdownButton($warning, $warning-dark)
+  }
+  &.btn-danger {
+    @include openDropdownButton($danger, $danger-dark)
+  }
+  &.btn-black {
+    @include openDropdownButton($black, $black-dark)
+  }
+}
+
+a.btn.btn-primary {
+  font-size: 13px!important;
+  @include buttonColor($primary, $primary);
+  &:active, &:target {
+    background-color: $primary-dark;
+  }
+}
+
+button.btn.btn-primary {
+  font-size: 13px!important;
+  @include buttonColor($primary, $primary);
+  &:active, &:target {
+    background-color: $primary-dark;
+  }
+}
+
+button.btn.btn-default {
+  border-width: 1px;
+  color: $default-text;
+  font-size: 13px!important;
+  @include buttonColor(transparent, $border);
+  &:active, &:target {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: $default-text;
+  }
+}
+
+button.btn.btn-black {
+  @include buttonColor($black, $black);
+  &:active, &:target {
+    background-color: $black-dark;
+  }
+}
+
+button.btn.btn-success {
+  font-size: 13px!important;
+  @include buttonColor($success, $success);
+  &:active, &:target {
+    background-color: $success-dark;
+  }
+}
+
+button.btn.btn-info {
+  @include buttonColor($info, $info);
+  &:active, &:target {
+    background-color: $info-dark;
+  }
+}
+
+button.btn.btn-warning {
+  @include buttonColor($warning, $warning);
+  &:active, &:target {
+    background-color: $warning-dark;
+  }
+}
+
+button.btn.btn-danger {
+  @include buttonColor($danger, $danger);
+  &:active, &:target {
+    background-color: $danger-dark;
+  }
+}
+
+
+button.btn.btn-inverse {
+  @include buttonColor($help-text, $help-text);
+  color: $label-text;
+  &:active, &:target, &:hover {
+    background-color: $help-text;
+    color: $label-text;
+  }
+}
+
+.btn-with-icon {
+  i {
+    margin-right: 10px;
+  }
+}
+
+.btn-group, .btn-toolbar {
+  :hover {
+    transform: none;
+  }
+}
+
+@mixin buttonGroupColor($color) {
+  // border-color: $color - $hover/2;
+  border-color: lighten($color, 12);
+  // @include styleButton($color, lighten($borderColor, 24%));
+  &:hover {
+    // border-color: $color - $hover;
+    border-color: lighten($color, 24);
+  }
+}
+
+.btn-group {
+  button.btn.btn-primary {
+    @include buttonGroupColor($primary);
+  }
+  button.btn.btn-danger {
+    @include buttonGroupColor($danger);
+  }
+  button.btn.btn-info {
+    @include buttonGroupColor($info);
+  }
+  button.btn.btn-success {
+    @include buttonGroupColor($success);
+  }
+  button.btn.btn-warning {
+    @include buttonGroupColor($warning);
+  }
+ .btn.btn-black {
+    @include buttonGroupColor($black);
+  }
+  .dropdown-menu {
+    margin-top: 0px;
+  }
+}
+
+.btn-toolbar {
+  display: inline-block;
+}
+
+.btn .caret {
+  margin-left: 2px;
+}
+
+@mixin progressButtonColor($btnColor) {
+  border-radius: 0;
+  .content {
+    &:after, &:before {
+      color: darken($btnColor, 40);
+    }
+  }
+
+  &.progress-button-style-move-up, &.progress-button-style-slide-down {
+    .content {
+      background-color: darken($btnColor, 10);
+    }
+  }
+
+  &.progress-button-style-lateral-lines .progress-inner {
+    border-color: darken($btnColor, 10);
+    background: 0 0;
+  }
+
+  .progress {
+    background-color: darken($btnColor, 10);
+    box-shadow: 0 1px 0 darken($btnColor, 10);
+  }
+
+  .progress-inner {
+    background-color: darken($btnColor, 20);
+  }
+  &.progress-button-perspective {
+    background: none;
+    .content {
+      background-color: $btnColor;
+    }
+  }
+}
+
+button.progress-button {
+
+  .progress {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  &:hover {
+    transform: none;
+  }
+
+  &.progress-button-style-shrink.btn.disabled.progress-button-dir-horizontal:hover {
+    transform: scaleY(.3);
+  }
+  &.progress-button-style-shrink.btn.disabled.progress-button-dir-vertical:hover {
+    transform: scaleX(.1);
+  }
+
+  &.btn.btn-primary {
+    @include progressButtonColor($primary);
+  }
+  &.btn.btn-black {
+    @include progressButtonColor($black);
+  }
+
+  &.btn.btn-default {
+    @include progressButtonColor($default);
+  }
+
+  &.btn.btn-success {
+    @include progressButtonColor($success);
+  }
+
+  &.btn.btn-info {
+    @include progressButtonColor($info);
+  }
+
+  &.btn.btn-warning {
+    @include progressButtonColor($warning);
+  }
+
+  &.btn.btn-danger {
+    @include progressButtonColor($danger);
+  }
+}
+
+.btn-raised {
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.35);
+}
+
+.btn-mm {
+  padding: 5px 11px;
+  font-size: 13px;
+}
+
+.btn-xm {
+  padding: 8px 14px;
+  font-size: 16px;
+}
+
+.dropdown button.btn.btn-default.dropdown-toggle {
+  color: $default-text;
+  border: 1px solid $border;
+  background-color: transparent;
+  &:focus, &:active {
+    background-color: $default;
+  }
+}
+
+.bootstrap-select {
+  .dropdown-toggle:focus {
+    outline: none !important;
+  }
+  button.btn-default:focus {
+    color: $default;
+  }
+  .btn {
+    transition: none;
+  }
+}
+.panel .btn{
+  border-radius: 2px!important;
+  font-size: 13px;
+}
+.input-group-btn .searchs-btn{
+  padding: 6px 10px!important;
+}
+.input-group-btn .search-btn,.search-btn{
+  padding: 7px 10px!important;
+}
+.btn{
+  -moz-border-radius: 2px!important; /* Firefox */
+  -webkit-border-radius: 2px!important; /* Safari 和 Chrome */
+  border-radius: 2px!important; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+button.btn.btn-default:active, button.btn.btn-default.active,button.btn.btn-default:hover.active{
+  background-color: #1985f3!important;
+  color: #fff;
+  border-color: #d6d6d6;
+}
+button.btn.btn-default.active span{
+  color: #fff;
+}
+button.btn.btn-default:hover{
+  background-color: #ccc!important;
+  border-color: #d6d6d6;
+}

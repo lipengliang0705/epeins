@@ -1,0 +1,262 @@
+<style type="text/css">
+    .dashcharts{height: 210px !important;}?
+    .imgstate{height: 240px;display: -webkit-flex; display: flex;justify-content:center;align-items:center;}
+    .imglist{ width: 170px; height: 170px; padding: 30px; position: relative; margin: 0 20px; }
+    .imglist img{width: 100%; height: 100%;}
+    .imglist strong{ position: absolute; bottom: 10px; right: 10px; font-size: 18px; }
+</style>
+<div>
+    <div class=" title-wrapper">
+        <h3 class="m-n font-thin h3">告警汇总</h3>
+        <small class="text-muted h5 font-title-des">告警信息分类统计</small>
+   </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">            
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">            
+            <jhi-alert></jhi-alert>
+        </div>
+
+    </div>
+     <div class="row">
+        <div class="col-xs-12 tracker-wrap">
+            <p ng-click="vm.goAlarmInfo()"><i class="fa fa-exclamation-circle"></i>{{vm.unCheckedCount || "0"}}个告警未解决</p>         
+        </div>
+        
+
+    </div>
+    <div class="row">
+    
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 告警计数
+                </div>
+
+                <div class="dashcharts">
+                    <!-- <simple-echarts options="vm.optionEventRule"></simple-echarts> -->
+                    <div mix-chart config="vm.optionCharts.config" data="vm.optionCharts.data" class="charts-xl" ></div>
+                </div> 
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-body"> 
+                <div class="table-responsive">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form> 
+                    <table  class="table" ng-table="vm.tableParams"> 
+                        <tr ng-repeat="alarmResult in $data"> 
+                            <td data-title="'业务名称'" sortable="'alarmRule.eventRule.category.name'">{{alarmResult.categoryName}}</td>
+                            <td data-title="'未读/总数'" sortable="'checked'">
+                                  {{alarmResult.unreadCount}}/{{alarmResult.totalCount}}
+                            </td>  
+                            <td data-title="'最近一条时间'" sortable="'lastTimeAlarm'">{{alarmResult.lastTimeAlarm}}</td>
+                            <td data-title="'操作'">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="tracker-statistics-view({id:alarmResult.categoryName})"
+                                            class="btn btn-info btn-sm">
+                                        <span>统计</span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="tracker-detail({id:alarmResult.categoryName})"
+                                            class="btn btn-primary btn-sm">
+                                        <span>详细</span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                            <!-- ui-sref="alarm-result.delete({id:alarmResult.categoryName})" -->
+                                        <span>报表</span>
+                                        <span class="hidden-sm-down"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+            
+        </div>
+    </div>      
+<!-- 
+    <div class="row">
+        
+        
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default panel-dark panel-hs">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-warning"></i> 告警等级 
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">
+                        <div class="col-lg-12"> 
+                            <div class="dashcharts"><simple-echarts options="vm.optionAlarmLevel"></simple-echarts></div>
+
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
+            <div class="panel panel-default panel-dark">
+                
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> &nbsp;
+                </div>
+                <div class="panel-body panel-utbody" style="height: 310px">
+                    <div class="imgstate">
+                        待定
+
+                    </div>
+                </div>
+
+            </div>            
+        </div>
+    </div> --> 
+
+
+<!--start-->    
+   <!--  <div class="layer-tracker-wrap " ng-class="{'red-warn' : vm.unCheckedCount>0}" >
+        <div class="layer-tracker-bor">
+            <div class="layer-cont" ng-click="vm.goAlarmInfo()" >
+                <span tooltip-placement="bottom" uib-tooltip="{{vm.unCheckedCount}}个告警未解决">
+                 {{vm.unCheckedCount || "0"}}
+                </span>
+            </div>
+        </div>
+    </div> -->
+   <!--  <div class="row">
+        
+    
+        
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 解析规则
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">      
+                        <div class="col-lg-12">  
+                            <div class="dashcharts"><simple-echarts options="vm.optionEventRule"></simple-echarts></div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default panel-dark">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> 业务
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">      
+                        <div class="col-lg-12"> 
+                            <div class="dashcharts"><simple-echarts options="vm.optionAlarmCategory"></simple-echarts></div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>      
+
+    <div class="row">
+        
+        
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default panel-dark panel-hs">
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-warning"></i> 告警等级 
+                </div>
+                <div class="panel-body panel-utbody">
+                    <div class="row">
+                        <div class="col-lg-12"> 
+                            <div class="dashcharts"><simple-echarts options="vm.optionAlarmLevel"></simple-echarts></div>
+                            <div mix-chart config="vm.optionAlarmLevel.config" data="vm.optionAlarmLevel.data"></div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
+            <div class="panel panel-default panel-dark">
+                
+                <div class="panel-heading panel-unhead">
+                    <i class="fa fa-desktop"></i> &nbsp;
+                </div>
+                <div class="panel-body panel-utbody" style="height: 310px">
+                    <div class="imgstate">
+                        待定
+                        <div class="imglist" ng-if="vm.apiCount"><img src="/content/images/alarm-normal.gif" /><strong></strong></div>
+                        <div class="imglist" ng-if="vm.checkedCount>0"><img src="/content/images/alarm-cloudy.gif" /><strong>{{vm.checkedCount || "0"}}</strong></div>
+                        <div class="imglist" ng-if="vm.unCheckedCount>0"><img src="/content/images/alarm-bolt.gif" /><p ng-click="vm.goAlarmInfo()"><strong>{{vm.unCheckedCount || "0"}}</strong></p></div> 
+                       
+                    </div>
+                </div>
+                <div class="panel-body panel-utbody" style="height: 310px">
+                    <div class="row" style="margin-top: 35px" >     
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10 imgdiv"> 
+                            <span ng-if="vm.apiCount"><img src="/content/images/alarm-normal.gif" height="100" width="100"> </span>
+                            <span ng-if="vm.checkedCount>0"><img src="/content/images/alarm-cloudy.gif" height="100" width="100">
+                             <p><strong><h4>{{vm.checkedCount || "0"}}</h4></strong></p></span>
+                            <span ng-if="vm.unCheckedCount>0"><img src="/content/images/alarm-bolt.gif" height="100" width="100">
+                             <p><strong><h4>{{vm.unCheckedCount || "0"}}</h4></strong></p></span> 
+                        </div>   
+                        <div class="col-lg-1"></div> 
+                    </div> 
+                </div>
+            </div>            
+        </div>
+    </div>  -->
+<!--end-->     
+</div>
+
+
+<!--     <jhi-alert></jhi-alert>
+<div>
+    <h2>Real-time user activities</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>IP Address</th>
+                    <th>Current page</th>
+                    <th>Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="activity in vm.activities">
+                    <td>{{activity.userLogin}}</td>
+                    <td>{{activity.ipAddress}}</td>
+                    <td>{{activity.page}}</td>
+                    <td>{{activity.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ -->

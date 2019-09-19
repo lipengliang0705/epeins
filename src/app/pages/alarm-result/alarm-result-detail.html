@@ -1,0 +1,137 @@
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myalarmRuleLabel">告警详情,id:{{vm.alarmResult.id}}</h4>
+    </div>
+    <div class="modal-body">
+        
+        <ul class="alarm-result-detail-area">
+            <li class="checked">
+                <div class="check-true" ng-click="vm.setChecked(vm.alarmResult, false)" ng-if="vm.alarmResult.checked">
+                    <i class="ion-checkmark-circled"></i>
+                    已读
+                </div>
+                <div class="check-false" ng-click="vm.setChecked(vm.alarmResult, true)" ng-if="!vm.alarmResult.checked">
+                    <i class="ion-close-round"></i>
+                    未读
+                </div>
+            </li>
+            <li>
+                <span><i class="far fa-address-book"></i>告警名称：</span>{{vm.alarmResult.name}}
+            </li>
+            <li>
+                <span><i class="ion-alert-circled"></i>告警等级：</span>{{vm.alarmResult.alarmRule.alarmLevel.name}}
+            </li>
+            <li>
+                <span><i class="fa fa fa-briefcase"></i>告警业务：</span>{{vm.alarmResult.alarmRule.eventRule.category.name}}
+            </li>
+            <li>
+                <span><i class="ion-wrench"></i>告警规则：</span>{{vm.alarmResult.alarmRule.eventRule.name}}
+            </li>
+            <li>
+                <span><i class="far fa-clock"></i>告警时间：</span>{{vm.alarmResult.createdTime}}
+            </li>
+            <li>
+                <span><i class="ion-clipboard"></i>告警详情：</span>{{vm.alarmResult.info}}
+            </li>
+        </ul>
+        
+    </div>
+    <div class="modal-footer alarm-result-detail-btngroup">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-click="vm.setChecked(vm.alarmResult, true)" ng-if="!vm.alarmResult.checked" class="btn btn-primary">
+            <span>标志已读</span>
+        </button>
+        <button type="submit" ng-click="vm.setChecked(vm.alarmResult, false)" ng-if="vm.alarmResult.checked"  class="btn btn-primary">
+            <span>标志未读</span>
+        </button>
+    </div>
+
+<!-- <div> -->
+  <!--   <div class=" panel title-wrapper">
+        <h3 class="m-n font-thin h3">告警详情{{vm.alarmResult.id}}</h3>
+       
+   
+    </div> -->
+<!--     <h2><span>Alarm Rule</span> {{vm.alarmResult.id}}</h2>
+    <hr> -->
+  <!--   <jhi-alert-error></jhi-alert-error>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ul>
+                <li ng-repeat="(key,value) in vm.alarmResult">
+                    <strong>{{key}}：</strong>>{{value}}
+                </li>
+            </ul>
+        </div>
+    </div> -->
+    
+   <!--  <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.name}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.description}}</span>
+        </dd>
+        <dt><span>Alarm Type</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.alarmType}}</span>
+        </dd>
+        <dt><span>Conf</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.conf}}</span>
+        </dd>
+        <dt><span>Notify Type</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.notifyType}}</span>
+        </dd>
+        <dt><span>Notify Role</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.notifyRole}}</span>
+        </dd>
+        <dt><span>Notify Member</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.notifyMember}}</span>
+        </dd>
+        <dt><span>Created By</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.createdBy}}</span>
+        </dd>
+        <dt><span>Create Time</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.createTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Modified By</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.modifiedBy}}</span>
+        </dd>
+        <dt><span>Modified Time</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.modifiedTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{vm.alarmRule.status}}</span>
+        </dd>
+        <dt><span>Log Event Rule</span></dt>
+        <dd>
+            <a ui-sref="log-event-rule-detail({id:vm.alarmRule.logEventRule.id})">{{vm.alarmRule.logEventRule.id}}</a>
+        </dd>
+    </dl> -->
+<!-- 
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="alarm-rule-detail.edit({id:vm.alarmResult.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div> -->

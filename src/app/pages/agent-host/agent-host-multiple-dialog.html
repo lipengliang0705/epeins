@@ -1,0 +1,85 @@
+<style media="screen">
+    .ng-table-counts {
+        display: none;
+    }
+</style>
+<script type="text/ng-template" id="headerCheckbox.html">
+    <!-- <input type="checkbox" ng-click="vm.selectAll(_status)" ng-model="_status" class="select-all" value="" /> -->
+    <select ng-model="vm.defaultSelected">
+        <option value="">---选择---</option> <!-- not selected / blank option -->
+        <option ng-repeat="item in vm.agents" value="{{item}}">{{item.name}}({{item.version}})</option> <!-- interpolation -->
+    </select>
+</script>
+<form name="deleteForm" ng-submit="vm.confirmDelete(vm.agentHost.id)">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title">批量添加</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div>
+            <table class="table" ng-table="vm.tableParams">
+              <tr ng-repeat="row in $data" ng-form="rowForm">
+                  <td title="'主机名'" sortable="'name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name">
+                    <span ng-switch-default class="editable-text">{{row.name}}</span>
+                    <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                      <input type="text" name="name" ng-model="row.name" class="form-control" required />
+                    </div>
+                  </td>
+                  <td title="'ip'" sortable="'ip'" ng-switch="row.isEditing" ng-class="ip.$dirty ? 'bg-warning' : ''" ng-form="ip">
+                    <span ng-switch-default class="editable-text">{{row.ip}}</span>
+                    <div class="controls" ng-class="ip.$invalid && ip.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                      <input type="text" name="ip" ng-model="row.ip" class="form-control" required/>
+                    </div>
+                  </td>
+                  <td title="'部署路径'" sortable="'depolyPath'" ng-switch="row.isEditing" ng-class="depolyPath.$dirty ? 'bg-warning' : ''" ng-form="depolyPath">
+                    <span ng-switch-default class="editable-text">{{row.depolyPath}}</span>
+                    <div class="controls" ng-class="depolyPath.$invalid && depolyPath.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                      <input type="text" name="depolyPath" ng-model="row.depolyPath" class="form-control" required/>
+                    </div>
+                  </td>
+
+                  <td header="'headerCheckbox.html'">
+                    <!-- <span ng-switch-default class="editable-text">{{row.depolyPath}}</span> -->
+                    <select ng-model="row.selectAgent">
+                        <option value="">---选择---</option>
+                        <option ng-repeat="item in vm.agents" value="{{item}}">{{item.name}}({{item.version}})</option> <!-- interpolation -->
+                    </select>
+                  </td>
+
+                  <td>
+                      <div class="btn-group">
+                        <button class="btn btn-primary btn-sm" ng-click="vm.save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-default btn-sm" ng-click="vm.cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-primary btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-danger btn-sm" ng-click="vm.del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-remove-circle"></span></button>
+                    </div>
+                  </td>
+                </tr>
+
+
+                <tr ng-if="vm.tableParams.data.length==0">
+                    <td colspan="10" class="table-data-alert">
+                        <input type="file" nv-file-select uploader="vm.uploader"/><br/>
+                        <div ng-show="vm.uploader.progress">
+                            上传进度:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+
+        <button type="button" class="btn btn-primary" ng-click="vm.confirm()" ng-disabled="vm.tableParams.data.length==0 || !vm.defaultSelected">
+            <span>确认添加</span>
+        </button>
+    </div>
+</form>

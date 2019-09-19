@@ -1,0 +1,24 @@
+<style>
+  .big-icon{
+    position: absolute;
+    right: 0;
+    color: #e0e0e0;
+    line-height: 100%;
+    font-size: 90px;
+  }
+
+</style>
+<div class="row pie-charts">
+  <div class="pie-chart-item-container" ng-repeat="chart in charts">
+    <div ba-panel>
+      <div class="pie-chart-item">
+        <div class="chart" rel="{{ ::chart.color }}" data-percent="60"> <span class="percent"></span> </div>
+        <div class="description">
+          <div>{{ ::chart.description }}</div>
+          <div class="description-stats">{{ ::chart.stats }}</div>
+        </div>
+        <i class="glyphicon glyphicon-search big-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

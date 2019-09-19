@@ -1,0 +1,20 @@
+<form>
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">删除知识库分类列表</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <p>确认删除当前数据吗？</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </button>
+
+        <button class="btn btn-primary" ng-click="vm.method.submit(vm.id)">
+            <span>确认</span>
+        </button>
+    </div>
+</form>

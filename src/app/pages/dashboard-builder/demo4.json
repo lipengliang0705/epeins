@@ -1,0 +1,7 @@
+[
+    {"trade":"交易A", "abnormal": 50},
+    {"trade":"交易B", "abnormal": 45},
+    {"trade":"交易C", "abnormal": 37},
+    {"trade":"交易D", "abnormal": 30},
+    {"trade":"交易E", "abnormal": 22}
+]

@@ -1,0 +1,390 @@
+<style>
+    .monitorinfo-list{
+        margin: 0;
+    }
+    .monitorinfo-list dt{
+        color: #78a100;
+        font-size: 18px;
+    }
+    .monitorinfo-list dd{
+        font-weight: normal;
+        margin:5px 0;
+    }
+    .monitorinfo-list dd.sinkchart{
+        width: 100%;
+        height: 80px;
+    }
+    .monitorinfo-list dd b{
+        font-weight: normal;
+    }
+    .form-group-inline .label-fw80{
+        float: left;
+        width:80px;
+        margin-top: 8px;
+        font-weight: 300;
+    }
+    .form-group-inline .form-group-left{
+        margin-left: 90px;
+    }
+    .form-group-inline .form-group-left input{
+        width: 100%;
+    }
+    .execord-list{
+        margin: 0;
+        padding-top: 5px;
+    }
+    .execord-list li{
+        list-style: none;
+        display: inline-block;
+        margin-right: 10px;
+        white-space:nowrap;
+    }
+    .jobcharts{
+        padding: 20px;
+        width: 100%;
+        height: 250px;
+    }
+    .mg-top10{
+        margin-top: 10px;
+    }
+    .panel-ubord .panel-heading{
+        padding: 10px 0;
+    }
+    .panel-ubord .panel-body{
+        padding: 10px 0;
+    }
+    .paddtb10{
+        padding: 10px 0;
+    }
+    .nodes-app-info{
+        overflow: hidden;
+    }
+    .app-info-left{
+        float: left;
+        margin: 0;
+        padding: 0;
+    }
+    .app-info-left li{
+        display: inline-block;
+        margin-right: 20px;
+        list-style: none;
+        text-align: center;
+    }
+    .app-info-left li .info-label{
+        color: #999;
+    }
+    .app-info-left li .fa{
+        font-size: 2em;
+    }
+    .app-info-left li h4{
+        margin-bottom: 0;
+    }
+    .app-info-right{
+        float: right;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">ES集群监控</h3>
+    <small class="text-muted h5 font-title-des">大数据平台Elasticsearch运行状态</small>
+</div>
+<div class="wrapper">
+    <div class="panel widget mg-top10">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <dl class="monitorinfo-list">
+                        <dt>Overview</dt>
+                        <dd><b>Vertion</b>:<span>6.0.0.rc1</span></dd>
+                        <dd><b>Uptime</b>:<span>2 hour</span></dd>
+                        <dd><b>jobs</b>:<span>0</span></dd>
+                        <dd><b>Cluster_name</b>:<span>bigdata</span></dd>
+                    </dl>
+                </div>
+                <div class="col-sm-4">
+                    <dl class="monitorinfo-list">
+                        <dt>Nodes:3</dt>
+                        <dd><b>Disk Available</b>:<span>228 GB/234GB(97.62%)</span></dd>
+                        <dd><b>JVM Heap</b>:<span>43.78%(2GB/5GB)</span></dd>
+                    </dl>
+                </div>
+                <div class="col-sm-4">
+                    <dl class="monitorinfo-list">
+                        <dt>Indices:24</dt>
+                        <dd><b>Documents</b>:<span>3,394,839</span></dd>
+                        <dd><b>Disk Usage</b>:<span>2GB</span></dd>
+                        <dd><b>Primary Shards</b>:<span>28</span></dd>
+                        <dd><b>Replica Shards</b>:<span>28</span></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                    <i></i>NODES 
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group-inline">
+                                <label class="label-fw80">NODES</label>
+                                <div class="form-group-left"><input type="text" class="form-control"/></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <ul class="execord-list">
+                                <li>JVM Heap:<b>17%</b></li>
+                                <li>Free Disk Space:<b>101.1GB</b></li>
+                                <li>Documents:<b>3.6m</b></li>
+                                <li>Data:<b>1.3GB</b></li>
+                                <li>Indices:<b>24</b></li>
+                                <li>Shards:<b>28</b></li>
+                                <li>Type:<b>node</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.GCCountCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.GCDurationCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.JVMHeapCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.CPUUtilizationCharts"></simple-echarts></div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>   
+    </div>   
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                    <i></i>INDEXS 
+                </div>
+                <div class="panel-body">
+                    <div class="nodes-app-info">
+                        <ul class="app-info-left">
+                            <li>
+                                <i class="fa fa-list"></i>
+                            </li>
+                            <li>
+                                <div class="info-label">Nodes</div>
+                                <h4>3</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Indices</div>
+                                <h4>3GB/5GB</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Memory</div>
+                                <h4>3</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Total Shards</div>
+                                <h4>56</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Unassigined Shards</div>
+                                <h4>0</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Documents</div>
+                                <h4>3,665,331</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Data</div>
+                                <h4>3GB</h4>
+                            </li>
+                        </li>
+                        <div class="app-info-right">
+
+                        </div>
+                    </div>
+                    <div class="panel-ubord widget">
+                        <div class="panel-heading">
+                            
+                        </div>
+                        <div class="panel-body">
+                            <div class="row paddtb10">
+                                <div class="col-sm-4">
+                                    <div class="form-group-inline">
+                                        <label class="label-fw80">Indices</label>
+                                        <div class="form-group-left"><input type="text" class="form-control"/></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <ul class="execord-list">
+                                        <li>3 of 3</li>
+                                        <li><label><input type="checkbox"/> Show system indices</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table  class="table" ng-table="vm.tableParams">
+                                <thead class="black-muted-bg">
+                                    <tr>
+                                        <th> <span>Name</span> </th>
+                                        <th> <span>Status</span> </th>
+                                        <th> <span>Document Count</span> </th>
+                                        <th> <span>Data</span> </th>
+                                        <th> <span>Index Rate</span> </th>
+                                        <th> <span>Search Rate</span> </th>
+                                        <th> <span>Unassigined Shards</span> </th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr ng-repeat="bean in $data  | filter:search"> 
+                                        <td>elasticlogs-2017.10.12</td>
+                                        <td>Green</td>                                        
+                                        <td>2m</td>
+                                        <td>1.3GB</td>
+                                        <td>372.73/s</td>                                        
+                                        <td>0/s</td>
+                                        <td>0</td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>  
+                        </div>
+                    </div>  
+                </div>
+            </div>         
+        </div>   
+    </div>   
+    <!-- <div class="panel widget">
+        <uib-tabset class="menutabset">
+            <uib-tab index="0">
+                <uib-tab-heading>NODES</uib-tab-heading>
+                <div class="tabcontent">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group-inline">
+                                <label class="label-fw80">NODES</label>
+                                <div class="form-group-left"><input type="text" class="form-control"/></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <ul class="execord-list">
+                                <li>JVM Heap:<b>17%</b></li>
+                                <li>Free Disk Space:<b>101.1GB</b></li>
+                                <li>Documents:<b>3.6m</b></li>
+                                <li>Data:<b>1.3GB</b></li>
+                                <li>Indices:<b>24</b></li>
+                                <li>Shards:<b>28</b></li>
+                                <li>Type:<b>node</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.GCCountCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.GCDurationCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.JVMHeapCharts"></simple-echarts></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="jobcharts"><simple-echarts options="vm.CPUUtilizationCharts"></simple-echarts></div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1">
+                <uib-tab-heading>INDEXS </uib-tab-heading>
+                <div class="tabcontent">
+                    <div class="nodes-app-info">
+                        <ul class="app-info-left">
+                            <li>
+                                <i class="fa fa-list"></i>
+                            </li>
+                            <li>
+                                <div class="info-label">Nodes</div>
+                                <h4>3</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Indices</div>
+                                <h4>3GB/5GB</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Memory</div>
+                                <h4>3</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Total Shards</div>
+                                <h4>56</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Unassigined Shards</div>
+                                <h4>0</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Documents</div>
+                                <h4>3,665,331</h4>
+                            </li>
+                            <li>
+                                <div class="info-label">Data</div>
+                                <h4>3GB</h4>
+                            </li>
+                        </li>
+                        <div class="app-info-right">
+
+                        </div>
+                    </div>
+                    <div class="panel-ubord widget">
+                        <div class="panel-heading">
+                            
+                        </div>
+                        <div class="panel-body">
+                            <div class="row paddtb10">
+                                <div class="col-sm-4">
+                                    <div class="form-group-inline">
+                                        <label class="label-fw80">Indices</label>
+                                        <div class="form-group-left"><input type="text" class="form-control"/></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <ul class="execord-list">
+                                        <li>3 of 3</li>
+                                        <li><label><input type="checkbox"/> Show system indices</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table  class="table" ng-table="vm.tableParams">
+                                <thead class="black-muted-bg">
+                                    <tr>
+                                        <th> <span>Name</span> </th>
+                                        <th> <span>Status</span> </th>
+                                        <th> <span>Document Count</span> </th>
+                                        <th> <span>Data</span> </th>
+                                        <th> <span>Index Rate</span> </th>
+                                        <th> <span>Search Rate</span> </th>
+                                        <th> <span>Unassigined Shards</span> </th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr ng-repeat="bean in $data  | filter:search"> 
+                                        <td>elasticlogs-2017.10.12</td>
+                                        <td>Green</td>                                        
+                                        <td>2m</td>
+                                        <td>1.3GB</td>
+                                        <td>372.73/s</td>                                        
+                                        <td>0/s</td>
+                                        <td>0</td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>  
+                        </div>
+                    </div>  
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div> -->
+</div>

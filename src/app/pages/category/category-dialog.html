@@ -1,0 +1,75 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myCategoryLabel">创建/编辑 业务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.category.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" ng-model="vm.category.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.category.name" required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block" ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_alias">业务缩写</label>
+            <input type="text" class="form-control" name="alias" id="field_alias" ng-model="vm.category.alias" required ng-pattern="/^[a-z][a-z0-9_]*$/"/>
+            <div ng-show="editForm.alias.$invalid">
+                <p class="help-block" ng-show="editForm.alias.$error.required">
+                    *必填项,<br />为小写英文
+                </p>
+                <p class="help-block" ng-show="editForm.alias.$error.pattern" no-translate="entity.validation.pattern" translate-value-pattern="^[a-z][a-z0-9_]*$">
+                    字段格式不正确,<br />应为 "^[a-z][a-z0-9_]*$".
+                </p><!--^[a-zA-Z][a-zA-Z0-9_]*$-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">标题</label>
+            <input type="text" class="form-control" name="title" id="field_title" ng-model="vm.category.title" required/>
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block" ng-show="editForm.title.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">描述</label>
+            <textarea class="form-control" name="description" id="field_description" rows="5" cols="80" ng-model="vm.category.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_tag">标签</label>
+            <input type="hidden" ng-model="vm.category.tags"  />
+            <!-- <input type="text" id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput" class="form-control"/> -->
+            <div class="control-label-right">
+                <input type="text" id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput" class="control-label-title"/>
+                <!-- <div class="control-label-title" id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput"></div> -->
+                <div class="label-list"  ng-show="vm.tagsList.length>0">
+                    <div ng-repeat="d in vm.tagsList  track by $index" class="badge-text-info-div"> 
+                        <p class="badge-text-info btn-black">{{d.name}}
+                            <i class="glyphicon glyphicon-plus-sign" ng-click="vm.addTagBtn(d)"></i>
+                            <i class="glyphicon glyphicon-remove-sign" ng-click="vm.rmTagBtn(d)"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            </span>&nbsp;<span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form> 

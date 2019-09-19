@@ -1,0 +1,707 @@
+<div class="title-wrapper">
+    <h3 class="h3">
+        日志分析
+        <div class="pull-right" id="log-search-header">
+            <a href="javascript:void(0)" ng-click="vm.saveAsBtn()">
+                <i class="fa fa-upload" aria-hidden="true"></i> 另存为...
+            </a>
+            <a ui-sref="log-data-dashboard">
+                <i class="fa fa-align-left" aria-hidden="true"></i> 管理已存搜索
+            </a>
+        </div>
+    </h3>
+    <!-- <small class="h5 font-title-des">实时日志检索与统计</small> -->
+</div>
+<div class="form-lucene wrapper" id="log-search">
+    <!-- <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="data-range-picker-a">
+                <a href="javascript:void(0)" ng-click="vm.saveAsBtn()">另存为...</a>
+                <a ui-sref="log-data-dashboard">管理已存搜索</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <form name="form" class="form-validation  col-md-12 col-sm-12" ng-submit="vm.searchLog('query')">
+            <div class="input-group input-de col-md-12 col-sm-12">
+                <div class="input-de-before">
+                    <div class="select-wid">
+                        <ui-select ng-model="vm.app" on-select="vm.changeView()">
+                            <ui-select-match placeholder="选择业务">{{$select.selected.title}}</ui-select-match>
+                            <ui-select-choices repeat="d in vm.appList | filter: $select.search">
+                                <div ng-bind-html="d.title | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <!-- <input type="text" class="input-search-group" ng-model='vm.filter.q' ng-change="bulidQuery()" placeholder="支持关键字，通配符搜索(例如: 32.3.208.*) 并且支持AND, OR 等关键字， 键值对(例如: ip:32.3.208.18), 支持+,- 可增加， 增加，去除结果关键字"> -->
+                    <div class="kuiLocalSearchAssistedInput">
+                        <div class="euiFormControlLayout euiFormControlLayout--fullWidth">
+                            <div class="euiFormControlLayout--fullWidth">
+                                <div class="euiFormControlLayout__childrenWrapper">
+                                    <input type="text" class="euiFieldText euiFieldText--fullWidth input-search-group" ng-model='vm.filter.q' ng-change="bulidQuery();" ng-focus="vm.method.showMenuList()" placeholder="通配符搜索(例: 32.3.208.*) 并且支持AND, OR 等关键字， 键值对(如: ip:32.3.208.18), 支持+,- 可增加，去除结果关键字"
+                                    />
+                                    <ul class="euiFormControlLayout__childrenList" ng-if="vm.defaultDropDownMeun.isShow">
+                                        <li ng-click="vm.method.hideMenuList(item)" ng-repeat="item in vm.defaultDropDownMeun.list">
+                                            <a href="">{{item.sql}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="kuiLocalSearchAssistedInput__assistance">
+                            <a class="euiButtonEmpty" class="addfiltrate-btn" uib-popover-template="'app/pages/log-search/log-search-filter-container.html'" popover-placement="bottom-right" popover-title="Add filter" popover-is-open="vm.filtereds.filterStatus">高级过滤 <i class="glyphicon glyphicon-plus"></i></a>
+                        </div> -->
+                    </div>
+                    <!-- <div class="addfiltrate-btn" uib-popover-template="'app/pages/log-search/log-search-filter-container.html'" popover-placement="bottom-right" popover-title="Add filter" popover-is-open="vm.filtereds.filterStatus">高级过滤 <i class="glyphicon glyphicon-plus"></i> 
+                    </div> -->
+                </div>
+                <div class="btn-group">
+                    <div date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange">
+                        {{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}
+                    </div>
+                </div>
+                <!-- <div class="btn-group " uib-dropdown dropdown-append-to-body>
+                      <button type="button" class="btn btn-default " uib-dropdown-toggle ng-click="vm.loadQuickSearch()">
+                        快速检索 <span class="caret"></span>
+                      </button>
+                      <ul uib-dropdown-menu>
+                        <li>
+                            <a href="javascript:void(0)" ng-click="vm.saveAsBtn()">另存为...</a>
+                        </li>
+                        <li>
+                            <a ui-sref="log-data-dashboard">管理已存搜索</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="d in vm.quickSearch.list | limitTo:10 " style="display: flex;">
+                            <a href="" ng-click="d.selectUserView(d)" ng-bind="d['name']"></a><i ng-if="d.id==vm.quickSearch.selectStatus" class="glyphicon glyphicon-ok"></i>
+                        </li>
+                      </ul>
+                </div> -->
+                <span class="button-wrapper">
+                    <button class="btn btn-primary btn-unradius" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>检索
+                    </button>
+                </span>
+
+            </div>
+        </form>
+    </div>
+    <div class="row" ng-if="vm.queryParams.filterFieldsShow">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="addfiltrate-box">
+                <!--  <a class="addfiltrate" uib-popover-template="'app/pages/log-search/log-search-filter-container.html'" popover-placement="right" popover-title="Add filter" popover-is-open="vm.filtereds.filterStatus">高级过滤条件 <i class="glyphicon glyphicon-plus"></i></a> -->
+                &nbsp;
+                <div class="helplabel-hover" ng-repeat="(key,val) in vm.queryParams.filterFields.exists track by $index">
+                    <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                        {{title || 'exists: '+val}}
+                        <div class="icons-show" ng-show="show">
+                            <a><i class="fa fa-trash-o"
+                                    ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'exists')"></i></a>
+                            <a><i class="fa fa-edit"
+                                    ng-click="vm.filtereds.editFilter('exists', {'symbol': {'title':  'exists', 'value': 'EXISTS'}, 'field': {'title': val, 'name': val}, 'value': val})"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- must_not exists 模式 -->
+                <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.does_not_exist  track by $index">
+                    <div class="operat-field operat-field-isno" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || 'not exists: '+val}}
+                        <div class="icons-show" ng-show="show">
+                            <a><i class="fa fa-trash"
+                                    ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'does_not_exist')"></i></a>
+                            <a><i class="fa fa-edit"
+                                    ng-click="vm.filtereds.editFilter('does_not_exist', {'symbol': {'title':  'dose not exists', 'value': 'DOES NOT EXIST'}, 'field': {'title': val, 'name': val}, 'value': val})"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- must term 模式 -->
+                <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is  track by $index">
+                    <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                        {{title || key+':'+val}}
+                        <div class="icons-show" ng-show="show">
+                            <a><i class="fa fa-trash-o"
+                                    ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is')"></i></a>
+                            <a><i class="fa fa-edit"
+                                    ng-click="vm.filtereds.editFilter('is', {'symbol': {'title':  'is', 'value': 'IS'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- must_not term 模式 -->
+                <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_not  track by $index">
+                    <div class="operat-field operat-field-isno" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || key+'!='+val}}
+                        <div class="icons-show" ng-show="show">
+                            <a><i class="fa fa-trash-o"
+                                    ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_not')"></i></a>
+                            <a><i class="fa fa-edit"
+                                    ng-click="vm.filtereds.editFilter( 'is_not', {'symbol': {'title':  'not is', 'value': 'NOT IS'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- must bool 模式 -->
+                <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_one_of  track by $index">
+                    <div class="">
+                        <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                            {{title || key+':'+val}}
+                            <div class="icons-show" ng-show="show">
+                                <a><i class="fa fa-trash-o"
+                                        ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_one_of')"></i></a>
+                                <a><i class="fa fa-edit"
+                                        ng-click="vm.filtereds.editFilter( 'is_one_of', { 'symbol': {'title':  'is one of', 'value': 'IS ONE OF'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- must_not bool 模式 -->
+                <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_not_one_of  track by $index">
+                    <div class="">
+                        <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">
+                            {{title || key+'!='+val}}
+                            <div class="icons-show" ng-show="show">
+                                <a><i class="fa fa-trash-o"
+                                        ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_not_one_of')"></i></a>
+                                <a><i class="fa fa-edit"
+                                        ng-click="vm.filtereds.editFilter( 'is_not_one_of', {'symbol': {'title':  'is not one of', 'value': 'IS NOT ONE OF'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--     <div class="" ng-if="vm.tabActive == 2">
+        <log-search-spl-view  expression="vm.splExpression" model="vm.searchModel" ng-if="vm.tabActive == 2">
+        </log-search-spl-view>
+    </div> -->
+    <div class="row row-top">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="panel">
+                <!-- <div class="help-label" > 
+                    <div class="help-label-right">
+                        <a date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" >{{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}</a>
+                    </div>
+                </div> -->
+                <div>
+                    <ul class="log-search-result-header">
+                        <li ng-class="{'active': vm.logResult.currentIndex == $index}" ng-click="vm.method.logResultToggle($index)" ng-repeat="item in vm.logResult.list">
+                            {{item.name}}
+                        </li>
+                        <li ng-if="vm.paginationConf.totalItems" ng-class="{'active': vm.logResult.currentIndex == 1}" ng-click="vm.method.logResultToggle(1)">统计</li>
+                    </ul>
+                    <log-search-statistic-view index="vm.app.name" app="vm.app.name" strsearch="vm.strsearch" ng-if="vm.logResult.currentIndex == 0" fields="fields" options="vm.viewParams" ng-click="fields = vm.fieldsCountList">
+                    </log-search-statistic-view>
+                    <div class="statistic-view-box" ng-if="vm.logResult.currentIndex == 1">
+                        <!-- 页面挂载到StatisticViewCtrl控制器下面 -->
+                        <log-search-statistic-view-query index="vm.app.name" app="vm.app.name" strsearch="vm.strsearch" fields="fields" options="vm.viewParams" appinfo="vm.app" ng-click="fields = vm.fieldsCountList">
+                        </log-search-statistic-view-query>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row log-search-cont-main" ng-if="vm.paginationConf.totalItems && vm.logResult.currentIndex == 0">
+        <div class="col-md-12 col-sm-12 ">
+            <table class="table-wrap">
+                <tr>
+                    <td style="width: 183px;">
+                        <div class="cont-main-left" ng-class="{false:'open-or-hide'}[!vm.leftListWrapShow]">
+                            <!-- <i class="fa fa-chevron-circle-left"
+                                ng-class="{false:'fa-chevron-circle-right',true:'fa-chevron-circle-left'}[!vm.leftListWrapShow]"
+                                ng-click="vm.leftListWrapShow=!vm.leftListWrapShow"></i> -->
+                            <div ng-hide="vm.leftListWrapShow" class="hide-cont">
+                                <div class="hide-cont-header">
+                                    字段筛选
+                                </div>
+                                <div class=" panel-black top10">
+                                    <div class="panel-heading panel-blue" ng-click="vm.typeListShow=!vm.typeListShow">
+                                        已选类型
+                                        <!-- <b class="fa fa-angle-up"
+                                            ng-class="{false:'fa-angle-down'}[!vm.typeListShow]"
+                                            ng-if="vm.typeList.length>=1"></b> -->
+                                    </div>
+
+                                    <div class="panel-body" ng-hide="vm.typeListShow">
+
+                                        <dl ng-repeat='d in vm.typeList' class="asidefield_dl">
+                                            <dd ng-model="vm.select_type[d.name]">
+                                                <label>
+                                                    <input type="checkbox" ng-model="vm.select_type[d.name]"
+                                                        ng-change="vm.getFields()">
+                                                    <span class="checkbox-material">
+                                                        <span class="check"></span>
+                                                    </span> {{d.name}}
+                                                </label>
+                                                </dt>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                                <!-- <h5 class="asidefield_tit"></h5> -->
+                                <div class=" panel-black top10">
+                                    <div class="panel-heading panel-blue" ng-click="vm.selectedFieldsShow=!vm.selectedFieldsShow">
+                                        已选过滤字段
+                                        <!-- <b class="fa fa-angle-up"
+                                            ng-class="{false:'fa-angle-down'}[!vm.selectedFieldsShow]"
+                                            ng-if="vm.selectedFields.length!=0"></b> -->
+                                    </div>
+                                    <div class="panel-body list-wrap" ng-hide="vm.selectedFieldsShow">
+                                        <dl ng-click="d.showOrHide()" ng-repeat='d in vm.selectedFields track by $index ' ng-hide="d.hide" class="asidefield_dl">
+                                            <dt uib-tooltip='{{d.name}}'>
+                                                <b ng-show='{{d.enableDel}}' class="glyphicon glyphicon-remove"
+                                                    ng-click='vm.removefultered(d)'></b>{{d.name}}</dt>
+                                            <dd ng-repeat="(values, keys) in (vm.getAggregations[d.name][0] |  limitTo : 3)" ng-show="d.show">
+
+                                                <p>
+                                                    <a>
+                                                        <em>{{keys}}</em>
+                                                        <span>{{values}}</span>
+                                                        <!-- <i class="glyphicon glyphicon-search" ng-click="d.findFilter(_d.key)"></i> -->
+                                                    </a>
+                                                </p>
+
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                                <div class=" panel-black top10">
+                                    <div class="panel-heading panel-blue" ng-click="vm.unSelectFieldsShow=!vm.unSelectFieldsShow">
+                                        待选过滤字段
+                                        <!-- <b class="fa fa-angle-up"
+                                            ng-class="{false:'fa-angle-down'}[!vm.unSelectFieldsShow]"
+                                            ng-if="vm.unSelectFields.length!=0"></b> -->
+                                    </div>
+                                    <!-- <div class="panel-body list-wrap" ng-hide="vm.unSelectFieldsShow"> -->
+                                    <div class="panel-body list-wrap">
+                                        <dl ng-click="d.showOrHide()" ng-repeat='d in vm.unSelectFields track by $index' href='javascript:void(0)' class="asidefield_dl">
+                                            <dt uib-tooltip='{{d.name}}'>
+                                                <b class="glyphicon glyphicon-plus key-cursor-pointer"
+                                                    ng-click='vm.addfiltered(d)'></b> {{d.name}}
+                                            </dt>
+                                            <dd ng-repeat="(values, keys) in (vm.getAggregations[d.name][0] |  limitTo : 3)" ng-show="d.show">
+
+                                                <p>
+                                                    <a>
+                                                        <em>{{keys}}</em>
+                                                        <span>{{values}}</span>
+                                                        <i class="glyphicon glyphicon-search key-cursor-pointer" ng-click="d.findFilter(d.name, keys)"></i>
+                                                    </a>
+                                                </p>
+
+                                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                                    <span ng-if="d.type=='string' && $last" class="addfiltrate text-center key-cursor-pointer" uib-popover-template="'pages/log-search/log-search-filter-detail-container.html'" popover-placement="right" popover-title="{{d.title || d.name}}" popover-is-open="d.filterHideOrShow"
+                                                        ng-click="d.onOff()">查看更多
+                                                        <!-- <i class="glyphicon glyphicon-search"></i> -->
+                                                    </span>
+                                                    <span ng-show="d.type=='string' && $last" class=" addfiltrate text-center key-cursor-pointer" ng-click="vm.reTab(2, d.name)"> 统计视图
+                                                        <!-- <i class="fa fa-bar-chart"></i> -->
+                                                    </span>
+                                                </div>
+
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cont-main-right" ng-class="{false:'right-or-stretch'}[!vm.leftListWrapShow]">
+
+                            <div class="panel" ng-if="vm.paginationConf.totalItems">
+                                <div class="panel-footer panel-page-footer log-search-page">
+                                    <tm-pagination conf="vm.paginationConf"></tm-pagination>
+                                    <button class="btn btn-primary" ng-click="vm.openDownload()"><i
+                                            class="glyphicon glyphicon-download"></i> 导出数据</button>
+                                </div>
+                                <!-- <hr style="margin: 0"> -->
+                                <div class="table-responsive">
+                                    <table class="table log-search-table">
+                                        <thead>
+                                            <tr class="black-muted-bg">
+                                                <th ng-repeat='d in vm.gridOptions.columnDefs' class="wordbknormal">
+                                                    {{d.title || d.name }}
+                                                    <i ng-class="{true: vm.switchClass, false:''}[$first]" ng-click='vm.switchSort()'></i>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat-start='d in vm.gridOptions.data' ng-class-odd="'odd'" ng-class-even="'even'" class="more-view no-top-border">
+                                                <td ng-repeat='_d in d.dataRow' ng-click="vm.showDetil(d)">
+                                                    <i ng-show='_d.name=="timestamp" || _d.name == "source" || d.name == "score" || d.name == "highlight"' ng-class="{true:'glyphicon glyphicon-chevron-down',false:'glyphicon glyphicon-chevron-right'}[d.showOrHide]" ng-click="vm.showDetil(d)"></i>
+                                                    <div ng-if="_d.name=='@message'" expandable text="_d.value" char-len=550 class="workbkall log_message">
+
+                                                    </div>
+                                                    <span ng-if="_d.name!='@message'" ng-bind="_d.value"></span>
+                                                    <!-- <div>
+                                                        <span ng-if="_d.name=='timestamp'" class="label label-danger"
+                                                            style="margin-right:5px">{{d.allData['@hostname']}}</span>
+                                                        <span ng-if="_d.name=='timestamp'" class="label label-info"
+                                                            style="margin-right:5px">{{d.heard['type']}}</span>
+                                                    </div> -->
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat-end class="nohover" ng-show="d.showOrHide">
+                                                <td colspan="{{vm.gridOptions.columnDefs.length}}">
+
+                                                    <table width="100%" class="table table-dashed">
+                                                        <tr ng-repeat="(key, val) in d.heard">
+                                                            <td ng-hide='d.hideRow(key)'>
+                                                                <div class="table-head">{{key}}</div>
+                                                            </td>
+                                                            <td ng-hide='d.hideRow(key)'>{{val}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="(key, val) in d.allData" class="no-top-border">
+                                                            <td ng-hide='d.hideRow(key)'>
+                                                                <div class="table-head">{{key}}</div>
+                                                            </td>
+                                                            <td ng-hide='d.hideRow(key)'>{{val}}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>上下文
+                                                            </td>
+                                                            <td>
+
+                                                                <a ui-sref="log-context({'filename':'{{d.allData['@filename']}}','filepath':'{{d.allData['@filepath']}}','linenum':'{{d.allData['@linenum']}}', 'hostname':'{{d.allData['@hostname']}}', 'timestamp':'{{d.allData['timestamp']}}' ,'event':'{{vm.filterInput.event}}', 'event_name':'{{vm.filterInput.name}}', 'index':'{{d['heard']['index']}}', 'type': {{vm.getType()}} })"
+                                                                    class="btn btn-xs btn-success ">查看>></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--  <div class="panel-footer panel-page-footer">
+                                    <tm-pagination conf="vm.paginationConf"></tm-pagination>
+                                </div> -->
+                            </div>
+
+                            <!-- <div class="no-find-div" ng-if="!vm.paginationConf.totalItems">
+                                <h3 class="no-find-h3">无查询结果返回
+                                    <i aria-hidden="true" class="fa fa-meh-o"></i>
+                                </h3>
+
+                                <h5>
+                                    - 请检查所选业务、日志类型以及日期时间范围是否正确
+                                </h5>
+                                <h5>
+                                    - 请检查所输入查询语句是否正确
+                                </h5>
+
+                                <p>
+                                </p>
+                                <h4>常用查询语句示例:</h4> 查询所有的字段存在“200” 的数据:
+                                <pre>200</pre> 查询status字段等于 200 的数据:
+                                <pre>status:200</pre> 查询status字段的值在 400-499 之间的数据:
+                                <pre>status:[400 TO 499]</pre> 查询status字段的值在 400-499 并且extension 字段等于PHP的数据:
+                                <pre>status:[400 TO 499] AND extension:PHP</pre> 查询status字段的值在 400-499 并且extension 字段等于PHP或者等于html 的数据:
+                                <pre>status:[400 TO 499] AND (extension:php OR extension:html)</pre> 支持逻辑与(AND)和或(OR)操作 正则匹配操作 name:/joh?n(ath[oa]n)
+                                <pre>(content:this OR name:this) AND name:/joh?n(ath[oa]n)</pre> [更多信息请参考]
+
+                                <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html">(https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)</a>
+                            </div> -->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<!--<div class="col-md-12">
+            <div   ba-panel-class="with-scroll">
+                <div class="paddingZero">
+                    <uib-tabset active="vm.tabActive" class="first-tab">
+                        <uib-tab index="0" >
+                            <uib-tab-heading>
+                                日志详情 &nbsp;
+                                <span class="" ng-click="vm.openDownload()">
+                                    <i class="glyphicon glyphicon-download"></i>
+                                </span>
+                            </uib-tab-heading>
+                            <div class="row left-aside">
+                                <div class="col-md-2">
+                                    <div class=" panel-black top10">
+                                        <div class="panel-heading panel-blue">
+                                            已选择的类型
+                                        </div>
+                                        <div class="panel-body">
+                                            <dl ng-repeat='d in vm.typeList' class="asidefield_dl">
+                                                <dd ng-model="vm.select_type[d.name]">
+                                                    <label>
+                                                        <input type="checkbox"  ng-model="vm.select_type[d.name]" ng-change="vm.getFields()">
+                                                        <span class="checkbox-material">
+                                                            <span class="check"></span>
+                                                        </span> {{d.name}}
+                                                    </label>
+                                                    </dt>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+
+
+                                    <h5 class="asidefield_tit"></h5>
+                                    <div class=" panel-black">
+                                        <div class="panel-heading panel-blue">
+                                            已选过滤字段
+                                        </div>
+                                        <div class="panel-body">
+                                            <dl ng-click="d.showOrHide()" ng-repeat='d in vm.selectedFields track by $index ' ng-hide="d.hide" class="asidefield_dl">
+                                                <dt  uib-tooltip='{{d.name}}'>
+                                                    <b ng-show='{{d.enableDel}}' class="glyphicon glyphicon-remove" ng-click='vm.removefultered(d)'></b>{{d.name}}</dt>
+                                                    <dd ng-repeat="(values, keys) in (vm.getAggregations[d.name][0] |  limitTo : 3)" ng-show="d.show">
+
+                                                        <p>
+                                                            <a>
+                                                                <em>{{keys}}</em>
+                                                                <span>{{values}}</span>
+                                                                
+                                                            </a>
+                                                        </p>
+
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class=" panel-black top10">
+                                        <div class="panel-heading panel-blue">
+                                            待选过滤字段
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <dl ng-click="d.showOrHide()" ng-repeat='d in vm.unSelectFields track by $index' href='javascript:void(0)' class="asidefield_dl">
+                                                <dt>
+                                                    <b class="glyphicon glyphicon-plus" ng-click='vm.addfiltered(d)'></b>
+                                                    <dt>{{d.name}}</dt>
+                                                <dd ng-repeat="(values, keys) in (vm.getAggregations[d.name][0] |  limitTo : 3)" ng-show="d.show">
+
+                                                    <p>
+                                                        <a>
+                                                            <em>{{keys}}</em>
+                                                            <span>{{values}}</span>
+                                                            <i class="glyphicon glyphicon-search" ng-click="d.findFilter(d.name, keys)"></i>
+                                                        </a>
+                                                    </p>
+
+                                                    <div style="display: flex; justify-content: space-between; align-items: center">
+                                                        <span ng-if="d.type=='string' && $last" class="addfiltrate text-center" uib-popover-template="'pages/log-search/log-search-filter-detail-container.html'"
+                                                            popover-placement="right" popover-title="{{d.title || d.name}}" popover-is-open="d.filterHideOrShow"
+                                                            ng-click="d.onOff()">查看更多
+                                                            <i class="glyphicon glyphicon-search"></i>
+                                                        </span>
+                                                        <span ng-show="d.type=='string' && $last" class=" addfiltrate text-center" ng-click="vm.reTab(2, d.name)"> 统计视图
+                                                            <i class="fa fa-bar-chart"></i>
+                                                        </span>
+                                                    </div>
+
+                                                </dd>
+
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="help-label"> 
+                                        <div class="help-label-right">
+                                            
+                                            <a date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" >{{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}</a>
+
+                                        </div>
+                                        <div class="helplabel-hover" ng-repeat="(key , val)  in vm.queryParams.filterFields.exists track by $index">
+                                            <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || 'exists: '+val}}
+                                                <div class="icons-show" ng-show="show">
+                                                    <a><i class="fa fa-trash-o" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'exists')"></i></a>
+                                                    <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter('exists', {'symbol': {'title':  'exists', 'value': 'EXISTS'}, 'field': {'title': val, 'name': val}, 'value': val})"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>-->
+<!-- must_not exists 模式 -->
+<!--<div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.does_not_exist  track by $index">
+                                            <div class="operat-field operat-field-isno" ng-mouseenter="show = true" ng-mouseleave="show = false" >{{title || 'not exists: '+val}}
+                                                <div class="icons-show" ng-show="show">
+                                                    <a><i class="fa fa-trash" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'does_not_exist')"></i></a>
+                                                    <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter('does_not_exist', {'symbol': {'title':  'dose not exists', 'value': 'DOES NOT EXIST'}, 'field': {'title': val, 'name': val}, 'value': val})"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>-->
+<!-- must term 模式 -->
+<!-- <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is  track by $index">
+                                            <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || key+':'+val}}
+                                                <div class="icons-show" ng-show="show">
+                                                    <a><i class="fa fa-trash-o" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is')"></i></a>
+                                                    <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter('is', {'symbol': {'title':  'is', 'value': 'IS'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>-->
+<!-- must_not term 模式 -->
+<!--<div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_not  track by $index">
+                                            <div class="operat-field operat-field-isno" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || key+'!='+val}}
+                                                <div class="icons-show" ng-show="show">
+                                                    <a><i class="fa fa-trash-o" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_not')"></i></a>
+                                                    <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter( 'is_not', {'symbol': {'title':  'not is', 'value': 'NOT IS'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>-->
+
+<!-- must bool 模式 -->
+<!-- <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_one_of  track by $index">
+                                            <div class="">
+                                                <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || key+':'+val}}
+                                                    <div class="icons-show" ng-show="show">
+                                                        <a><i class="fa fa-trash-o" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_one_of')"></i></a>
+                                                        <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter( 'is_one_of', { 'symbol': {'title':  'is one of', 'value': 'IS ONE OF'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+<!-- must_not bool 模式 -->
+<!-- <div class="helplabel-hover" ng-repeat="(key, val) in vm.queryParams.filterFields.is_not_one_of  track by $index">
+                                            <div class="">
+                                                <div class="operat-field" ng-mouseenter="show = true" ng-mouseleave="show = false">{{title || key+'!='+val}}
+                                                    <div class="icons-show" ng-show="show">
+                                                        <a><i class="fa fa-trash-o" ng-click="vm.filtereds.rmFilter({'name':key, 'val':val}, 'is_not_one_of')"></i></a>
+                                                        <a><i class="fa fa-edit" ng-click="vm.filtereds.editFilter( 'is_not_one_of', {'symbol': {'title':  'is not one of', 'value': 'IS NOT ONE OF'}, 'field': {'title': title, 'name': key}, 'value': val})"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default" ng-if="vm.paginationConf.totalItems">
+                                        <div class="">
+                                            <log-search-statistic-view index="vm.app.name" app="vm.app.name" strsearch="vm.strsearch" fields="fields" options="vm.viewParams">
+                                            </log-search-statistic-view>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <div class="panel panel-default" ng-if="vm.paginationConf.totalItems">
+                                        <div class="panel-footer panel-page-footer">
+                                            <tm-pagination conf="vm.paginationConf"></tm-pagination>
+                                        </div>
+                                        <hr style="margin: 0">
+                                        <div class="horizontal-scroll">
+                                            <table class="table table-hover log-search-table">
+                                                <thead>
+                                                    <tr class="black-muted-bg">
+                                                        <th ng-repeat='d in vm.gridOptions.columnDefs' class="wordbknormal">{{d.title || d.name }}
+                                                            <i ng-class="{true: vm.switchClass, false:''}[$first]" ng-click='vm.switchSort()'></i>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat-start='d in vm.gridOptions.data' ng-class-odd="'odd'" ng-class-even="'even'" class="more-view no-top-border" >
+                                                        <td ng-repeat='_d in d.dataRow' ng-dblclick="vm.showDetil(d)">
+                                                            <i ng-show='_d.name=="timestamp" || _d.name == "source" || d.name == "score" || d.name == "highlight"' ng-class="{true:'glyphicon glyphicon-chevron-down',false:'glyphicon glyphicon-chevron-right'}[d.showOrHide]"
+                                                                ng-click="vm.showDetil(d)"></i>
+                                                            <div ng-if="_d.name=='@message'" expandable text="_d.value" char-len=550 class="workbkall log_message">
+
+                                                            </div>
+                                                            <span ng-if="_d.name!='@message'" ng-bind="_d.value"></span>
+                                                            <div>
+                                                                <span ng-if="_d.name=='timestamp'" class="label label-danger" style="margin-right:5px">{{d.allData['@hostname']}}</span>
+                                                                <span ng-if="_d.name=='timestamp'" class="label label-info" style="margin-right:5px">{{d.heard['type']}}</span>
+
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-repeat-end class="nohover" ng-show="d.showOrHide">
+                                                        <td colspan="{{vm.gridOptions.columnDefs.length}}">
+
+                                                                <table width="100%" class="table table-hover">
+                                                                    <tr ng-repeat="(key, val) in d.heard" class="black-muted-bg">
+                                                                        <td ng-hide='d.hideRow(key)'>
+                                                                            <div class="table-head">{{key}}</div>
+                                                                        </td>
+                                                                        <td ng-hide='d.hideRow(key)'>{{val}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr ng-repeat="(key, val) in d.allData" class="no-top-border">
+                                                                        <td ng-hide='d.hideRow(key)'>
+                                                                            <div class="table-head">{{key}}</div>
+                                                                        </td>
+                                                                        <td ng-hide='d.hideRow(key)'>{{val}}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>上下文
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <a  ui-sref="log-context({'filename':'{{d.allData['@filename']}}','filepath':'{{d.allData['@filepath']}}','linenum':'{{d.allData['@linenum']}}', 'hostname':'{{d.allData['@hostname']}}', 'timestamp':'{{d.allData['timestamp']}}' ,'event':'{{vm.filterInput.event}}', 'event_name':'{{vm.filterInput.name}}', 'index':'{{d['heard']['index']}}', 'type': {{vm.getType()}} })" class="btn btn-xs btn-success ">查看>></a>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-10 no-find-div" ng-if="!vm.paginationConf.totalItems">
+                                    <h3 class="no-find-h3">无查询结果返回
+                                        <i aria-hidden="true" class="fa fa-meh-o"></i>
+                                    </h3>
+
+                                    <h5>
+                                        - 请检查所选业务、日志类型以及日期时间范围是否正确
+                                    </h5>
+                                    <h5>
+                                        - 请检查所输入查询语句是否正确
+                                    </h5>
+
+                                    <p>
+                                    </p>
+                                    <h4>常用查询语句示例:</h4> 查询所有的字段存在“200” 的数据:
+                                    <pre>200</pre> 查询status字段等于 200 的数据:
+                                    <pre>status:200</pre> 查询status字段的值在 400-499 之间的数据:
+                                    <pre>status:[400 TO 499]</pre> 查询status字段的值在 400-499 并且extension 字段等于PHP的数据:
+                                    <pre>status:[400 TO 499] AND extension:PHP</pre> 查询status字段的值在 400-499 并且extension 字段等于PHP或者等于html 的数据:
+                                    <pre>status:[400 TO 499] AND (extension:php OR extension:html)</pre> 支持逻辑与(AND)和或(OR)操作 正则匹配操作 name:/joh?n(ath[oa]n)
+                                    <pre>(content:this OR name:this) AND name:/joh?n(ath[oa]n)</pre> [更多信息请参考]
+
+                                    <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html">(https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)</a>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab index="1" select="fields = vm.fieldsCountList" >
+                            <uib-tab-heading>
+                                统计视图 &nbsp;
+                            </uib-tab-heading>
+                            <div class="">
+                                <log-search-statistic-view index="vm.app.name" app="vm.app.name" strsearch="vm.strsearch" fields="fields" options="vm.viewParams">
+                                </log-search-statistic-view>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="2" disable='true'>
+                            <uib-tab-heading>
+                                SPL/SQL &nbsp;
+                            </uib-tab-heading>
+
+                            <log-search-spl-view  expression="vm.splExpression" model="vm.searchModel" ng-if="vm.tabActive == 2">
+
+                            </log-search-spl-view>
+                            <pre>{{vm.searchModel}}</pre>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+</div> -->

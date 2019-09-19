@@ -1,0 +1,676 @@
+.btn {
+    border-radius: 0 !important;
+    padding: 6px 16px;
+}
+
+.bootstrap-tagsinput {
+    .label-info {
+        color: #333 !important;
+        background: #ddd;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        &:hover {
+            background: #bbb;
+        }
+    }
+}
+
+.metricbeat-senior {
+    h3 {
+        font-size: 14px;
+    }
+    p {
+        line-height: 24px;
+        span {
+            margin-right: 5px;
+        }
+    }
+}
+
+.modal-content {
+    background: #fff;
+}
+
+.modal.in .modal-dialog,
+.modal.fade .modal-dialog {
+    top: 10% !important;
+    overflow: auto;
+}
+
+.modal {
+    .modal-dialog {
+        .modal-body {
+            clear: both;
+            overflow: hidden;
+            outline: none;
+            p.help-block {
+                color: #ff0000;
+                margin-top: 0;
+                height: 30px;
+                vertical-align: middle;
+                font-size: 12px;
+                display: table-cell;
+            }
+            .form-group {
+                width: 100%;
+                float: left;
+                margin-bottom: 5px;
+                label:nth-child(1) {
+                    width: 100px;
+                    float: left;
+                    line-height: 30px;
+                    text-align: right;
+                    margin-right: 10px;
+                }
+                .label-left:nth-child(1) {
+                    text-align: left;
+                    margin-bottom: 0;
+                }
+                .labelfont {
+                    width: 100%!important;
+                }
+                .form-control-sbox {
+                    margin-left: 110px;
+                    margin: 0;
+                    padding: 0;
+                    li {
+                        padding-top: 5px;
+                        display: inline-block;
+                        margin-right: 10px;
+                    }
+                    .form-control-sm {
+                        float: none;
+                        display: inline-block;
+                        width: 20%;
+                        background: #fff;
+                        margin: 0 5px;
+                    }
+                }
+                .form-control {
+                    float: left;
+                    width: 65%;
+                    background: #fff;
+                    margin-right: 5px;
+                    &.ui-select-toggle{
+                        width: 100%;
+                        border-top: none;
+                        border-left: none;
+                        border-right: none;
+                    }
+                }
+                .triggeralarm {
+                    margin-bottom: 5px;
+                    float: left;
+                    width: 65%;
+                    .form-control {
+                        margin-right: 0;
+                    }
+                    .form-control-level {
+                        width: 28%;
+                        border-radius: 0;
+                    }
+                    span {
+                        float: left;
+                        width: 7%;
+                        padding-top: 7px;
+                        padding-left: 3px;
+                        cursor: pointer;
+                    }
+                    .list {
+                        margin-bottom: 5px;
+                        overflow: hidden;
+                    }
+                }
+                .triggeradd {
+                    float: left;
+                    margin-left: 110px;
+                    width: 300px;
+                    a {
+                        cursor: pointer;
+                        &:hover {
+                            color: #0085cb;
+                        }
+                    }
+                }
+                .field-select {
+                    -webkit-appearance: none;
+                    /* google */
+                    -moz-appearance: none;
+                    /* firefox */
+                    appearance: none;
+                    /* IE */
+                    &>option {
+                        float: left;
+                        margin: 3px;
+                        padding: 2px 5px;
+                        background: #eee;
+                        border: 1px solid #ddd;
+                        border-radius: 0;
+                    }
+                }
+                .tip-gray {
+                    color: #999;
+                    float: left;
+                }
+                .set-list {
+                    width: 75%;
+                    float: left;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    padding-inline-start: 20px !important;
+                    &>li {
+                        width: 120px;
+                        height: 30px;
+                        float: left;
+                        input {
+                            position: relative;
+                            top: 2px;
+                        }
+                        label {
+                            width: 100%;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+            .form-group-file {
+                label:nth-child(1) {
+                    width: 120px;
+                    float: left;
+                    line-height: 30px;
+                    text-align: right;
+                    margin-right: 10px;
+                }
+                .form-control40 {
+                    width: 40%;
+                }
+                .handlebtn {
+                    float: left;
+                    span {
+                        display: inline-block;
+                        margin-top: 10px;
+                        color: #009cef;
+                        cursor: pointer;
+                    }
+                }
+                .form-control-sbox {
+                    margin-left: 120px;
+                    margin: 0;
+                    padding: 0;
+                    li {
+                        padding-top: 5px;
+                        display: inline-block;
+                        margin-right: 10px;
+                    }
+                    .form-control-sm {
+                        float: none;
+                        display: inline-block;
+                        width: 20%;
+                        background: #fff;
+                        margin: 0 5px;
+                    }
+                }
+            }
+            .panel-group {
+                .panel {
+                    .panel-heading {
+                        background: #ddd;
+                    }
+                    .panel-body {
+                        border: 1px solid #ddd !important;
+                        .table {
+                            th {
+                                text-align: center;
+                            }
+                            td {
+                                input,
+                                select {
+                                    width: auto;
+                                    float: none;
+                                    margin: 0 auto;
+                                }
+                            }
+                        }
+                        .type-list {
+                            width: 75%;
+                            float: left;
+                            padding: 0;
+                            border: 1px solid #ddd;
+                            li {
+                                height: 30px;
+                                float: left;
+                                margin: 0 10px;
+                                line-height: 30px;
+                                label {
+                                    width: auto;
+                                }
+                            }
+                        }
+                        .set-list {
+                            width: 100%;
+                        }
+                        .radio {
+                            width: 100%;
+                            float: left;
+                            margin-bottom: 10px;
+                            ul {
+                                li {
+                                    float: left;
+                                    margin-right: 10px;
+                                    label {
+                                        width: auto;
+                                        float: left;
+                                        margin-right: 20px;
+                                        &>input {
+                                            position: relative;
+                                            top: 2px;
+                                        }
+                                    }
+                                    select {
+                                        width: 120px;
+                                        float: left;
+                                    }
+                                }
+                            }
+                        }
+                        .interval-time {
+                            span {
+                                float: left;
+                                height: 30px;
+                                line-height: 30px;
+                                display: inline-block;
+                            }
+                            .form-control {
+                                width: 100px;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .event-rule-modal {
+            .form-group {
+                width: auto;
+                float: none;
+                label:nth-child(1) {
+                    width: auto;
+                    float: none;
+                    height: 20px;
+                    text-align: left;
+                }
+                .form-control {
+                    width: 100%;
+                    float: none;
+                }
+            }
+            .top-list {
+                padding-left: 15px;
+                .form-group {
+                    float: left;
+                    width: 20%;
+                    label {
+                        width: auto;
+                        float: left;
+                        margin-right: 5px;
+                        text-align: right;
+                        position: relative;
+                    }
+                    .label-after::after {
+                        content: '（解析分组）';
+                        position: absolute;
+                        left: 0;
+                        font-size: 12px;
+                        width: 100%;
+                        font-size: x-small;
+                        color: #999;
+                        top: 16px;
+                        left: -9px;
+                        word-wrap: normal;
+                        word-break: keep-all;
+                    }
+                    .form-control {
+                        width: 67%;
+                        float: left;
+                    }
+                    p.help-block {
+                        margin: 0;
+                        height: 20px;
+                        display: block;
+                        float: left;
+                    }
+                    .input-group {
+                        float: left;
+                        width: 100px;
+                    }
+                }
+            }
+            .bot-list {
+                .col-md-12 {
+                    margin-bottom: 5px;
+                    .before-col {
+                        width: 85%;
+                        float: left;
+                    }
+                    .col-min {
+                        float: left;
+                        width: 16.6%;
+                        label {
+                            float: left;
+                            width: 30px;
+                            margin-right: 5px;
+                            margin-bottom: 0;
+                            line-height: 32px;
+                            font-weight: normal;
+                        }
+                        .form-control {
+                            width: 68%;
+                            float: left;
+                            background: #fff;
+                        }
+                        .input-group {
+                            margin-bottom: 0;
+                        }
+                    }
+                    .last-col.col-min {
+                        width: 15%;
+                        float: left;
+                        margin-right: 0px;
+                        .form-control {
+                            width: 68%;
+                        }
+                        .input-group-btn {
+                            float: left;
+                        }
+                    }
+                }
+            }
+            .preview-btn {
+                span {
+                    color: #fff !important;
+                }
+            }
+        }
+        .control-label-right {
+            width: 65%;
+            float: left;
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 5px;
+            .bootstrap-tagsinput {
+                width: 100%;
+                background: none;
+                border: none;
+                border-radius: 0;
+                margin-bottom: 5px;
+                padding: 5px 0 10px 5px;
+                border-bottom: 1px solid #ddd;
+            }
+            .label-list {}
+        }
+        .logstash-tcp {
+            .ion-help {
+                width: 12px;
+                height: 12px;
+                color: #5fc5e4;
+                font-size: 5px;
+                display: inline-block;
+                border: 1px solid #5fc5e4;
+                border-radius: 7px;
+                line-height: 10px;
+                text-align: center;
+                margin-left: 5px;
+                position: relative;
+                top: -3px;
+            }
+            .form-group {
+                label:nth-child(1) {
+                    width: auto;
+                    margin-right: 3px;
+                    &>em {
+                        color: #ff0000;
+                    }
+                }
+                a {
+                    line-height: 30px;
+                }
+                .set-list {
+                    border: none;
+                    background: none;
+                    margin-bottom: 0;
+                    &>li {
+                        width: auto;
+                        float: left;
+                        margin-right: 15px;
+                    }
+                }
+            }
+            .row {
+                .form-group {
+                    .small-w {
+                        width: 100px;
+                    }
+                    em.gb-icon {
+                        float: left;
+                        background: #ccc;
+                        padding: 0 10px;
+                        height: 34px;
+                        line-height: 34px;
+                        margin-right: 10px;
+                        margin-left: -5px;
+                        font-style: normal;
+                    }
+                    span {
+                        height: 30px;
+                        line-height: 30px;
+                    }
+                    textarea.form-control {
+                        height: 50px;
+                    }
+                }
+                .bor-top {
+                    border-top: 1px solid #ddd;
+                    padding-top: 10px;
+                    margin-top: 10px;
+                    .form-group {
+                        width: auto;
+                        float: left;
+                        margin-right: 15px;
+                        .form-control {
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+            .wrap-bor {
+                border: 1px solid #ddd;
+                padding: 10px;
+                background: #fff;
+                clear: both;
+                overflow: hidden;
+                margin-bottom: 10px;
+                .form-group {
+                    width: auto;
+                    margin-right: 15px;
+                    &>span {
+                        float: left;
+                        line-height: 34px;
+                        color: #999;
+                    }
+                }
+                label,
+                input,
+                .form-control {
+                    float: left;
+                }
+                label {
+                    line-height: 34px;
+                    font-weight: normal;
+                }
+                .form-control {
+                    width: 100px;
+                }
+                .table-responsive {
+                    width: 100%;
+                    float: left;
+                }
+            }
+            button {
+                span {
+                    line-height: 0;
+                    height: auto;
+                    color: #fff;
+                }
+            }
+        }
+        .logstash-kafka {
+            .row {
+                .form-group {
+                    label:nth-child(1) {
+                        width: 120px;
+                    }
+                }
+                .bor-top {
+                    .form-group {
+                        width: 45%;
+                        float: left;
+                        .form-control {
+                            width: 62%;
+                        }
+                    }
+                }
+            }
+        }
+        .logstash-file {
+            .row {
+                .bor-top {
+                    .form-group {
+                        width: 100%;
+                        border-bottom: 1px solid #ddd;
+                        label:nth-child(1) {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+            .tabrow {
+                .form-group {
+                    float: left;
+                    line-height: 34px;
+                    .form-control {
+                        width: 50%;
+                    }
+                }
+                p {
+                    line-height: 34px;
+                }
+            }
+            button {
+                padding: 0 12px;
+            }
+        }
+        .logstash-data {
+            .row {
+                .bor-top {
+                    .form-group {
+                        width: 100%;
+                        .form-control {
+                            width: 60%;
+                        }
+                    }
+                }
+                .wrap-bor {
+                    .form-group {
+                        width: 100%;
+                        label {
+                            width: 100px;
+                            text-align: right;
+                        }
+                        .form-control {
+                            width: 70%;
+                        }
+                    }
+                }
+            }
+        }
+        .logstash-monitor {
+            .row {
+                .bor-top {
+                    .form-group {
+                        width: 100%;
+                        .form-control {
+                            width: 60%;
+                        }
+                    }
+                }
+                .wrap-bor {
+                    .form-group {
+                        width: 100%;
+                        label {
+                            width: 140px;
+                            text-align: right;
+                        }
+                        .form-control {
+                            width: 70%;
+                        }
+                    }
+                }
+            }
+        }
+        .logstash-custom {
+            .row {
+                .bor-top {
+                    .help-block {
+                        float: left;
+                        margin: 0;
+                        line-height: 34px;
+                        padding-left: 20px;
+                        font-size: 12px;
+                    }
+                    .set-list {
+                        width: auto;
+                    }
+                    .btn {
+                        float: left;
+                        padding: 0 12px;
+                    }
+                }
+                .row-section {
+                    .form-group {
+                        width: 80%;
+                        label {
+                            &>span {
+                                margin-left: 10px;
+                            }
+                        }
+                        input {
+                            width: 50%;
+                            margin-right: 10px;
+                        }
+                        a {
+                            float: left;
+                            line-height: 34px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.font13 {
+    font-size: 13px;
+}
+
+.menuform {
+    .modal-body {
+        .form-group {
+            label {
+                text-align: left!important;
+            }
+            .form-control {
+                width: 100%!important;
+            }
+        }
+    }
+}

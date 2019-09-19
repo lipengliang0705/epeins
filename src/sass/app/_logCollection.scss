@@ -1,0 +1,30 @@
+/**日志采集 详情页面的样式**/
+.entity-details dt {
+	float: left;
+	width: 110px;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.entity-details dd {
+	margin-left: 120px;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+.entity-details dd .textcontent{
+	padding: 5px;
+	p{
+		img{
+			max-width: 90%;
+		}
+	}
+}
+.entity-details dt span,.entity-details dd span{
+	display: inline-block;
+	height: 30px;
+	padding: 5px;
+	font-size: 13px;
+}
+/****/

@@ -1,0 +1,40 @@
+    .bootstrap-tagsinput{
+      width: 75%;
+    }
+    .bootstrap-tagsinput input{
+       border: 0px solid #cbcbcb; 
+    }
+
+    .badge-text-info-span{
+      display:inline-block!important;
+      margin: 2px;
+    }
+    .badge-text-info-span label{
+      margin-bottom: -7px;
+    }     
+    .badge-text-info-div{
+      display:inline-block!important;
+      margin: 5px;
+    }   
+    .badge-text-info{
+      padding: 5px 10px;
+      background: #999;
+      color: #fff !important;
+      border-radius: 0;
+      font-size: .9rem;
+      text-align: center;
+      display: inline-block !important;
+      min-width: 30px;
+      min-height: 20px;
+      vertical-align: middle;
+  }
+  .badge-text-info i{
+      position: relative!important;
+      margin: 0 2px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      top: 0.1rem;
+  }
+  .badge-text-info i.glyphicon{
+      top: 0.2rem;
+  }

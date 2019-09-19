@@ -1,0 +1,14 @@
+[
+    {"month":"一月", "income": 13890, "outcome":9090},
+    {"month":"二月", "income": 15640, "outcome":12430},
+    {"month":"三月", "income": 17330, "outcome":13870},
+    {"month":"四月", "income": 14980, "outcome":9700},
+    {"month":"五月", "income": 13200, "outcome":8900},
+    {"month":"六月", "income": 17140, "outcome":12980},
+    {"month":"七月", "income": 18900, "outcome":12340},
+    {"month":"八月", "income": 20670, "outcome":13950},
+    {"month":"九月", "income": 16870, "outcome":10600},
+    {"month":"十月", "income": 17780, "outcome":11300},
+    {"month":"十一月", "income": 19800, "outcome":15010},
+    {"month":"十二月", "income": 16820, "outcome":12090}
+]

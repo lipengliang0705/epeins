@@ -1,0 +1,58 @@
+<style type="text/css">
+    .table-td-div p {
+        margin-bottom: 0;
+        text-align: left;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.cancel()">&times;</button>
+    <h4 class="modal-title">管理已存搜索条件</h4>
+</div>
+<div class="modal-body" tabindex="1">
+    <table class="table" ng-table="vm.table">
+        <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <!-- <th jh-sort-by="id"><span no-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th> -->
+                <th jh-sort-by="name"><span no-translate="consoleApp.userView.name">Name</span> <span
+                        class="glyphicon glyphicon-sort"></span></th>
+                <!-- <th jh-sort-by="type"><span no-translate="consoleApp.userView.type">Type</span> <span class="glyphicon glyphicon-sort"></span></th> -->
+                <th jh-sort-by="options"><span no-translate="consoleApp.userView.options">Options</span> <span
+                        class="glyphicon glyphicon-sort"></span></th>
+                <th><span>操作</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in vm.table.data">
+                <!-- <td>{{row.id}}</td> -->
+                <td>{{row.name}}</td>
+                <!--  <td>{{userView.type}}</td> -->
+                <!-- <td ng-if="userView.type == 'FORM_ADDONS_SYS' || userView.type == 'FORM_ADDONS_NET'" >
+                        <div ng-bind-html="vm.options(userView.options)" class="table-td-div"></div>
+                    </td>
+                    <td ng-if="userView.type != 'FORM_ADDONS_SYS' && userView.type != 'FORM_ADDONS_NET'">选项</td> -->
+                <td>
+                    <div ng-bind-html="vm.options(row.options,row.type)" class="table-td-div"></div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <a href="" style="margin-right: 10px;" ng-click="vm.reload(row)">
+                            加载查询
+                        </a>
+                        <a href="" ng-click="vm.remove(row)">
+                            删除
+                        </a>
+                        <!-- <button type="submit" ng-click="vm.remove(row)" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                    <span class="hidden-sm-down"></span>
+                                </button> -->
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="vm.cancel()">
+        <span>关闭</span>
+    </button>
+</div>

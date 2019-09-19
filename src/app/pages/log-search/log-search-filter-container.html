@@ -1,0 +1,45 @@
+<div class="">
+<div class="modal-body">
+  <div class="row row-top"> 
+      <label for="Filter" class="col-sm-2">Filter</label>
+      <div class="col-md-10" style="display: inline-flex !important;" >
+        <ui-select ng-model="vm.filtereds.entityFilter.field" theme="bootstrap" style="width:25%;" >
+          <ui-select-match placeholder="字段">{{$select.selected.title || $select.selected.name}}</ui-select-match>
+          <ui-select-choices repeat="item in  vm.fieldsCountList | filter: $select.search">
+            <div ng-bind-html="item.title || item.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <div style="width:25%;" ng-init="selectArray = [{'title': 'is', 'value': 'IS'},{'title': 'not is', 'value': 'NOT IS'},{'title': 'is one of', 'value': 'IS ONE OF'},{'title': 'is not one of', 'value': 'IS NOT ONE OF'}, {'title': 'exists', 'value': 'EXISTS'},{'title': 'does not exist', 'value': 'DOES NOT EXIST'}]">
+          <!--  ,{'title': 'exists', 'value': 'EXISTS'},{'title': 'does not exist', 'value': 'DOES NOT EXIST'} -->
+          <ui-select ng-model="vm.filtereds.entityFilter.symbol" theme="bootstrap">
+            <ui-select-match placeholder="操作符">{{$select.selected.title}}</ui-select-match>
+            <ui-select-choices repeat="item in selectArray | filter: $select.search">
+              <div ng-bind-html="item.title | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div style="width:50%;"  ng-switch="vm.filtereds.entityFilter.symbol.value">
+          <input ng-model="vm.filtereds.entityFilter.value" ng-switch-when="IS" class="form-control" type="text" placeholder="值" name="" value="">
+          <input ng-model="vm.filtereds.entityFilter.value" ng-switch-when="NOT IS" class="form-control" type="text" placeholder="值" name="" value="">
+          <input ng-model="vm.filtereds.entityFilter.value" ng-switch-when="IS ONE OF" class="form-control" type="text" placeholder="逗号分隔的值..." name="" value="">
+          <input ng-model="vm.filtereds.entityFilter.value" ng-switch-when="IS NOT ONE OF" class="form-control" type="text" placeholder="逗号分隔的值..." name="" value="">
+          <!-- <input ng-model="vm.filtereds.entityFilter.value" ng-switch-then="EXISTS" class="form-control" type="text" placeholder="值" name="" value=""> -->
+        </div>
+      </div>
+ 
+  </div> 
+  
+  <div class="row row-top">
+      <label class="col-sm-2">Label</label>
+      <div class="col-md-10">
+          <input ng-model="vm.filtereds.entityFilter.title" class="form-control" type="text" placeholder="显示名" name="" value="">
+      </div>
+  </div>
+</div> 
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="vm.filtereds.filterStatus = false">关闭/删除</button>
+  <button type="button" class="btn btn-primary" ng-disabled="!vm.filtereds.entityFilter.symbol && !vm.filtereds.entityFilter.symbol && !vm.filtereds.entityFilter.value" ng-click="vm.filtereds.addFilter(vm.filtereds.entityFilter)">保存/修改</button>
+</div>
+
+</div>

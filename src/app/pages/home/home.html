@@ -1,0 +1,285 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        个人首页
+    </h3>
+    <small class="text-muted h5 font-title-des">用户个人门户</small>
+</div>
+
+<div class="wrapper" id="home">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <!-- 统计 -->
+                <div class="row dashborad">
+                    <div class="dashborad-item">
+                        <div class="inner">
+                            <p>我的仪表盘</p>
+                            <div class="content">
+                                <h1>{{vm.data.dashboardsInfo.length}}
+                                    <span>个</span>
+                                </h1>
+                                <a href="" class="btn btn-primary" ui-sref="new-dashboard">查看全部</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashborad-item">
+                        <div class="inner">
+                            <p>我的报表</p>
+                            <div class="content">
+                                <h1>{{vm.data.reportList.length}}
+                                    <span>个</span>
+                                </h1>
+                                <a href="" class="btn btn-primary" ui-sref="report-management">查看全部</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashborad-item">
+                        <div class="inner">
+                            <p>知识库文章</p>
+                            <div class="content">
+                                <h1>{{vm.data.knowledgeBaseInfo.length}}
+                                    <span>个</span>
+                                </h1>
+                                <a href="" class="btn btn-primary" ui-sref="knowledge-base-list">查看全部</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashborad-item">
+                        <div class="inner">
+                            <p>网点业务分布</p>
+                            <div class="content">
+                                <h1>5326
+                                    <span>个</span>
+                                </h1>
+                                <a href="" class="btn btn-primary" ui-sref="business-map">查看地图</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 统计 -->
+
+                <div class="row panel-content">
+
+
+                    <div class="main">
+                        <!-- 核心系统 -->
+                        <div class="card core">
+                            <div class="header">
+                                <h2>核心业务</h2>
+                                <a href="" ui-sref="category">查看全部</a>
+                            </div>
+                            <div class="body">
+                                <div class="core-item">
+                                    <p>最新使用</p>
+                                    <div class="core-body">
+                                        <a href="">
+                                            <i class="fa fa-database"></i>
+                                            AFA业务
+                                        </a>
+                                        <a href="">
+                                            <i class="fa fa-database"></i>
+                                            _STANDARD_
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="core-item">
+                                    <p>业务系统</p>
+                                    <div class="core-body">
+                                        <div class="core-cell">
+                                            <div class="header">
+                                                <div class="title">光大证券POC</div>
+                                            </div>
+                                            <div class="body">
+                                                <div class="node">
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                </div>
+                                                <div class="label">
+                                                    <span>db</span>
+                                                    <span>linux</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="core-cell">
+                                            <div class="header">
+                                                <div class="title">光大证券POC</div>
+                                            </div>
+                                            <div class="body">
+                                                <div class="node">
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                </div>
+                                                <div class="label">
+                                                    <span>db</span>
+                                                    <span>linux</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="core-cell">
+                                            <div class="header">
+                                                <div class="title">光大证券POC</div>
+                                            </div>
+                                            <div class="body">
+                                                <div class="node">
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                    <a href="">节点1</a>
+                                                </div>
+                                                <div class="label">
+                                                    <span>db</span>
+                                                    <span>linux</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 核心系统 -->
+
+                        <!-- 最近查询和新增知识库 -->
+                        <div class="card tab">
+                            <div class="header">
+                                <ul class="header-list">
+                                    <li ng-repeat="item in vm.data.tabs" ng-class="{'active': item.status}"
+                                        ng-click="vm.method.selectedTab('tabs',$index)">
+                                        <a href="">{{item.name}}</a>
+                                    </li>
+                                </ul>
+                                <div>
+                                    <a href="" ng-if="vm.data.currentTabIndex == 0"
+                                        ui-sref="log-data-dashboard">查看全部</a>
+                                    <a href="" ng-if="vm.data.currentTabIndex == 1"
+                                        ui-sref="knowledge-base-list">查看全部</a>
+                                </div>
+                            </div>
+                            <div class="body" ng-if="vm.data.currentTabIndex == 0">
+                                <form name="vm.searchForm" novalidate>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..."
+                                            name="search" ng-model="vm.data.searchType" autocomplete="off" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search-btn" type="submit"
+                                                ng-disabled="vm.data.searchType.$invalid">
+                                                <span class="ion-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <table class="table" ng-table="vm.data.tableParamsType">
+                                    <tr ng-repeat="item in $data">
+                                        <td data-title="'标题'" sortable="'name'">
+                                            {{item.name}}
+                                        </td>
+                                        <td data-title="'options'">
+                                            查询语句：<span>{{item.options.config.query}}</span>
+                                        </td>
+                                        <td data-title="'操作'">
+                                            <a href="" style="margin-right: 10px"
+                                                ng-click="vm.method.reLoadQuery(item)">
+                                                <span>加载查询</span>
+                                            </a>
+                                            <a style="color:red;" href=""
+                                                ng-click="vm.method.deleteDataDashboard(item.id)">
+                                                <span>删除</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="body" ng-if="vm.data.currentTabIndex == 1">
+                                <form name="vm.searchForm" novalidate>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="输入查询条件进行过滤..."
+                                            name="search" ng-model="vm.data.search" autocomplete="off" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search-btn" type="submit"
+                                                ng-disabled="vm.search.$invalid">
+                                                <span class="ion-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <table class="table" ng-table="vm.data.tableParamsKnowledgeBase">
+                                    <tr ng-repeat="item in $data">
+                                        <td data-title="'标题'" sortable="'title'">
+                                            <a href="" ng-click="vm.method.toKnowledgeBase(item)">{{item.title}}</a>
+                                        </td>
+                                        <td data-title="'描述'" sortable="'content'">
+                                            <span>{{item.subTitle}}</span>
+                                        </td>
+                                        <td data-title="'创建时间'" sortable="'createdTime'">
+                                            {{item.createdTime | date:'yyyy-MM-dd HH:mm'}}
+                                        </td>
+                                        <td data-title="'操作'">
+                                            <a href="" style="margin-right: 10px"
+                                                ng-click="vm.method.toKnowledgeBase(item)">
+                                                <span>查看</span>
+                                            </a>
+                                            <a href="" ui-sref="knowledge-base-modify(item)" style="margin-right: 10px">
+                                                <span>编辑</span>
+                                            </a>
+                                            <a style="color:red;" href="" ng-click="vm.method.showDeleteModal(item.id)">
+                                                <span>删除</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 最近查询和新增知识库 -->
+
+                    </div>
+
+                    <div class="side">
+                        <!-- 快速开始/便捷导航	-->
+                        <div class="card nav">
+                            <div class="header">
+                                <h2>快速开始/便捷导航</h2>
+                            </div>
+                            <div class="body">
+                                <div class="list">
+                                    <a href="" ui-sref="{{item.url}}" title="{{item.name}}"
+                                        ng-repeat="item in vm.data.navigation">{{item.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 快速开始/便捷导航 -->
+
+                        <!-- 快速开始/便捷导航 -->
+                        <div class="card alarm">
+                            <div class="header">
+                                <h2>告警消息({{vm.data.alarmInfosNotification.length}})</h2>
+                                <a href="" ng-click="vm.method.markAllAsRead()">全部已读</a>
+                            </div>
+                            <div class="body">
+                                <div class="alarm-item" ng-repeat="item in vm.data.alarmInfosNotification">
+                                    <p>名称：{{item.alarmInfo.name}}</p>
+                                    <p>等级：{{item.alarmLevelName}} 业务：{{item.categoryName}} 规则：{{item.eventRuleName}}</p>
+                                    <p>{{item.alarmInfo.modifiedTime | date:'yyyy-MM-dd HH:mm'}}</p>
+                                    <a href="" class="pull-right"
+                                        ng-click="vm.method.alarmInfos(item.alarmInfo.id)">标为已读</a>
+                                </div>
+                                <div ng-if="vm.data.alarmInfosNotification.length == 0">
+                                    <p style="padding-bottom: 10px;">没有数据</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 快速开始/便捷导航 -->
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

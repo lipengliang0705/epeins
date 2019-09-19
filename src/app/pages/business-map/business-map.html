@@ -1,0 +1,270 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        网点分布
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">机构网点分布</small> -->
+</div>
+
+<div class="wrapper" id="businessmap">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>时间</label>
+                    <div class="btn-group btn-group-time">
+                        <label class="btn btn-default" ng-class="{'btn-active': vm.data.selectedIndex == $index}" ng-click="vm.method.selectedMenu($index)" ng-repeat="itime in vm.data.timeRange" ng-model="radioModel">{{ itime }}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control form-control-w150">
+                        <option value="">自定义时间</option>
+                    </select>
+                </div>
+            </form>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>机构</label>
+                    <select class="form-control">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>类型</label>
+                    <select class="form-control">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </form>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>&nbsp&nbsp</label>
+                    <button type="submit" class="btn btn-primary">查询</button>
+                </div>
+                
+            </form>
+            <div class="panel panel-bussmap widget">
+                <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            网点列表（<span class="text-info">50</span>）
+                        </uib-tab-heading>
+                        <form name="vm.searchForm" novalidate>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="search"
+                                    ng-model="vm.data.search" autocomplete="off" required />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search-btn" type="submit"
+                                        ng-disabled="vm.search.$invalid">
+                                        <span class="ion-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <table class="table table-dash" ng-table="vm.data.tableParams">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'机构名称/简称'" sortable="'name'">
+                                    {{item.name}}({{item.alias}})
+                                </td>
+                                <td data-title="'机构码'" sortable="'institutionCode'">
+                                    {{item.institutionCode}}
+                                </td>
+                                <td data-title="'机构类型'" sortable="'type'">
+                                    {{item.type}}
+                                </td>
+                                <td data-title="'机构地址'" sortable="'adress'">
+                                    {{item.adress}}
+                                </td>
+                                <td data-title="'交易数量(笔)'" sortable="'tradCapacity'">
+                                    {{item.tradCapacity}}
+                                </td>
+                                <td data-title="'异常交易(笔)'" sortable="'abnormal'">
+                                    {{item.abnormal}}
+                                </td>
+                                <td data-title="'交易趋势'">
+                                    <img src="../assets/img/trend_map.png" alt="" class="trend-map">
+                                </td>
+                                <td data-title="'操作'">
+                                    <a href="" ui-sref="new-dashboard-detalis({id:item.id})"> 查看详情</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Getting Done">
+                        <uib-tab-heading>
+                            交易数量（<span class="text-info">40</span>）
+                        </uib-tab-heading>
+                        <form name="vm.searchForm" novalidate>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="search"
+                                    ng-model="vm.data.search" autocomplete="off" required />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search-btn" type="submit"
+                                        ng-disabled="vm.search.$invalid">
+                                        <span class="ion-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <table class="table table-dash" ng-table="vm.data.tableParams">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'机构名称/简称'" sortable="'name'">
+                                    {{item.name}}({{item.alias}})
+                                </td>
+                                <td data-title="'机构码'" sortable="'institutionCode'">
+                                    {{item.institutionCode}}
+                                </td>
+                                <td data-title="'机构类型'" sortable="'type'">
+                                    {{item.type}}
+                                </td>
+                                <td data-title="'机构地址'" sortable="'adress'">
+                                    {{item.adress}}
+                                </td>
+                                <td data-title="'交易数量(笔)'" sortable="'tradCapacity'">
+                                    {{item.tradCapacity}}
+                                </td>
+                                <td data-title="'异常交易(笔)'" sortable="'abnormal'">
+                                    {{item.abnormal}}
+                                </td>
+                                <td data-title="'交易趋势'">
+                                    
+                                </td>
+                                <td data-title="'操作'">
+                                    <a href="" ui-sref="new-dashboard-detalis({id:item.id})"> 查看详情</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Getting Done">
+                        <uib-tab-heading>
+                            异常数量（<span class="text-danger">5</span>）
+                        </uib-tab-heading>
+                        <form name="vm.searchForm" novalidate>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="search"
+                                    ng-model="vm.data.search" autocomplete="off" required />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search-btn" type="submit"
+                                        ng-disabled="vm.search.$invalid">
+                                        <span class="ion-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <table class="table table-dash" ng-table="vm.data.tableParams">
+                            <tr ng-repeat="item in $data">
+                                <td data-title="'机构名称/简称'" sortable="'name'">
+                                    {{item.name}}({{item.alias}})
+                                </td>
+                                <td data-title="'机构码'" sortable="'institutionCode'">
+                                    {{item.institutionCode}}
+                                </td>
+                                <td data-title="'机构类型'" sortable="'type'">
+                                    {{item.type}}
+                                </td>
+                                <td data-title="'机构地址'" sortable="'adress'">
+                                    {{item.adress}}
+                                </td>
+                                <td data-title="'交易数量(笔)'" sortable="'tradCapacity'">
+                                    {{item.tradCapacity}}
+                                </td>
+                                <td data-title="'异常交易(笔)'" sortable="'abnormal'">
+                                    {{item.abnormal}}
+                                </td>
+                                <td data-title="'交易趋势'">
+                                    
+                                </td>
+                                    <td data-title="'操作'">
+                                        <a href="" ui-sref="new-dashboard-detalis({id:item.id})"> 查看详情</a>
+                                    </td>
+                                </tr>
+                            </table>
+                    </uib-tab>
+                </uib-tabset>
+                <div class="clearfix"></div>
+            </div>
+            
+           <!-- <div class="panel">
+                <div class="info">
+                    <div class="info-item">
+                        总共网点：
+                        <b class="primary">7520</b>
+                        个
+                    </div>
+                    <div class="info-item">
+                        当前交易数量:
+                        <b class="primary">1445</b>
+                        笔
+                    </div>
+                    <div class="info-item">
+                        交易异常：
+                        <b class="red">15</b>
+                        次
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="main">
+                        <div id="allmap"></div>
+                    </div>
+
+                    <div class="sideabr">
+                        <div class="title">
+                            <b>当前选择网点(100)</b>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    中牟农商雁月湾分理处
+                                </a>
+                                <span>地址：中牟县雁鸣湖镇雁鸣大道与环乡路交叉口</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    中牟农商行康庄分理处
+                                </a>
+                                <span>地址：郑州市郑东新区白沙镇康庄大道</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    郑信分理处
+                                </a>
+                                <span>地址：郑州市郑东新区白沙镇郑信路大有庄社区8号门面</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    中牟农商行福山分理处
+                                </a>
+                                <span>地址：中牟农商行福山分理处</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    万通分理处
+                                </a>
+                                <span>地址：郑州万邦调味品有限公司市场3号楼东南角</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    汽车产业园区分理处
+                                </a>
+                                <span>地址：郑州市中牟县中兴路与正中大道交叉口（比克汉丰科技园金座一楼）</span>
+                                <span>电话：(010)64861646</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div> -->
+        </div>
+    </div>
+</div>

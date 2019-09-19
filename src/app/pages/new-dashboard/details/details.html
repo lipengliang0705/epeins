@@ -1,0 +1,139 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        {{vm.resources.list.name}}
+        <!-- <button class="btn btn-primary pull-right" ng-click="vm.method.showValidateModal()">新建</button> -->
+        <a href="" class="pull-right" ui-sref="new-dashboard">
+            <i class="fa fa-angle-left" aria-hidden="true"></i> 返回列表
+        </a>
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">用户自定义综合视图</small> -->
+</div>
+<div class="wrapper" id="new-dashboard-details">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- 全局设置 -->
+            <div class="setting" ng-style="{'justify-content':vm.data.isShowFilter?'space-between':'flex-end'}">
+                <div class="setting-item" ng-if="vm.data.isShowFilter">
+                    <div class="datetimepicker">
+                        <span>开始时间：</span>
+                        <p class="input-group">
+                            <input type="text" readonly class="form-control" datetime-picker="yyyy-MM-dd HH:mm" ng-model="vm.data.dateTimepicker.startTimeOpts.date" is-open="vm.data.dateTimepicker.startTimeOpts.isOpen" ng-click="vm.data.dateTimepicker.startTimeOpts.openCalendar($event, prop)"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default search-btn"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="datetimepicker">
+                        <span>结束时间：</span>
+                        <p class="input-group">
+                            <input type="text" readonly class="form-control" datetime-picker="yyyy-MM-dd HH:mm" ng-model="vm.data.dateTimepicker.endTimeOpts.date" is-open="vm.data.dateTimepicker.endTimeOpts.isOpen" ng-click="vm.data.dateTimepicker.endTimeOpts.openCalendar($event, prop)"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default search-btn"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="vm.method.globalSearch()">查询</button>
+                </div>
+                <div class="setting-item">
+                    <a href="" title="过滤" ng-click="vm.data.isShowFilter = !vm.data.isShowFilter">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </a>
+                    <div title="可编辑">
+                        <switcher ng-model="vm.data.isDisable" true-value="true" false-value="false" class="styled" ng-change="vm.method.settingSwitch(newValue,oldValue)">
+                        </switcher>
+                    </div>
+                    <a href="" title="添加图表" ng-click="vm.method.showAddEchartsModal()">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </a>
+                    <a href="" title="刷新" ng-click="vm.method.echatsRefresh()">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </a>
+                    <!-- <a href="" title="另存为报表">
+                        <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                    </a> -->
+                    <a href="" title="全屏" ng-click="vm.method.fullScreen()">
+                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- 全局设置 -->
+
+            <div gridster="vm.data.gridsterOpts" class="content" id="gridContainer">
+                <div>
+                    <li class="item" gridster-item="item" ng-repeat="item in vm.data.standardItems" id="li{{$index}}">
+                        <!-- {{item}} -->
+                        <div class="header">
+                            <span>{{item.chartTitle}}</span>
+                            <div ng-if="!vm.data.isAllFullScreen">
+                                <p>
+                                    <a href="javascript:" title="{{(vm.method.formatTime(item.tempDate.startDate)) +'~'+(vm.method.formatTime(item.tempDate.endDate))}}" date-range-picker options="vm.data.dateRangeOptions" ng-model="item.tempDate" ng-click="vm.method.selectedDate(item)">
+                                        <span>{{(vm.method.formatTime(item.tempDate.startDate)) +"~"+(vm.method.formatTime(item.tempDate.endDate))}}</span>
+                                        <i class="fa fa-angle-down icon-data" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p ng-if="item.shape">
+                                    <a href="" title="切换图表" ng-click="vm.method.switchShape(false,$index)">
+                                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p ng-if="!item.shape">
+                                    <a href="" title="切换表格" ng-click="vm.method.switchShape(true,$index)">
+                                        <i class="fa fa-table" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="" title="设置" ng-click="vm.method.showSettingEchartsModal(item.chartId)">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="" title="刷新" ng-click="vm.method.echatsRefresh($index)">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="" title="下载" ng-click="vm.method.echartsDownload($index)">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="" title="全屏" ng-click="vm.method.fullScreen($index)" ng-if="!vm.data.isFullScreen">
+                                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="" title="取消全屏" ng-click="vm.method.exitFullscreen()" ng-if="vm.data.isFullScreen">
+                                        <i class="fa fa-compress" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="" title="删除" ng-click="vm.method.showDeleteModal($index)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- 表格 -->
+                        <div class="table-container" ng-show="item.shape">
+                            <table class="table table-dash" ng-table="item.tableParams">
+                                <tr ng-repeat="field in $data">
+                                    <td data-title="'字段'" sortable="'x'">
+                                        {{field.x}}
+                                    </td>
+                                    <td data-title="'值'" sortable="'y'">
+                                        {{field.y}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- 图表 -->
+                        <div class="echarts" id="id{{$index}}" ng-show="!item.shape"></div>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

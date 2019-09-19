@@ -1,0 +1,75 @@
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">角色管理</h3>
+    <small class="text-muted h5 font-title-des">规范角色管理</small>
+</div>
+<div class="wrapper" >
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel widget">
+                <div class="panel-heading">
+                  <button class="btn btn-primary" ui-sref="role-management.new"><i class="fa fa-plus"></i>&nbsp;新建</button>
+                  <full-size></full-size>
+            </div>
+            <div class="panel-body">
+                <!-- <form class="input-group">
+                    <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                    <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="search">
+                   
+                </form> -->
+                <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                </form>
+                <table  class="table" ng-table="vm.tableParams">
+                   
+                    <tbody>
+                        <tr ng-repeat="role in $data track by $index">
+                           <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="role-management-detail({id:role.id})">{{role.id}}</a></td> -->
+                            <td data-title="'名称'" sortable="'name'">{{role.name}}</td>
+                           <!--  <td>{{role.info}}</td> -->
+                            <td data-title="'描述'" sortable="'description'">{{role.description}}</td> 
+
+                            <td data-title="'业务组'" sortable="'businessGroup'">{{role.businessGroup.name }}</td>
+                            <td data-title="'菜单组'" sortable="'menuTree'">{{role.menuTree.name}}</td>
+                            <td data-title="'创建时间'" sortable="'createdTime'">{{role.createdTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td data-title="'修改用户'" sortable="'modifiedBy'">{{role.modifiedBy}}</td>
+                            <td data-title="'操作'" class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="role-management-detail({id:role.id})"
+                                            class="btn-reset">
+                                        查看
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="role-management.edit({id:role.id})"
+                                            class="btn-reset" title="编辑">
+                                        编辑
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="role-management.delete({id:role.id})"
+                                            class="btn-reset text-delete" title="删除">
+                                        删除 <!--ng-disabled="vm.role.id === 1" -->
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="6" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>

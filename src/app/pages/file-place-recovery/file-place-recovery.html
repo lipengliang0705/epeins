@@ -1,0 +1,73 @@
+<style>
+    .td-indice-parent{
+        max-width: 600px;
+    }
+</style>
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">归档日志</h3>
+    <small class="text-muted h5 font-title-des">已归档的日志详情和操作</small>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel  widget">
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm"
+                                   ng-model="vm.globalSearchTerm" required/>
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit"
+                                    ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table" ng-table="vm.tableParams">
+                            <colgroup>
+                                <col />
+                                <col/>
+                                <col width="55%" />
+                                <col/>
+                                <col  />
+                            </colgroup>
+                            <tr ng-repeat="file in $data track by $index">
+                                <!--<td header="'headerCheckbox.html'">-->
+                                    <!--<input type="checkbox" name="id" ng-model="vm.selected[file.id]"/>-->
+                                <!--</td>-->
+                                <td data-title="'snapshot'" sortable="'snapshot'">{{file.snapshot}}</td>
+                                <td data-title="'归档时间'" sortable="'start_time'">{{file.start_time | date:'yyyy-MM-dd HH:mm'}}
+                                </td>
+                                <td data-title="'归档索引'" sortable="'indices'" >
+                                    <div >
+                                        <span class="label label-default" style="margin-right:5px;" ng-repeat="indexName in file.indices">{{indexName}}</span>
+                                    </div>
+                                </td>
+                                <td data-title="'状态'" sortable="'state'">{{file.state}}
+                                </td>
+
+                                <td class="text-right" data-title="'操作'">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"  class="btn-reset" ng-click="vm.method.showSearchModal(file)">查看</button>
+                                        <button type="submit" class="btn-reset" ng-click="vm.method.showRestoreModal(file)">恢复</button>
+                                        <button type="submit" class="btn-reset text-delete" ng-click="vm.method.showDeleteModal(file)">删除归档</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

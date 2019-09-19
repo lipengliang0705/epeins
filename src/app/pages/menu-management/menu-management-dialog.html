@@ -1,0 +1,181 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" class="menuform" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentLabel">创建/编辑 菜单</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>  
+        <div class="form-group" ng-show="vm.menu.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.menu.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">名称</label>
+            <input type="text" class="form-control" name="name"  maxlength="20"id="field_name"
+                    ng-model="vm.menu.name"
+                    required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength">
+                    您输入的字符不能超过20个
+                </p>
+            </div>
+        </div>  
+        <div class="form-group">
+            <label class="control-label" for="field_name">描述</label>
+            <input type="text" class="form-control" name="description"  maxlength="100" id="field_description"
+                    ng-model="vm.menu.description" />
+            <div ng-show="editForm.description.$invalid"> 
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength">
+                    您输入的字符不能超过100个
+                </p>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label class="control-label" for="field_menudetail">菜单明细 </label>
+            <label style="line-height: 30px;" ng-if="vm.menu.id!=1">(选择左侧菜单Checkbox，右侧则显示已选择菜单)</label>
+        </div>
+        <div class="form-group" ng-if="vm.menu.id!=1"> 
+            <div class="row">
+              <div class="col-md-1">&nbsp;</div>  
+              <div class="col-md-4">
+                <div js-tree="vm.mainTreeBasicConfig" ng-model="vm.mainTreeData" tree="basicTree" id="mainTreeBasicConfig" tree-events="select_node:vm.selectnodeCB;deselect_node:vm.deselectnodeCB"></div> 
+              </div>
+              <div class="col-md-2">                
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="control-side text-center">
+                        <!-- <div>
+                          <button type="button" class="btn btn-black" ng-click="vm.refreshTreeNode()">Refresh</button>
+                        </div>  -->    
+                      </div>
+                    </div> 
+                  </div> 
+              </div>
+              <div class="col-md-4">
+                <div js-tree="vm.basicConfig" ng-model="vm.treeData" tree="basicTree" id="basicTree" tree-events="ready:vm.readyCB;rename_node:vm.renameCB;move_node:vm.movenodeCB;"></div>
+              </div>
+              <div class="col-md-1">&nbsp;</div>  
+            </div>  
+        </div> 
+        <div class="form-group" ng-if="vm.menu.id==1">
+            <!-- <label class="control-label" for="field_menudetail">菜单明细</label>  -->
+            <div class="row">
+              <div class="col-md-1">&nbsp;</div>  
+              <div class="col-md-4">
+                <div js-tree="vm.basicConfig" ng-model="vm.treeData" tree="basicTree" id="basicTree" tree-events="rename_node:vm.renameCB;move_node:vm.movenodeCB;" ng-dblclick="vm.dblclickNode(this);"></div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <i class="glyphicon glyphicon-plus"></i> Add Node </div>
+                    <div class="panel-body"> 
+                        <div class="form-group">
+                            <label for="addNode" class="control-label label-left">名称:</label>
+                            <input type="text" class="form-control" ng-model="vm.newNode.text" name="addNode" placeholder="Node Text">
+                        </div>
+                        <div class="form-group">
+                            <label for="nodeParent" class="control-label label-left">父节点:</label>
+                            <select class="form-control"  name="nodeParent" ng-model="vm.newNode.parent">
+                                <option ng-repeat="node in vm.treeData | filter : {parent : '#'}" value="{{node.id}}">{{node.text}}</option>
+                            </select>
+                        </div>                            
+                        <div class="form-group" ng-if="vm.newNode.parent==null">
+                            <label  for="icon" class="control-label label-left" >图标:</label>
+                            <input type="text" class="form-control"  ng-model="vm.newNode.icon" name="addIcon">
+                        </div>
+                        <div class="form-group" ng-if="vm.newNode.parent!=null&&vm.newNode.parent!=''">
+                            <label  for="stateRef" class="control-label label-left">访问Ref:</label>
+                            <input type="text" class="form-control" ng-model="vm.newNode.stateRef" name="addStateRef">
+                        </div> 
+                        <div class="form-group">
+                            <div class="pull-left">
+                                <label class="labelfont"><font color="red">{{vm.newNode.error}}</font></label>
+                                <button type="button" ng-click="vm.addNewNode()" class="btn btn-primary">Add Node</button>
+                                <button type="button" ng-click="vm.clearNewNode()" class="btn btn-default"> 清 空 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <i class="glyphicon glyphicon-plus"></i> Update Node </div>
+                    <div class="panel-body"> 
+                        <div class="form-group">
+                            <label for="addNode" class="control-label label-left">ID:</label>
+                            <input type="text" class="form-control" ng-model="vm.updateNode.id" name="updateId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="addNode" class="control-label label-left">名称:</label>
+                            <input type="text" class="form-control" ng-model="vm.updateNode.text" name="updateNode">
+                        </div>
+                        <div class="form-group" ng-if="vm.updateNode.parent!='#'">
+                            <label for="nodeParent" class="control-label label-left">父节点:</label>
+                            <select class="form-control" name="updateNodeParent" ng-model="vm.updateNode.parent">
+                                <option ng-repeat="node in vm.treeData | filter : {parent : '#'}" value="{{node.id}}">{{node.text}}</option>
+                            </select>
+                        </div>                            
+                        <div class="form-group" ng-if="vm.updateNode.parent=='#'">
+                            <label  for="icon" class="control-label label-left" >图标:</label>
+                            <input type="text" class="form-control" ng-model="vm.updateNode.icon" name="updateIcon">
+                        </div>
+                        <div class="form-group" ng-if="vm.updateNode.parent!='#'">
+                            <label  for="stateRef" class="control-label label-left">访问Ref:</label>
+                            <input type="text" class="form-control" ng-model="vm.updateNode.stateRef" name="updateStateRef">
+                        </div> 
+                        <div class="form-group">
+                            <div class="pull-left">
+                                <label class="labelfont"><font color="red">{{vm.updateNode.error}}</font></label>
+                                <button type="button" ng-click="vm.updateNewNode()" class="btn btn-primary">Update Node</button>
+                                <button type="button" ng-click="vm.clearUpdateNode()" class="btn btn-default"> 清 空 </button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <i class="glyphicon glyphicon-plus"></i> Delete Node </div>
+                    <div class="panel-body"> 
+                        <div class="form-group">
+                            <label for="addNode" class="control-label label-left">ID:</label>
+                            <input type="text" class="form-control" ng-model="vm.deleteNode.id" name="deleteId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="addNode" class="control-label label-left">名称:</label>
+                            <input type="text" class="form-control" ng-model="vm.deleteNode.text" name="deleteNode" readonly>
+                        </div>
+                        <div class="form-group" ng-if="vm.updateNode.parent!='#'">
+                            <label for="nodeParent" class="control-label label-left">父节点:</label>
+                            <select class="form-control" name="deleteNodeParent" ng-model="vm.deleteNode.parent" disabled="true">
+                                <option ng-repeat="node in vm.treeData | filter : {parent : '#'}" value="{{node.id}}">{{node.text}}</option>
+                            </select>
+                        </div>        
+                        <div class="form-group">
+                            <div class="pull-left">
+                                <label class="labelfont"><font color="red">{{vm.deleteNode.error}}</font></label>
+                                <button type="button" ng-click="vm.deleteNewNode()" class="btn btn-danger">Delete Node</button>
+                                <button type="button" ng-click="vm.clearDeleteNode()" class="btn btn-default"> 清 空 </button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>              
+              <div class="col-md-1">&nbsp;</div>  
+            </div>  
+        </div> 
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,251 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建文件和目录采集任务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        
+        <div class="logstash-tcp logstash-file">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                        <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group ">
+                        <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                        <select  class="form-control small-w">
+                          
+                            <option value="">0-50</option>
+                            
+                        </select>
+                        <em class="gb-icon">GB</em>
+                        <input type="text" class="form-control small-w" />
+                        <span>分区数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="control-label">备注</label>
+                        <textarea class="form-control" name="sample" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bor-top">
+                    <div class="form-group">
+                        <label class="control-label">文件类型</label>
+                        <ul class="set-list" ng-model="vm.setValue">
+                            <li ng-class="{ 'active' : vm.setList.current == 1 }" ng-click="vm.setActions.setCurrent(1)">
+                                <label><input type="radio" name="1" value="fail" checked="checked"> 普通文件</label>
+                            </li>
+                            <li ng-class="{ 'active' : vm.setList.current == 2 }" ng-click="vm.setActions.setCurrent(2)">
+                                <label><input type="radio" name="1" value="spool"> 归档文件</label>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tabrow" ng-if="vm.setList.current == 1">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>路径</label>
+                            <input type="text" class="form-control" >
+                            <input type="checkbox" name="">包含子文件
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>字符集</label>
+                            <select  class="form-control small-w">
+                                <option value="">自动发现</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <p>多行合并<a href="javascript:;">添加规则</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>文件白名单<a href="javascript:;">添加规则</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>文件黑名单<a href="javascript:;">添加规则</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>过滤文件</label>
+                            <select  class="form-control small-w">
+                          
+                                <option value="">无</option>
+                                
+                            </select>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>添加采集器</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            
+                
+                
+                
+                   
+                
+            </div>
+
+            <div class="tabrow" ng-if="vm.setList.current == 2">
+           
+                <div class="form-group">
+                    <label>路径</label>
+                    <input type="text" class="form-control" >
+                    <input type="checkbox" name="">包含子文件
+                </div>
+                <div class="form-group">
+                    <label>字符集</label>
+                    <select  class="form-control small-w">
+                  
+                        <option value="">自动发现</option>
+                        
+                    </select>
+                </div>
+                <p>多行合并<a href="javascript:;">添加规则</a></p>
+                <p>文件白名单<a href="javascript:;">添加规则</a></p>
+                <p>文件黑名单<a href="javascript:;">添加规则</a></p>   
+                <div class="form-group">
+                    <label>过滤文件</label>
+                    <select  class="form-control small-w">
+                  
+                        <option value="">无</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+                        <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>添加采集器</span>
+                    </button>
+                </div>
+            </div>
+
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    采集高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="table-responsive">
+                   
+                        <table  class="table event-rule-table" ng-table="vm.tableParams">
+                            <tr ng-repeat="eventRule in $data">
+                              <!--   <td data-title="'ID'" sortable="'id'">
+                                    <a ui-sref="event-rule-detail({id:eventRule.id})">{{eventRule.id}}</a>
+                                </td> -->
+                               
+                                <td data-title="'对象'" sortable="'name'">
+                                  </td>
+                                <td data-title="'IP'" sortable="'category.name'">
+                                    <a ui-sref="category-detail({id:eventRule.category.id})">{{eventRule.category.name}}</a>
+                                </td>
+                                <td data-title="'路径'" sortable="'category.alias'">{{eventRule.category.alias}}</td>
+                                <td data-title="'字符集'" sortable="'eventType'">{{{'SEPARATED': '分隔符','KEYVALUE': '健值对'
+                                    ,'TEXT': '文本','XML': 'XML','JSON': 'JSON','NMON': 'NMON'}[eventRule.eventType]}}</td>
+                                <td data-title="'排除文件'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+                                <td data-title="'过滤文件内容'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+                                <td data-title="'多行合并'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+                                <td data-title="'预览'" sortable="'dataSource.name'">
+                                    <a ui-sref="data-source-detail({id:eventRule.dataSource.id})">{{eventRule.dataSource.name}}</a>
+                                </td>
+
+                                <td data-title="'操作'" class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" ui-sref="event-rule-detail({id:eventRule.id})" class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ui-sref="event-rule.edit({id:eventRule.id})" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>                                
+                                        <button type="submit" ui-sref="event-rule.clone({id:eventRule.id})" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-duplicate"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                        <button type="submit" ng-disabled="eventRule.category.name=='_STANDARD_'" ui-sref="event-rule.delete({id:eventRule.id})" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <span class="hidden-sm-down"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                            </tr>
+                            <tr ng-if="vm.dataload">
+                                <td colspan="8" class="table-data-alert">数据加载中...</td>
+                            </tr>
+                     
+                        </table>
+                    </div>     
+                </div>
+            </uib-accordion>
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

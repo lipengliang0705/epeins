@@ -1,0 +1,200 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">关系型数据库</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        
+        <div class="logstash-tcp logstash-data">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                        <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group ">
+                        <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                        <select  class="form-control small-w">
+                          
+                            <option value="">0-50</option>
+                            
+                        </select>
+                        <em class="gb-icon">GB</em>
+                        <input type="text" class="form-control small-w" />
+                        <span>分区数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="control-label">备注</label>
+                        <textarea class="form-control" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bor-top">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">类型</label>
+                            <select  class="form-control ">
+                                <option value="">IBM DB2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">对象名称</label>
+                            <select  class="form-control ">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wrap-bor">
+                        <h5>数据库信息</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>数据库主机IP</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>端口号</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>数据库名</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>用户名</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>实例名</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>描述</label>
+                                    <textarea class="form-control" style="white-space: pre-wrap"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">同步方式</label>
+                        <select  class="form-control small-w">
+                            <option value="">增量同步</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label class="control-label">采集周期 <span>7位Cron表达式</span><i class="ion-help"></i></label>
+                        <input type="text" style="width:50%" class="form-control" /><a href="javascript:;">Cron执行模拟器</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p><input type="checkbox">配置生效后采集执行首次同步</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>任务名称</label>
+                        <textarea class="form-control" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" >
+                        <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>数据预览</span>
+                    </button>
+                    
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label class="control-label">同步关键字<em>*</em></label>
+                        <select  class="form-control small-w">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

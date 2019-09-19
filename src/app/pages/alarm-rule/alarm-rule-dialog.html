@@ -1,0 +1,436 @@
+<style>
+    .form-group-xl .form-control{
+        width:75%!important;
+    }
+    .stress-form{
+        background: none;
+    }
+    .trigger-auto li{
+        width: auto!important;
+        margin-right: 5px;
+    }
+    .trigger-auto li .mnselect{
+        float: left;
+        width: 70px;
+        font-size: 12px;
+    }
+    .trigger-auto li:first-child{
+        margin-right: 0;
+    }
+    .trigger-auto li .mnselect.open > .btn.dropdown-toggle.btn.btn-primary {
+        background: #eff3f6;
+        border-color: #e7e7e7;
+        color:#333;
+    }
+    .trigger-condition li .mnselect .btn{
+        background: #eff3f6;
+        border-color: #e7e7e7;
+        padding: 5px 10px;
+        width: 70px;
+        text-align: left;
+        height: 30px;
+        font-size: 12px!important;
+        color: #333;
+        position: relative;
+        vertical-align: top!important;
+        /* top: -1px; */
+    }
+    .trigger-condition li .mnselect .btn .caret{
+        position: absolute;
+        right: 2px;
+        top: 13px;
+    }
+    .trigger-condition li .form-c50{
+        width: 50px!important;
+        margin-right: 0!important;
+        outline: none;
+    }
+    .trigger-condition li .form-c70{
+        width: 70px!important;
+        margin-right: 0!important;
+        outline: none;
+    }
+    .trigger-condition li .form-c80{
+        width: 80px!important;
+        margin-right: 0!important;
+        outline: none;
+    }
+    .trigger-mb li{
+        margin-bottom: 2px;
+    }
+    .mnselect .dropdown-menu{
+        width: 60px;
+        font-size: 12px;
+        min-width: auto;
+    }
+    .mnselect .dropdown-menu > li > a{
+        padding: 3px;
+    }
+    .triggerboxleft{
+        float: left;
+    }
+    .triggerboxleft p{
+        padding-left: 110px;
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+    .triggerboxright{
+        float: left;
+    }
+    .triggerboxright p{
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+    .triggeralarms{
+        width: 100%;
+    }
+    .triggeralarms .list{
+        overflow: hidden;
+        margin-bottom: 5px;
+    }
+    .triggeralarms .list span{
+        padding-top: 7px;
+        margin-left: 2px;
+        display: inline-block;
+    }
+    .triggeralarms .form-control{
+        width: 80px!important;
+        padding: 5px 12px;
+        font-size: 12px!important;
+        margin-right: 0!important;
+        height: 30px;
+    }
+    .triggeradds{
+        text-align: left;
+    }
+    .triggeradds a{
+        font-size: 13px;
+        cursor: pointer;
+    }
+    .form-control-x100{
+        width: 70px;
+    }
+    small{
+        margin: 0 2px;
+    }
+    .form-control-level,.form-control-level option{
+        background: #eff3f6;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -khtml-border-radius: 0;
+    }
+    .trigger-condition > li .trigger-select{
+        width: 70px;
+        outline: none;
+    }
+    .modal .modal-dialog .modal-body .form-group .form-control.ui-select-toggle{
+        width: 100% !important;
+    }
+</style>
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myalarmRuleLabel">创建/编辑 告警规则</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.alarmRule.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.alarmRule.id" readonly />
+        </div>
+        <div class="form-group form-group-xl">
+            <label for="field_EventRule">解析规则</label>
+            <select class="form-control" id="field_EventRule" name="eventRule" ng-model="vm.alarmRule.eventRule" ng-options="EventRule as EventRule.name for EventRule in vm.eventrules track by EventRule.name" ng-change="vm.handleChangeEventRule()">
+            </select>
+        </div>
+        <div class="form-group form-group-xl">
+            <label class="control-label" for="field_ruleName">规则名称</label>
+            <!--ng-pattern="/^\w+$/"-->
+            <input type="text" class="form-control" name="name"
+                    ng-show="vm.alarmRule.id"
+                    ng-model="vm.alarmRule.name"
+                    required
+                    readonly
+                    />
+
+            <!--ng-pattern="/^\w+$/"-->
+            <input type="text" class="form-control" name="name" id="field_ruleName"
+                    ng-hide="vm.alarmRule.id"
+                    ng-model="vm.alarmRule.name"
+                    required
+                    />
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.required">
+                            *必填项
+                        </p>
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.pattern">
+                            必须由数字和字母组成
+                        </p>
+                    </div>
+        </div>
+
+
+        <!--<div class="form-group">-->
+            <!--<label for="authorities">解析规则</label>-->
+            <!--<ui-select class="form-control"-->
+                       <!--name="authorities" id="authorities"   ng-model="vm.alarmRule.eventRule"-->
+                       <!--search-enabled="true"-->
+                       <!--append-to-body="true"-->
+            <!--&gt;-->
+                <!--<ui-select-match placeholder="选择解析规则">-->
+                    <!--{{$item.name}}-->
+                <!--</ui-select-match>-->
+                <!--<ui-select-choices repeat="item in vm.eventrules | filter: $select.search">-->
+                    <!--{{item.name}}-->
+                <!--</ui-select-choices>-->
+            <!--</ui-select>-->
+        <!--</div>-->
+
+        <!--<div class="form-group form-group-xl">-->
+            <!--<label class="control-label" for="field_conf">已存搜索</label>-->
+                    <!--<select class="form-control" name="conf" id="field_confQueryBy"-->
+                    <!--ng-model="vm.alarmRule.conf.queryBy" ng-change="vm.options()">-->
+                        <!--<option value="{{saveSearch}}"  ng-repeat="saveSearch in vm.dashboardData">{{saveSearch.name}}</option>-->
+                    <!--</select>-->
+        <!--</div>-->
+        <div class="form-group form-group-xl">
+            <label class="control-label" for="field_conf">DSL查询</label>
+            <textarea class="form-control" name="conf" id="field_conf" rows="5" cols="80"  ng-model="vm.alarmRule.conf.query"></textarea>
+        </div>
+        <div class="form-group  form-group-xl form-group-b5">
+            <label class="control-label" for="field_alarmType">告警类型</label>
+            <select class="form-control" name="alarmType" id="field_alarmType"
+                    ng-model="vm.alarmRule.alarmType" ng-change="vm.handleChangeAlarmType()" required>
+                    <option value="CARDINALITY">字段告警</option>
+                    <option value="FREQUENCY"> 事件告警</option>
+                    <!--<option value="PERCENTAGEMATCH"> 连续统计告警</option>-->
+            </select>
+            <div ng-show="editForm.alarmType.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.alarmType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+
+        <div ng-switch="vm.alarmRule.alarmType">
+            <div class="form-group stress-form" ng-switch-when="CARDINALITY">
+                <!--  关键字告警-->
+                <div class="triggerboxleft">
+                    <p>字段</p>
+                    <ul class="trigger-condition trigger-auto">
+                        <li>
+                            <label class="control-label" for="field_conf">触发条件</label>
+                        </li>
+                        <li>
+                            <!--<input class="inputnumber form-c80" value="字段" type="text" ng-model="vm.alarmRule.conf.compareKey">-->
+                            <select class="inputnumber form-c80"  ng-model="vm.alarmRule.conf.cardinality_field" >
+                                <option value="{{data}}" ng-repeat="data in vm.sampleHeard track by $index">{{data}}</option>
+                            </select>
+                        </li>
+                        <!--<li class="tc1">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="number" class="form-control form-c80"  ng-model="vm.alarmRule.conf.timeframeValue">-->
+                                <!--<div class="input-group-btn mnselect dropdown" uib-dropdown>-->
+                                    <!--<button type="button" class="btn btn-primary" uib-dropdown-toggle ng-init="vm.alarmRule.conf.bufferTime=vm.timeList[0]">{{vm.alarmRule.conf.bufferTime}}内 <span class="caret"></span></button>-->
+                                    <!--<ul class="dropdown-menu pull-right" uib-dropdown-menu>-->
+                                        <!--<li ng-repeat="item in vm.timeList" ng-click="vm.alarmRule.conf.bufferTime = item"><a> {{item}}内</a></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
+                        <li class="tc1">
+                            <div class="input-group">
+                                <input type="number" class="form-control form-c80"  ng-model="vm.alarmRule.conf.timeframeValue" min="1">
+                                <div class="input-group-btn mnselect dropdown" uib-dropdown>
+                                    <button type="button" class="btn btn-primary" uib-dropdown-toggle ng-init="vm.alarmRule.conf.timeframe=vm.timeList[0]">
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='seconds'">秒内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='minutes'">分钟内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='hours'">小时内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='days'">天内</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                                        <li ng-repeat="item in vm.timeList" ng-click="vm.alarmRule.conf.timeframe = item">
+                                            <a>
+                                                <span ng-if="item=='seconds'">秒内</span>
+                                                <span ng-if="item=='minutes'">分钟内</span>
+                                                <span ng-if="item=='hours'">小时内</span>
+                                                <span ng-if="item=='days'">天内</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!--<li class="tc2">-->
+                            <!--&lt;!&ndash; <small>之内数量</small> &ndash;&gt;-->
+                            <!--<div class="input-group-btn mnselect dropdown" uib-dropdown>-->
+                                <!--<button type="button" class="btn btn-primary" uib-dropdown-toggle ng-init="vm.alarmRule.conf.numType='独立数'">{{vm.alarmRule.conf.numType}}<span class="caret"></span></button>-->
+                                <!--<ul class="dropdown-menu pull-right" uib-dropdown-menu>-->
+                                    <!--<li ng-click="vm.alarmRule.conf.numType = '独立数'"><a>独立数</a></li>-->
+                                    <!--<li ng-click="vm.alarmRule.conf.numType = '总计'"><a>总计</a></li>-->
+                                    <!--<li ng-click="vm.alarmRule.conf.numType = '平均数'"><a>平均数</a></li>-->
+                                    <!--<li ng-click="vm.alarmRule.conf.numType = '最大数'"><a>最大数</a></li>-->
+                                    <!--<li ng-click="vm.alarmRule.conf.numType = '最小数'"><a>最小数</a></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <li class="tc4">
+                            <div class="input-group-btn mnselect dropdown" uib-dropdown>
+                                <button type="button" class="btn btn-primary" uib-dropdown-toggle ng-init="vm.alarmRule.conf.symbol = 'max_cardinality'">{{vm.alarmRule.conf.symbol==='max_cardinality'?'>':'<'}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                                    <li ng-click="vm.alarmRule.conf.symbol = 'max_cardinality'"><a>></a></li>
+                                    <li ng-click="vm.alarmRule.conf.symbol = 'min_cardinality'"><a><</a></li>
+                                </ul>
+                            </div>
+                            <!-- <select ng-model="vm.alarmRule.conf.compare" ng-init="vm.alarmRule.conf.compare = '>'" class="trigger-select mnselect">
+                                <option value="FREQUENCY"> > </option>
+                                <option value="flatline"> < </option>
+                            </select> -->
+                        </li>
+                    </ul>
+                </div>
+                <div class="triggerboxright">
+                    <p>阈值</p>
+                    <div class="triggeralarms">
+                        <div class="list" >
+                            <input type="number" class="form-control form-c80"  ng-model="vm.alarmRule.conf.cardinalityValue" min="0"
+                            />
+                            <!--<select class="form-control form-control-level" ng-model="vm.alarmRule.level"-->
+                             <!--name="reply{{$index + 2}}"  ng-init="vm.alarmRule.level = 'low'"  required>-->
+                                <!--<option value="high">高</option>-->
+                                <!--<option value="middle">中</option>-->
+                                <!--<option value="low">低</option>-->
+                            <!--</select>-->
+                            <!--<span ng-click="fchat.decrReply($index)" ng-show="fchat.canDescReply"><i class="fa fa-times-circle"></i></span>-->
+                        </div>
+                    </div>
+                    <!--<div class="triggeradds"><a ng-click="fchat.incrReply($index)" >添加阈值</a></div>-->
+                </div>
+            </div>
+            <div class="form-group stress-form" ng-switch-when="FREQUENCY">
+                <!--  事件数告警 -->
+                <div class="triggerboxleft">
+                    <ul class="trigger-condition trigger-auto">
+                        <li>
+                            <label class="control-label" for="field_conf">触发条件</label>
+                        </li>
+                        <li class="tc1">
+                            <div class="input-group">
+                                <input type="number" class="form-control form-c80"  ng-model="vm.alarmRule.conf.timeframeValue" min="1">
+                                <div class="input-group-btn mnselect dropdown" uib-dropdown>
+                                    <button type="button" class="btn btn-primary" uib-dropdown-toggle ng-init="vm.alarmRule.conf.timeframe=vm.timeList[0]">
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='seconds'">秒内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='minutes'">分钟内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='hours'">小时内</span>
+                                        <span ng-if="vm.alarmRule.conf.timeframe=='days'">天内</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                                        <li ng-repeat="item in vm.timeList" ng-click="vm.alarmRule.conf.timeframe = item">
+                                            <a>
+                                                <span ng-if="item=='seconds'">秒内</span>
+                                                <span ng-if="item=='minutes'">分钟内</span>
+                                                <span ng-if="item=='hours'">小时内</span>
+                                                <span ng-if="item=='days'">天内</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tc4">
+                            <div class="input-group-btn mnselect " >
+                                <button type="button" class="btn btn-primary" >
+                                    >
+                                </button>
+                            </div>
+                        </li>
+
+                        <li class="tc2">
+                            <div class="input-group">
+                                <input type="number" class="form-control form-c80"  ng-model="vm.alarmRule.conf.num_events" min="1">
+                                <div class="input-group-btn mnselect dropdown" uib-dropdown>
+                                    <button type="button" class="btn btn-primary" uib-dropdown-toggle >次</button>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-group form-group-xl">
+            <label class="control-label" for="field_notifyType">告警等级</label>
+            <select class="form-control form-control-level" ng-model="vm.alarmRule.level" name="level" required>
+                <!--<option value="high">高</option>-->
+                <!--<option value="middle">中</option>-->
+                <!--<option value="low">低</option>-->
+                <option value="{{level.value}}" ng-repeat="level in vm.levelArr">{{level.name}}</option>
+            </select>
+            <div ng-show="editForm.level.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.level.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group form-group-xl">
+            <label class="control-label" for="field_notifyType">通知类型</label>
+            <select class="form-control" name="notifyType" id="field_notifyType" name="notifyType"
+                    ng-model="vm.alarmRule.notifyType" ng-change="vm.handleChangeNotifyType()" required>
+                <option value="NULL">不通知</option>
+                <option value="EMAIL">Email</option>
+                <!--<option value="SMS">短信</option>-->
+            </select>
+            <div ng-show="editForm.notifyType.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.notifyType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group form-group-xl" ng-if="vm.alarmRule.notifyType==='EMAIL'||vm.alarmRule.notifyType==='SMS'">
+            <label for="field_agentHost">告警通知</label>
+            <ui-select ng-model="vm.alarmType"
+                       class="btn-group bootstrap-select form-control"
+                       ng-disabled="false"
+                       append-to-body="true"
+                       search-enabled="true"
+                       id="field_agentHost"
+                       name="alarmTypeConfig"
+                       ng-change="vm.handleChangeAlarmTypeConfig()"
+            >
+                <ui-select-match placeholder="选择告警通知">
+                    {{$select.selected.name}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat="alarmType in vm.alarmTypeList | filter: $select.search">
+                    <span ng-bind-html="alarmType.name"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

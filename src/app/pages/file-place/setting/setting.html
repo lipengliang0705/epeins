@@ -1,0 +1,124 @@
+<form novalidate angular-validator  name="formName">
+    <div class="modal-header">
+        <a class="close" ng-click="vm.method.cancel()">×</a>
+        <h4 class="modal-title">日志归档</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <!--<div class="form-group form-group-file">-->
+                <!--<label for="indexName">索引名:</label>-->
+                <!--<div class="form-control-sbox">-->
+                    <!--<input type="text" name="indexName" id="indexName" class="form-control" placeholder="" ng-model="vm.data.indexName">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group form-group-file" ng-hide="vm.data.id">
+                <label for="indexName">索引:</label>
+                <ui-select ng-model="vm.data.indexName"
+                           class="btn-group bootstrap-select form-control"
+                           ng-disabled="vm.data.id"
+                           id="indexName"
+                           append-to-body="true"
+                           search-enabled="true"
+                           ng-change="vm.method.handleChangeIndexName()"
+                >
+                    <ui-select-match placeholder="选择索引">
+                        {{$select.selected}}
+                    </ui-select-match>
+                    <ui-select-choices
+                            repeat="indexName in vm.indexNameArr | filter: $select.search">
+                        <span ng-bind-html="indexName"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="form-group form-group-file">
+                <label for="indexRange">索引范围:</label>
+                <div class="form-control-sbox">
+                    <input type="text" name="indexRange" id="indexRange" class="form-control" placeholder="" ng-model="vm.data.indexRange" ng-disabled="vm.data.id" required>
+                </div>
+                <div ng-show="formName.indexRange.$invalid">
+                    <p class="help-block" ng-show="formName.indexRange.$error.required">
+                        *必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group form-group-file">
+                <label for="">归档名称:</label>
+                <div class="form-control-sbox">
+                    <input type="text" name="name" class="form-control" placeholder="" ng-model="vm.data.name" required>
+                </div>
+                <div ng-show="formName.name.$invalid">
+                    <p class="help-block" ng-show="formName.name.$error.required">
+                        *必填项
+                    </p>
+                </div>
+            </div>
+            <div class="form-group form-group-file">
+                <label for="cycle">归档周期:</label>
+                <div class="form-control-sbox">
+                    <!--<input type="text" name="cycle" class="form-control" placeholder="" ng-model="vm.data.cycle">-->
+                    <select name="form-control-sbox" id="cycle" ng-model="vm.data.cycle">
+                        <option value="WEEKLY">周</option>
+                        <option value="DAILY">天</option>
+                    </select>
+
+                    <select name="form-control-sbox" id="day" ng-model="vm.data.day" ng-if="vm.data.cycle==='WEEKLY'">
+                        <option value="1">日</option>
+                        <option value="2">一</option>
+                        <option value="3">二</option>
+                        <option value="4">三</option>
+                        <option value="5">四</option>
+                        <option value="6">五</option>
+                        <option value="7">六</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-group-file">
+                <label for="time">归档开始时间:</label>
+                <div class="form-control-sbox">
+                    <input type="time" name="time" id="time" class="form-control" placeholder="" ng-model="vm.data.startTime" required>
+                </div>
+                <div ng-show="formName.time.$invalid">
+                    <p class="help-block" ng-show="formName.time.$error.required">
+                        *必填项
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group form-group-file">
+                <label for="time">归档后</label>
+                <div class="checkbox">
+                    <label style="width: auto;line-height: normal;">
+                        <input type="checkbox" name="isDelete"   ng-model="vm.data.isDelete" >
+                        是否删除日志
+                    </label>
+                </div>
+            </div>
+
+
+
+
+            <!--<div class="form-group form-group-file">-->
+                <!--<label for="">保留归档日志时间:</label>-->
+                <!--<select class="form-control" name="status" ng-model="vm.data.status" required validate-on="blur" required-message="'状态不能为空'" autocomplete="off">-->
+                    <!--<option>永久</option>-->
+                    <!--<option>1年</option>-->
+                    <!--<option>6月</option>-->
+                    <!--<option>3月</option>-->
+                    <!--<option>1月</option>-->
+                    <!--<option>1周</option>-->
+                <!--</select>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary"  ng-disabled="formName.$invalid"  ng-click="vm.method.submit()">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

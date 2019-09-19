@@ -1,0 +1,42 @@
+<div class="row">
+    <form name="searchForm" class="form-validation  col-md-12 col-sm-12" ng-submit="vm.searchClick()">
+        <div class="modal-header">
+            <button class="close" ng-click="vm.method.cancel()">×</button>
+            <h4 class="modal-title">日志归档</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="">agent</label>
+                <ui-select ng-model="vm.agent" class="btn-group bootstrap-select form-control">
+                    <ui-select-match placeholder="选择agent">{{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="d in vm.agents | filter: $select.search">
+                        <div ng-bind-html="d.name| highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="form-group">
+                <label for="">搜索</label>
+                <input type="text" class="form-control" placeholder="SQL搜索语句" ng-model="vm.searchWord">
+            </div>
+            <div class="form-group">
+                <label for="">时间范围</label>
+                <input date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" class="form-control"
+                       type="text"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" ng-click="vm.method.cancel()">
+                <span>取消</span>
+            </a>
+
+            <button class="btn btn-primary" ng-disabled="searchForm.$invalid"  ng-click="vm.method.submit()">
+                <span>保存</span>
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+

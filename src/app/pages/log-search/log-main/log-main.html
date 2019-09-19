@@ -1,0 +1,98 @@
+<div>
+    <div class="modal-header">
+        <a class="close" ng-click="vm.method.cancel()">×</a>
+        <h4 class="modal-title">选择业务系统</h4>
+    </div>
+    <div class="modal-body" id="log-main">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel log-history">
+                    <div class="panel-heading">
+                        <h4>最近查询</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list">
+                            <li ng-repeat="item in vm.data.historyList" ng-click="vm.method.logQuery(item)">
+                                <a href="">
+                                    <i class="fa fa-database"></i>
+                                    <span>{{item.title}}（{{item.name}}）</span>
+                                    <span ng-if="item.sub">
+                                        - {{item.sub.zh}}({{item.sub.en}})
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel log-business">
+                    <div class="panel-heading">
+                        <ul class="log-tab">
+                            <li ng-repeat="item in vm.data.tab" ng-class="{'active':vm.data.selectedIndex == $index}"
+                                ng-click="vm.method.selectedTab($index)">
+                                <a href="">{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="search-bar">
+                            <i class="fa fa-search"></i>
+                            <span class="next-medium">
+                                <input ng-model="vm.data.search" placeholder="输入业务名称，支持中英文模糊搜索" height="100%"
+                                    autocomplete="off" />
+                            </span>
+                        </div>
+                        <div class="log-list">
+                            <table class="table log-table" ng-table="vm.data.tableParams">
+                                <tr ng-repeat="item in $data track by $index">
+                                    <td data-title="'业务系统'" width="55%">
+                                        <!-- <div class="img-avatar">
+                                                    <img src="assets/img/default-img.png" alt="">
+                                                </div> -->
+                                        <div class="log-body">
+                                            <p title="点击查询" ng-click="vm.method.logQuery(item)">
+                                                {{item.title}}（{{item.name}}）
+                                                <span ng-if="item.sub">
+                                                    - {{item.sub.zh}}({{item.sub.en}})
+                                                </span>
+                                            </p>
+                                            <div class="log-indexs" ng-if="item.indexNameList.length">
+                                                <label class="checkbox-inline" ng-class="{'active': indexName.status}"
+                                                    ng-repeat="indexName in item.indexNameList">
+                                                    <input type="checkbox" ng-model="indexName.status">
+                                                    {{indexName.name }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-title="'标签'" width="14%">
+                                        <p>标签</p>
+                                        <div class="labels" ng-if="item.tags.length > 0">
+                                            <span for="" ng-class="{'green': $index / 2 != 0}"
+                                                ng-repeat="tag in item.tags">{{tag.name}}</span>
+                                        </div>
+                                        <div class="labels" ng-if="item.tags.length == 0">
+                                            -
+                                        </div>
+                                    </td>
+                                    <td data-title="'描述'" width="30%">
+                                        <p>描述</p>
+                                        <div>
+                                            {{item.description || '-'}}
+                                        </div>
+                                    </td>
+                                    <td data-title="'操作'">
+                                        <button class="btn btn-outline-primary" ng-click="vm.method.logQuery(item)">
+                                            <i class="fa fa-search"></i>
+                                            日志查询
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

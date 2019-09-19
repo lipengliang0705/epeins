@@ -1,0 +1,260 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+    <jhi-alert></jhi-alert>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;
+        </button>
+        <h4 class="modal-title" id="myLabel">{{vm.agentHost.id?'编辑':'创建'}}目标主机</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.agentHost.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   ng-model="vm.agentHost.id" readonly/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">主机名称</label>
+            <input type="text" class="form-control" name="name" maxlength="20" id="field_name"
+                   ng-model="vm.agentHost.name"
+                   required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.name.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.passWord.$error.maxlength">
+                    您输入的字符不能超过20个
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ip">IP地址</label>
+            <input type="text"
+                   ng-pattern=" /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/"
+                   class="form-control" name="ip" id="field_ip"
+                   ng-model="vm.agentHost.ip"
+                   required/>
+            <div ng-show="editForm.ip.$invalid">
+                <p class="help-block" ng-show="editForm.ip.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block" ng-show="editForm.ip.$error.pattern">
+                    这个IP是非法的
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ip">端口</label>
+            <input type="text" class="form-control" name="port" id="port"
+                   ng-model="vm.agentHost.port"
+                   required/>
+            <div ng-show="editForm.port.$error.required">
+                <p class="help-block">
+                    *必填项
+                </p>
+            </div>
+            <div ng-show="editForm.port.$error.pattern">
+                <p class="help-block">
+                    这个IP是非法的
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_osType">主机类型</label>
+            <select class="form-control" name="osType" id="field_osType" ng-model="vm.agentHost.osType" required>
+                <option value="1">HP-UX</option>
+                <option value="2">Linux</option>
+                <option value="3">AIX</option>
+            </select>
+            <div ng-show="editForm.osType.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.osType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_loginType">登录类型</label>
+            <select class="form-control" name="loginType" id="field_loginType"
+                    ng-model="vm.agentHost.loginType"
+                    required>
+                <option value="1">ssh</option>
+            </select>
+            <div ng-show="editForm.loginType.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.loginType.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="loginMode">登录方式</label>
+            <select class="form-control" name="loginMode" id="loginMode"
+                    ng-model="vm.agentHost.loginMode"
+                    ng-change="vm.handleChangeLoginMode()"
+                    required>
+                <option value="0">密码</option>
+                <option value="1">证书</option>
+            </select>
+            <div ng-show="editForm.loginMode.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.loginMode.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_userName">用户名</label>
+            <input type="text" class="form-control" name="userName" maxlength="10" id="field_userName"
+                   ng-model="vm.loginInfo.userName" required/>
+            <div ng-show="editForm.userName.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.userName.$error.required">
+                    *必填项
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.userName.$error.maxlength">
+                    您输入的字符不能超过10个
+                </p>
+            </div>
+        </div>
+        <div ng-if="vm.agentHost.loginMode==0">
+            <div class="form-group">
+                <label class="control-label" for="field_passWord">密码</label>
+                <input type="password" class="form-control" name="passWord" maxlength="20" id="field_passWord"
+                       ng-model="vm.loginInfo.passWord"
+                       required/>
+                <div ng-show="editForm.passWord.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.passWord.$error.required">
+                        *必填项
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.passWord.$error.maxlength">
+                        您输入的字符不能超过20个
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div ng-if="vm.agentHost.loginMode==1">
+            <div class="form-group">
+                <label class="control-label" for="certFile">证书</label>
+                <!--<input type="file" class="form-control" name="certFile" id="certFile"-->
+                       <!--ng-model="vm.certFile" required ng-change="vm.handleChangeFile($event)"/>-->
+                <!--<div ng-show="editForm.certFile.$invalid">-->
+                    <!--<p class="help-block"-->
+                       <!--ng-show="editForm.certFile.$error.required">-->
+                        <!--*必填项-->
+                    <!--</p>-->
+                <!--</div>-->
+                <input type="file" name="certFile" id="certFile" nv-file-select uploader="vm.uploader" /><br/>
+            </div>
+        </div>
+        <div ng-show="vm.uploader.progress&&vm.agentHost.loginMode==1">
+            <div class="form-group">
+                <label class="control-label">上传进度</label>
+                <div class="form-control">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }" style="color:#fff;" >{{ vm.uploader.progress}}%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_depolyPath">探针部署路径</label>
+            <input type="text" class="form-control" name="depolyPath" id="field_depolyPath"
+                   ng-model="vm.agentHost.depolyPath"
+                   required/>
+            <div ng-show="editForm.depolyPath.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.depolyPath.$error.required">
+                    *必填项
+                </p>
+            </div>
+        </div>
+        <!--<div class="form-group" ng-init="vm.agentHost.status ? vm.agentHost.status=0 : vm.agentHost.status=1;">-->
+        <!--<label class="control-label" for="field_status">状态</label>-->
+        <!--<switcher ng-model="vm.agentHost.status"-->
+        <!--true-value="'1'"-->
+        <!--false-value="'0'"-->
+        <!--class="styled"-->
+        <!--&gt;-->
+        <!--</switcher>-->
+        <!--&lt;!&ndash; <switch color="primary" id="field_status" ng-model="vm.agentHost.status" ng-change="vm.changeStatus(alarmRule)" for="field_status" name="status" ng-true-value="'1'" ng-false-value="'0'"></switch> &ndash;&gt;-->
+        <!--&lt;!&ndash; <input-->
+        <!--bs-switch-->
+        <!--switch-size="small"-->
+        <!--ng-model="vm.agentHost.status"-->
+        <!--type="checkbox"-->
+        <!--ng-change="vm.changeStatus(alarmRule)"-->
+        <!--ng-true-value="1"-->
+        <!--ng-false-value="0"-->
+        <!--for="field_status"-->
+        <!--name="status"-->
+        <!--id="field_status"-->
+        <!--class="form-control"> &ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+        <!--<label for="field_agent">agent</label>-->
+        <!--<select class="form-control field-select" id="field_agent" multiple name="agent" ng-model="vm.agentHost.agents" ng-options="agent as agent.name+'-'+agent.version for agent in vm.agents track by agent.id" ng-change="vm.isTesting=false;vm.returnMsg='请重新部署agent'"></select>-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+        <!--<label for="field_agent">agent</label>-->
+        <!--<ui-select class="form-control"-->
+        <!--name="agent" id="field_agent"  ng-model="vm.agentHost.agents"-->
+        <!--search-enabled="true"-->
+        <!--append-to-body="true"-->
+        <!--multiple-->
+        <!--ng-change="vm.isTesting=false;vm.returnMsg='请重新部署agent'"-->
+        <!--&gt;-->
+        <!--<ui-select-match placeholder="选择agent">-->
+        <!--{{$item.name+'-'+$item.version}}-->
+        <!--</ui-select-match>-->
+        <!--<ui-select-choices repeat="agent in vm.agents | filter: $select.search">-->
+        <!--{{agent.name+'-'+agent.version}}-->
+        <!--</ui-select-choices>-->
+        <!--</ui-select>-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+        <!--<label>&nbsp;</label><p for="field_agent">{{ vm.returnMsg}}</p>-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+        <!--<label class="control-label" for="field_tag">标签</label>-->
+        <!--<input type="hidden" ng-model="vm.agentHost.tags"  />-->
+        <!--&lt;!&ndash; <input type="text" id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput" class="form-control"/> &ndash;&gt;-->
+        <!--<div class="control-label-right">-->
+        <!--<input type="text" id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput"/>-->
+        <!--&lt;!&ndash; <div id="tagsinput" ng-model="vm.tagsinput" data-role="tagsinput"></div> &ndash;&gt;-->
+        <!--<div class="label-list" ng-show="vm.tagsList.length>0">-->
+        <!--<div ng-repeat="d in vm.tagsList  track by $index" class="badge-text-info-div"> -->
+        <!--<p class="badge-text-info btn-primary">{{d.name}}-->
+        <!--<i class="glyphicon glyphicon-plus-sign" ng-click="vm.addTagBtn(d)"></i>-->
+        <!--<i class="glyphicon glyphicon-remove-sign" ng-click="vm.rmTagBtn(d)"></i>-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid||vm.isTesting"
+                ng-click="vm.testHost()">{{vm.isTesting?'测试中...':'测试主机'}}
+        </button>
+        <button type="button" ng-disabled="editForm.$invalid" ng-click="vm.save()" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+
+
+</form>

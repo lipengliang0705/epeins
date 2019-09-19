@@ -1,0 +1,58 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">
+        自定义报表管理
+        <!-- <button class="btn btn-primary pull-right" ng-click="vm.method.showAddModal()">新建</button> -->
+    </h3>
+    <!-- <small class="text-muted h5 font-title-des">用户自定义综合视图</small> -->
+</div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel widget">
+                <div class="panel-heading">
+                    <a class="btn btn-primary" target="_blank" href="{{vm.data.addUrl}}">
+                        <i class="fa fa-plus"></i>
+                        &nbsp;新建
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <form name="vm.searchForm" novalidate>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="search"
+                                ng-model="vm.data.search" autocomplete="off" required />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search-btn" type="submit"
+                                    ng-disabled="vm.data.search.$invalid">
+                                    <span class="ion-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <table class="table" ng-table="vm.data.tableParams">
+                        <tr ng-repeat="item in $data">
+                            <td data-title="'编号'" sorttable="'id'">
+                                {{item.id}}
+                            </td>
+                            <td data-title="'编号'" sortable="'name'">
+                                <a href="" ui-sref="report-management-detalis({url:item.url})">{{item.name}}</a>
+                            </td>
+                            <td data-title="'操作'">
+                                <a href="" style="margin-right: 10px"
+                                    ui-sref="report-management-detalis({url:item.url})">
+                                    <span>查看</span>
+                                </a>
+                                <a href="{{item.edit_url}}" target="_blank" style="margin-right: 10px">
+                                    <span>修改</span>
+                                </a>
+                                <a href="{{item.delete_url}}" target="_blank" style="color:red;">
+                                    <span>删除</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

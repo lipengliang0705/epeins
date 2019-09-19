@@ -1,0 +1,9 @@
+FROM nginx:1.15.5-alpine
+
+MAINTAINER shyaoxh@cn.ibm.com
+
+# Copy default.conf
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+#COPY website static resources
+COPY release/ /usr/share/nginx/html

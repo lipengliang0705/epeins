@@ -1,0 +1,108 @@
+<div>
+    <div class=" title-wrapper">
+        <h3 class="m-n font-thin h3">告警等级</h3>
+        <small class="text-muted h5 font-title-des">默认告警等级分类</small>
+
+    </div>
+
+    <jhi-alert></jhi-alert>
+    <div class="wrapper" >
+        <div class="panel">
+            <div class="panel-heading">
+               
+                    <div class="row">
+                        <div class="col-xs-12">
+                         <!--    <button class="btn btn-primary" ui-sref="alarm-level.new" >
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span class="hidden-xs-down" >
+                                    Create new Alarm Level
+                                </span>
+                            </button> -->
+
+                            <button class="btn btn-primary" ui-sref="alarm-level.new"><i class="fa fa-plus"></i>&nbsp;新建</button> 
+                        </div>
+                      
+                    </div>
+               
+            </div>
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+  <!--                   <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="Query">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                            <button class="btn btn-info" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form> -->
+                <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                            <div class="input-group">
+                            
+                              <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                                  <span class="ion-search"></span>
+                              </button>
+                              </span>
+                            </div>
+                </form>
+                <table class="table" ng-table="vm.tableParams">
+                    <!-- <thead class="black-muted-bg">
+                        <tr>
+                            <th><span>ID</span></th>
+                            <th><span>名称</span></th>
+                            <th><span>颜色</span></th>
+                            <th><span>描述</span></th>
+                            <th>操作</th>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr ng-repeat="alarmLevel in $data">
+                           <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="alarm-level-detail({id:alarmLevel.id})">{{alarmLevel.id}}</a></td> -->
+                            <td data-title="'名称'" sortable="'name'">{{alarmLevel.name}}</td>
+                            <td data-title="'颜色'" sortable="'color'">
+                                <spectrum-colorpicker ng-model="alarmLevel.color" format="'hex3'" ></spectrum-colorpicker>
+                            </td>
+                            <td data-title="'描述'" sortable="'description'">{{alarmLevel.description}}</td>
+                            <td data-title="'操作'"   class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="alarm-level-detail({id:alarmLevel.id})"
+                                            class="btn-reset">
+                                        查看
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="alarm-level.edit({id:alarmLevel.id})"
+                                            class="btn-reset">
+                                        编辑
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="alarm-level.delete({id:alarmLevel.id})"
+                                            class="btn-reset text-delete">
+                                        删除
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="5" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="5" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+</div>
+</div>

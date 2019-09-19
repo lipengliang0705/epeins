@@ -1,0 +1,38 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">Kafka监测</h3>
+    <small class="text-muted h5 font-title-des">大数据平台服务器Kafka监测信息</small>
+</div>
+<div class="wrapper"> 
+    <div class="row chart-list-wrap"> 
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.CpuUsageCharts"></simple-echarts>
+            </div> 
+        </div>
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.JvmMomoryUsedCharts"></simple-echarts>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.TimeSpentCharts"></simple-echarts>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.MessagesInPerCharts"></simple-echarts>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.BytesInPerCharts"></simple-echarts>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 ">
+        	<div class="kafka-monitor-dashcharts">
+                <simple-echarts options="vm.BytesOutPerCharts"></simple-echarts>
+            </div>
+        </div>
+    </div>  
+</div>

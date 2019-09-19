@@ -1,0 +1,125 @@
+@-webkit-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        transform: rotate(360deg);
+        /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        /* Firefox 16+*/
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+        /* Firefox 16+*/
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        transform: rotate(360deg);
+        /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    // background: #000000;
+    background: rgba(255, 255, 255, 0.2);
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    &>div {
+        display: block;
+        // position: relative;
+        // left: 50%;
+        // top: 50%;
+        // width: 150px;
+        // height: 150px;
+        // margin: -75px 0 0 -75px;
+        // border-radius: 50%;
+        // border: 3px solid transparent;
+        // border-top-color: $danger;
+        // backface-visibility: hidden;
+        // transform: translate3d(0, 0, 0);
+        // backface-visibility: hidden;
+        // animation: spin 2s linear infinite;
+        /* Chrome, Firefox 16+, IE 10+, Opera */
+        // &:before {
+        //     content: "";
+        //     position: absolute;
+        //     top: 5px;
+        //     left: 5px;
+        //     right: 5px;
+        //     bottom: 5px;
+        //     border-radius: 50%;
+        //     border: 3px solid transparent;
+        //     border-top-color: $primary;
+        //     -webkit-animation: spin 3s linear infinite;
+        //     /* Chrome, Opera 15+, Safari 5+ */
+        //     animation: spin 3s linear infinite;
+        //     /* Chrome, Firefox 16+, IE 10+, Opera */
+        // }
+        // &:after {
+        //     content: "";
+        //     position: absolute;
+        //     top: 15px;
+        //     left: 15px;
+        //     right: 15px;
+        //     bottom: 15px;
+        //     border-radius: 50%;
+        //     border: 3px solid transparent;
+        //     border-top-color: $warning;
+        //     animation: spin 1.5s linear infinite;
+        //     /* Chrome, Firefox 16+, IE 10+, Opera */
+        // }
+    }
+    &>p {
+        margin-top: 6px;
+        color: #333;
+    }
+}
+
+[data-loader=circle] {
+    width: 25px;
+    height: 25px;
+    -webkit-animation: circle infinite .75s linear;
+    -moz-animation: circle infinite .75s linear;
+    -o-animation: circle infinite .75s linear;
+    animation: circle infinite .75s linear;
+    border: 2px solid #000;
+    border-top-color: transparent;
+    border-radius: 100%;
+}
+
+@keyframes circle {
+    0% {
+        -webkit-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}

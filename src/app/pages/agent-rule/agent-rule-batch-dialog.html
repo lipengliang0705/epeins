@@ -1,0 +1,28 @@
+<form name="deleteForm" ng-submit="vm.method[vm.batchStatus](vm.agentRule.id)">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title">确认批量操作</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <p>确认要在{{vm.hosts.length}}台目标主机上{{vm.batchStatus}}吗？</p>
+
+
+        <div class="" ng-repeat="host in vm.hosts">
+            <p >{{host.name}} {{ host.ip}} {{ host.ip}} {{host.category.title}}  <span ng-show="host.successful"> ✅</span>    <span> {{host.returnMsg}}</span></p>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary" ng-show="vm.batchStatus == 'start'">
+            <span >启动</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary" ng-show="vm.batchStatus == 'stop'">
+            <span >停止</span>
+        </button>
+    </div>
+</form>

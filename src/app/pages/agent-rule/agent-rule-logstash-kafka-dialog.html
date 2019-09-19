@@ -1,0 +1,119 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myAgentRuleLabel">创建kafka采集任务</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+       
+        <div class="logstash-tcp logstash-kafka">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>任务名称<em>*</em><i class="ion-help"></i></label>
+                        <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group ">
+                        <label>预估数据日流量<em>*</em><i class="ion-help"></i></label>
+                        <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                          
+                            <option value="">0-50</option>
+                            
+                        </select>
+                        <em class="gb-icon">GB</em>
+                        <input type="text" class="form-control small-w" />
+                        <span>分区数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="form-group">
+                        <label class="control-label">备注</label>
+                        <textarea class="form-control" name="sample" style="white-space: pre-wrap"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bor-top">
+                    <div class="form-group">
+                        <label class="control-label">Kafka对象</label>
+                        <select  class="form-control">
+                          
+                            <option value="">请选择</option>
+                        
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">Topic名称</label>
+                        <select  class="form-control">
+                              
+                            <option value="">请选择</option>
+                                                    
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">采集时间间隔(秒)</label>
+                        <input type="text" class="form-control" />
+                        
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label">队列缓存处理策略</label>
+                        <select class="form-control" >
+                              
+                            <option value="">总是最新</option>
+                            
+                            
+                        </select>
+                    </div>
+                    
+                   
+                </div>
+            </div>
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" is-open="status.open">
+                    <uib-accordion-heading>
+                    任务高级配置
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>任务名称<em>*</em></label>
+                                <input type="text" class="form-control" placeholder="请填写"  style="width:60%" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group ">
+                                <label>预估数据日流量<em>*</em></label>
+                                <select ng-model="sample.type" class="form-control small-w"  ng-model="sample.type" ng-change="vm.updateRuleSample()">
+                                  
+                                    <option value="">0-50</option>
+                                    
+                                </select>
+                                <em class="gb-icon">GB</em>
+                                <input type="text" class="form-control small-w" />
+                                <span>分区数</span>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </uib-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span>创建处理任务</span>
+        </button>
+    </div>
+</form>

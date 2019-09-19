@@ -1,0 +1,64 @@
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">数据源管理</h3>
+    <small class="text-muted h5 font-title-des">规范数据源管理</small>
+</div>
+<div class="wrapper" >
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="panel widget">
+            <div class="panel-heading">
+              <button class="btn btn-primary" ui-sref="data-source.new"><i class="fa fa-plus"></i>&nbsp;新建</button>
+              <full-size></full-size>
+            </div>
+            <div class="panel-body">
+       <!--        <form class="input-group">
+                    <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                    <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="search">
+                   
+              </form> -->
+              <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                        <div class="input-group">
+                        
+                          <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                              <span class="ion-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                    </form>
+              <table  class="table" ng-table="vm.tableParams">
+                    <tr ng-repeat="dataSource in $data | filter:search">
+                      <!--   <td data-title="'ID'" sortable="'id'"><a ui-sref="data-source-detail({id:dataSource.id})">{{dataSource.id}}</a></td> -->
+                        <td data-title="'名称'" sortable="'name'">{{dataSource.name}}</td>
+                        <td data-title="'用途'" sortable="'alias'">{{dataSource.alias}}</td>
+                        <td data-title="'来源类型'" sortable="'sourceType'">{{dataSource.sourceType}}</td>
+                        <td data-title="'描述'" sortable="'description'">{{dataSource.description}}</td>
+                        <td data-title="'Url'" sortable="'url'">{{dataSource.url}}</td>
+                        <!--<td data-title="'信任证书'" sortable="'credential'">{{dataSource.credential}}</td>-->
+                        <td class="text-right" data-title="'操作'">
+                           <div class="btn-group flex-btn-group-container">
+                               <button type="submit" ui-sref="data-source-detail({id:dataSource.id})" class="btn-reset">
+                                   查看
+                               </button>
+                               <button type="submit" ui-sref="data-source.edit({id:dataSource.id})" class="btn-reset">
+                                   编辑
+                               </button>
+                               <button type="submit" ui-sref="data-source.delete({id:dataSource.id})" class="btn-reset text-delete">
+                                   删除
+                               </button>
+                           </div>
+                       </td>
+                    </tr>
+                    <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                        <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                    </tr>
+                    <tr ng-if="vm.dataload">
+                        <td colspan="8" class="table-data-alert">数据加载中...</td>
+                    </tr>
+                <!-- </tbody> -->
+              </table>
+          </div>
+        </div>
+    </div>
+</div>

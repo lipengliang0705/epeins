@@ -1,0 +1,132 @@
+<form novalidate angular-validator  name="formName" >
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">查询</h4>
+    </div>
+    <div class="modal-body">
+        <uib-accordion close-others="oneAtATime">
+            <div uib-accordion-group class="panel-default" is-open="true">
+                <uib-accordion-heading>
+                    {{vm.data.name}}
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </uib-accordion-heading>
+
+                <!--<div class="radio">-->
+                    <!--<ul>-->
+                        <!--<li>-->
+                            <!--<label>-->
+                                <!--<input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="line" value="line">-->
+                                <!--匹配下面的任一个-->
+                            <!--</label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<label>-->
+                                <!--<input type="radio" ng-model="vm.agentRule.conf.deserializer" name="deserializer" id="other" value="other">-->
+                                <!--匹配下面的所有  -->
+                            <!--</label>-->
+                        <!--</li>-->
+                    <!--</ul> -->
+                <!--</div>-->
+                <div class="form-group form-group-file">
+                    <label for="">条件:</label>
+                    <div class="form-control-sbox">
+                        <select class="form-control form-control-sm" name="status" ng-model="vm.searchData.params1.name">
+                            <option value="status">status</option>
+                            <option value="name">name</option>
+                            <option value="type">type</option>
+                            <option value="source">source</option>
+                        </select>
+                        <input type="text" name="name" class="form-control form-control-sm" placeholder=""  ng-model="vm.searchData.params1.value">
+                        <button class="btn btn-primary pull-right" ng-click="vm.method.search()">搜索</button>
+                    </div>
+
+                </div>
+                <!--<div class="form-group form-group-file">-->
+                    <!--<label for="">条件2:</label>-->
+                    <!--<div class="form-control-sbox">-->
+                        <!--<select class="form-control form-control-sm" name="status" ng-model="vm.searchData.params2.name">-->
+                            <!--<option value="status">status</option>-->
+                            <!--<option value="name">name</option>-->
+                            <!--<option value="type">type</option>-->
+                            <!--<option value="source">source</option>-->
+                        <!--</select>-->
+                        <!--<input type="text" name="name" class="form-control form-control-sm" placeholder=""  ng-model="vm.searchData.params2.value">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group form-group-file">-->
+                    <!--<label for="">条件3:</label>-->
+                    <!--<div class="form-control-sbox">-->
+                        <!--<select class="form-control form-control-sm" name="status" ng-model="vm.searchData.params3.name">-->
+                            <!--<option value="status">status</option>-->
+                            <!--<option value="name">name</option>-->
+                            <!--<option value="type">type</option>-->
+                            <!--<option value="source">source</option>-->
+                        <!--</select>-->
+                        <!--<input type="text" name="name" class="form-control form-control-sm" placeholder="" ng-model="vm.searchData.params3.value">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group form-group-file">-->
+                    <!--<label for="">条件4:</label>-->
+                    <!--<div class="form-control-sbox">-->
+                        <!--<select class="form-control form-control-sm" name="status" ng-model="vm.searchData.params4.name">-->
+                            <!--<option value="status">status</option>-->
+                            <!--<option value="name">name</option>-->
+                            <!--<option value="type">type</option>-->
+                            <!--<option value="source">source</option>-->
+                        <!--</select>-->
+                        <!--<input type="text" name="name" class="form-control form-control-sm" placeholder="" ng-model="vm.searchData.params4.value">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group form-group-file">-->
+                    <!--<label for="">从:</label>-->
+                    <!--<div class="form-control-sbox">-->
+                        <!--<div class="btn-group form-control" style="width: 50%;">-->
+                            <!--<div date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange">-->
+                                <!--{{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                   <!---->
+                <!--</div>-->
+                
+            </div>
+        </uib-accordion>
+        <div class="modal-scrolly">
+            <table class="table table-modal">
+                <thead>
+                    <tr>
+                        <th>设备名</th>
+                        <th>时间</th>
+                        <th>严重性</th>
+                        <th>类型/设施/程序</th>
+                        <th>源</th>
+                        <th>消息</th>
+                        <th>事件ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.resoures.list track by $index">
+                        <td>
+                            <a href="">{{item.name}}</a>
+                        </td>
+                        <td>{{item.startTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                        <td>{{item.status}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.source}}</td>
+                        <td title="{{item.description}}"><span>{{item.description}}</span></td>
+                        <td>{{item.id}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary" ng-click="vm.method.submit()">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

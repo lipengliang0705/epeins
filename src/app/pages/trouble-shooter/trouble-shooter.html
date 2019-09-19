@@ -1,0 +1,249 @@
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">排障助手</h3>
+    <small class="text-muted h5 font-title-des">汇总排障时间轴上各种运维数据，提供快速排障筛查分析支持，给出智能运维辅助决策建议</small>
+</div>
+<div class="wrapper"> 
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>系统：</label>
+          <!-- <div class="input-group"> -->
+            <select class="form-control" ng-model="vm.system" ng-init="vm.system='001'">
+              <option value="001">网络银行</option>
+              <option value="002">信用卡中心</option>
+              <option value="003">理财中心</option>
+            </select>
+          <!-- </div> -->
+      </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>主机：</label>
+          <!-- <div class="input-group"> -->
+            <select class="form-control">
+              <option value="001">10.12.90.102</option>
+              <option value="002">10.12.90.103</option>
+              <option value="003">10.12.90.104</option>
+            </select>
+          <!-- </div> -->
+      </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>选择时间：</label>
+          <input date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" class="form-control" type="text"/>
+        </div>
+      </div>
+                    
+      <!-- <div class="col-sm-2">
+        <div class="form-group">
+          <label>开始时间：</label>
+        <div class="input-group"
+             moment-picker="vm.dateStart"
+             format="YYYY-MM-DD HH:mm:ss">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+            <input class="form-control"
+                   placeholder="请选择开始日期"
+                   ng-model="vm.dateStart"
+                   ng-model-options="{ updateOn: 'blur' }">
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>结束时间：</label>
+        <div class="input-group"
+             moment-picker="vm.dateEnd"
+             format="YYYY-MM-DD HH:mm:ss">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+            <input class="form-control"
+                   placeholder="请选择结束日期"
+                   ng-model="vm.dateEnd"
+                   ng-model-options="{ updateOn: 'blur' }">
+        </div>
+      </div>
+      </div> -->
+      <div class="col-sm-2">
+         <div class="form-group">
+          <label>&nbsp;</label>
+          <div class="input-group">
+            <button class="btn m-b-xs w-xs btn-primary" ng-click="vm.initData()"><!-- <i class="fa fa-cloud-download"></i> -->获取数据</button>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+    </div>
+    <!-- <hr> -->
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="panel panel-default widget">
+            <div class="panel-heading"> 
+              <label class="i-checks">
+                <input type="checkbox" ng-model="vm.checks.KPI"><i></i>主要指标
+              </label> &nbsp;
+              <label class="i-checks">
+                <input type="checkbox" ng-model="vm.checks.TRAN"><i></i>交易量
+              </label> &nbsp;
+              <label class="i-checks">
+                <input type="checkbox" ng-model="vm.checks.JDBC"><i></i>JDBC连接池
+              </label> &nbsp;
+              <label class="i-checks">
+                <input type="checkbox" ng-model="vm.checks.DB"><i></i>数据库连接数
+              </label> &nbsp;
+                <!-- 全屏指令 -->
+              <full-size></full-size>
+            </div>
+            <div class="panel-body wrapper-xs">
+              <h4 class="system-title">当前系统：
+                  <span>网络银行管理分析</span>
+                        <span class="partsum">共<b>6</b>个分区</span>
+                </h4>
+
+              <div class="row row-unmarg">
+                <div class="col-md-12" ui-jq="sortable" ui-options="{items:'.panel', handle:'.panel-heading', connectWith:'.connected'}">
+                  <div class="panel panel-default m-b-sm">
+                    <div class="panel-heading wrapper-xs">
+                      时间缩放轴
+                    </div>  
+                    <div class="panel-body wrapper-xs">
+                      <div class="col-sm-12" style="height: 80px">
+                        <simple-echarts options="vm.optionTime"></simple-echarts>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default m-b-sm" ng-show="vm.checks.KPI">
+                      <div class="panel-heading wrapper-xs">主要指标（%）
+                        <!-- <a ng-click="vm.setWidget()">主要指标（%）</a> -->
+                        </div>
+                        <div class="panel-body wrapper-xs">
+                        <div class="col-sm-9" style="height: 200px">
+                            <line-chart config="vm.config1" data="vm.data1"></line-chart>
+                          </div>
+                          <div class="col-sm-3" ng-show="vm.system=='001'">
+                            <div class="diagnose">
+                              <div class="diagnose-heading">主要指标</div>
+                              <div class="diagnose-body" ui-jq="slimScroll" ui-options="{height:'150px', size:'8px'}">
+                                <span class="chat-img pull-left"><img src="assets/img/diagnose-info.svg" height="50px" width="50px"/></span>
+                              <div class="chat-description">
+                                  <p>CPU利用率：60%使用率上下波动较大。</p>
+                                  <p>RAM利用率：60%空间使用率上下波动较大。</p>
+                              <p>诊断建议：导致CPU占用轻微过高的原因很多：主要体现在硬件或者软件两个方面，RAM空间使用率不足的原因很多</p>
+                            </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="panel panel-default m-b-sm" ng-show="vm.checks.TRAN">
+                      <div class="panel-heading wrapper-xs">访问量
+                        <!-- <a ng-click="vm.setWidget()">访问量</a> -->
+                          <!-- <span popup-show="config.html" popup-placement="bottom-left">访问量</span> -->
+                        </div>
+                        <div class="panel-body wrapper-xs">
+                        <div class="col-sm-9" style="height: 200px">
+                            <bar-chart config="vm.config2" data="vm.data2"></bar-chart>
+                          </div>
+                          <div class="col-sm-3" ng-show="vm.system=='001'">
+                            <div class="diagnose">
+                              <div class="diagnose-heading">访问量<span class="dia-h-img"><img src="assets/img/diagnose-warning.svg" height="35px" width="35px"/></span></div>
+                              <div class="diagnose-body" ui-jq="slimScroll" ui-options="{height:'105px', size:'8px'}">
+                                <!-- <span class="chat-img-r pull-right"><img src="img/icons/diagnose-warning.svg"/></span> -->
+                              <div class="chat-descript">
+                                  <div class="proposal-d"><h5><i class="fa fa-paste"></i>诊断建议：</h5>服务器硬件是否足够支持当前的流量，以防止过大访问量带来问题</div>
+                              <p><i class="fa fa-sort-alpha-asc"></i> 告警数量：1</p>
+                              <p><i class="fa fa-check-circle-o text-warning"></i> 已处理告警：0</p>
+                              <p><i class="fa fa-sliders text-success"></i> 环比预警：10%</p>
+                            </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="panel panel-default m-b-sm" ng-show="vm.checks.JDBC">
+                      <div class="panel-heading wrapper-xs">JDBC连接池
+                          <!-- <a ng-click="vm.setWidget()">JDBC连接池</a> -->
+                        </div>
+                        <div class="panel-body wrapper-xs">
+                        <div class="col-sm-9" style="height: 200px">
+                            <line-chart config="vm.config3" data="vm.data3"></line-chart>
+                          </div>
+                          <div class="col-sm-3" ng-show="vm.system=='001'">
+                            <div class="diagnose">
+                              <div class="diagnose-heading">JDBC连接池<span class="dia-h-img"><img src="assets/img/diagnose-warning.svg" height="35px" width="35px"/></span></div>
+                              <div class="diagnose-body" ui-jq="slimScroll" ui-options="{height:'105px', size:'8px'}">
+                                <!-- <span class="chat-img pull-left"><img src="assets/img/diagnose-danger.svg"/></span> -->
+                              <div class="chat-descript">
+                                  <p>JDBC连接数量：90~160之间波动。</p>
+                              <p>诊断建议：可能导致数据库阻塞，因为数据库可以支持的连接数是有限的，所以我们应该控制新建Connection的上限，若没有达到上限，我们可以创建并返回，如果达到连接上限，那么我们就抛出异常。</p>
+                            </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="panel panel-default m-b-sm" ng-show="vm.checks.DB">
+                        <div class="panel-heading wrapper-xs">数据库连接数
+                          <!-- <a ng-click="vm.setWidget()">数据库连接数</a> -->
+                        </div>
+                        <div class="panel-body wrapper-xs">
+                        <div class="col-sm-9" style="height: 200px">
+                            <line-chart config="vm.config4" data="vm.data4"></line-chart>
+                          </div>
+                          <div class="col-sm-3" ng-show="vm.system=='001'">
+                            <div class="diagnose">
+                              <div class="diagnose-heading">数据库连接数<span class="dia-h-img"><img src="assets/img/diagnose-ai.svg" height="35px" width="35px"/></span></div>
+                              <div class="diagnose-body" ui-jq="slimScroll" ui-options="{height:'105px', size:'8px'}">
+                                <!-- <span class="chat-img-r pull-right"><img src="img/icons/diagnose-info.svg"/></span> -->
+                              <div class="chat-descript">
+                              <p>数据库连接数：90~150之间波动。</p>
+                              <p>诊断建议：连接说过大或者达到最大限度可能导致数据库阻塞，因为数据库可以支持的连接数是有限的，所以我们应该控制新建Connection的上限，或者升级软硬件。</p>
+                            </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="panel panel-default m-b-sm" ng-show="vm.checks.DB">
+                        <div class="panel-heading wrapper-xs">历史日志
+                          <!-- <a ng-click="vm.setWidget()">历史日志</a> -->
+                        </div>
+                        <div class="panel-body wrapper-xs">
+                        <!-- <div class="col-sm-12" > -->
+                        <table  class="table" ng-table="vm.logList" show-filter="false">
+                              <thead ng-if="$data.length>0">
+                                <tr>
+                                 <th width="7%">序号</th>
+                                 <th width="7%">类型</th>
+                                 <th width="7%">级别</th>
+                                 <th width="7%">代码行</th>
+                                 <th width="72%">内容</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="row in $data">
+                                  <td>{{$index + 1}}</td>
+                                  <td>{{row['_type']}}</td>
+                                  <td>{{row['_source']['messageLevel']}}</td>
+                                  <td>{{row['_source']['@linenum']}}</td>
+                                  <td>{{row['_source']['@message']}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          <!-- </div> -->
+                      </div>
+                  </div> 
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div> 
+</div>

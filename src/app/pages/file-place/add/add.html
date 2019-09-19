@@ -1,0 +1,38 @@
+<form novalidate angular-validator angular-validator-submit="vm.method.submit()" name="formName">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">新建归档</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <div class="form-group">
+                <label for="">设备名称</label>
+                <input type="text" name="name" class="form-control" placeholder="请填写仪表盘名称" ng-model="vm.data.name" required validate-on="blur" required-message="'名称不能为空'" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="">状态</label>
+                <select class="form-control" name="status" ng-model="vm.data.status" required validate-on="blur" required-message="'状态不能为空'" autocomplete="off">
+                    <option>加载的</option>
+                    <option>正在加载</option>
+                    <option>没有加载</option>
+                    <option>归档没有发现</option>
+                    <option>已篡改</option>
+                    <option>没有加载</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">文件大小</label>
+                <input type="text" name="file" class="form-control" placeholder="请填写文件大小" ng-model="vm.data.fileSize" required validate-on="blur" required-message="'文件大小不能为空'" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary" type="submit">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

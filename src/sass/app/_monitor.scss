@@ -1,0 +1,53 @@
+.agent-monitor{
+	.text-left{
+		
+		& > h4{
+			font-size:16px;
+			line-height:30px;
+			margin-bottom:0;
+			color:#333;
+
+		}
+		& > p{
+			color:#666;
+			font-size:14px;
+			margin-bottom:0;
+			line-height:20px;
+			span{
+				width:60px;
+				display:inline-block;
+				text-align:right;
+			}
+		}
+	}
+	.category-div-list{
+		padding-bottom:10px;
+		border-radius:0;
+		border:1px solid #ddd;
+		cursor:pointer;
+			h4{
+				font-size:16px;
+				line-height:35px;
+				margin-bottom:10px;
+				padding-left:15px;
+				background:#eee;
+				border-bottom:1px solid #ddd;
+			}
+			p{
+				line-height:20px;
+				font-size:14px;
+				margin-bottom:0;
+				padding-left:15px;
+			}
+	}
+	.table{
+		margin-bottom:10px;
+		& > tbody{
+			& > tr{
+				& > td{
+					font-size:14px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1862 @@
+{
+    "dashs": [
+        {
+            "name": "MU-001",
+            "dash": [
+                {
+                    "position": {
+                        "top": 1,
+                        "height": 7,
+                        "left": 1,
+                        "width": 8
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "optionOnly": false,
+                            "theme": "dark",
+                            "type": "chinaMap",
+                            "title": {
+                                "text": "本月佣金增速 TOP 5 地区",
+                                "textStyle": {
+                                    "fontFamily": "Arial",
+                                    "color": null,
+                                    "fontSize": "20",
+                                    "fontStyle": "italic",
+                                    "fontWeight": "normal"
+                                },
+                                "left": "25%",
+                                "top": "20"
+                            },
+                            "datasource": {
+                                "type": "geo"
+                            },
+                            "fields": [
+                                "name",
+                                "value"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "name",
+                                "y": [
+                                    {
+                                        "field": "value",
+                                        "name": "",
+                                        "type": "",
+                                        "$$hashKey": "object:309",
+                                        "vmIdxSize": [
+                                            0,
+                                            1
+                                        ],
+                                        "vmIdxGradual": [],
+                                        "symbolColorGradualMethod": "gradual",
+                                        "symbolColorGradualA": "#7cb4cc",
+                                        "symbolColorGradualB": "#73b9bc",
+                                        "symbolColorGradual": false,
+                                        "effectColor": "#72ccff",
+                                        "borderWidth": 1,
+                                        "borderColor": "#ca6464"
+                                    }
+                                ]
+                            },
+                            "themeColor": [
+                                "#73b9bc",
+                                "#759aa0",
+                                "#f7f494",
+                                "#7289ab",
+                                "#e69d87",
+                                "#8fd3e8",
+                                "#dd6b66",
+                                "#72ccff",
+                                "#eedd78",
+                                "#cc70af",
+                                "#f7c5a0",
+                                "#fc97af",
+                                "#e098c7",
+                                "#87f7cf",
+                                "#71669e",
+                                "#91ca8c",
+                                "#ea7e53",
+                                "#7cb4cc",
+                                "#f49f42",
+                                "#76f2f2",
+                                "#d2f5a6",
+                                "#d4a4eb",
+                                "#73a373",
+                                "#8dc1a9",
+                                "#9b8bba"
+                            ],
+                            "legend": {
+                                "show": false
+                            },
+                            "geo": {
+                                "zoom": "1.15",
+                                "itemStyle": {
+                                    "normal": {
+                                        "areaColor": null
+                                    }
+                                }
+                            },
+                            "dataComm": {
+                                "symbolColorGradual": false,
+                                "shadowColor": "#cc4bb7",
+                                "shadowBlur": null,
+                                "symbolSizeA": 5,
+                                "symbolSizeB": 25,
+                                "topCount": 5
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "name": "海门",
+                                    "value": 9,
+                                    "$$hashKey": "object:205"
+                                },
+                                {
+                                    "name": "鄂尔多斯",
+                                    "value": 12,
+                                    "$$hashKey": "object:206"
+                                },
+                                {
+                                    "name": "招远",
+                                    "value": 12,
+                                    "$$hashKey": "object:207"
+                                },
+                                {
+                                    "name": "舟山",
+                                    "value": 12,
+                                    "$$hashKey": "object:208"
+                                },
+                                {
+                                    "name": "齐齐哈尔",
+                                    "value": 14,
+                                    "$$hashKey": "object:209"
+                                },
+                                {
+                                    "name": "盐城",
+                                    "value": 15,
+                                    "$$hashKey": "object:210"
+                                },
+                                {
+                                    "name": "拉萨",
+                                    "value": 24,
+                                    "$$hashKey": "object:211"
+                                },
+                                {
+                                    "name": "云浮",
+                                    "value": 24,
+                                    "$$hashKey": "object:212"
+                                },
+                                {
+                                    "name": "梅州",
+                                    "value": 25,
+                                    "$$hashKey": "object:213"
+                                },
+                                {
+                                    "name": "文登",
+                                    "value": 25,
+                                    "$$hashKey": "object:214"
+                                },
+                                {
+                                    "name": "上海",
+                                    "value": 25
+                                },
+                                {
+                                    "name": "攀枝花",
+                                    "value": 25
+                                },
+                                {
+                                    "name": "威海",
+                                    "value": 25
+                                },
+                                {
+                                    "name": "承德",
+                                    "value": 25
+                                },
+                                {
+                                    "name": "汕头",
+                                    "value": 32
+                                },
+                                {
+                                    "name": "昆山",
+                                    "value": 33
+                                },
+                                {
+                                    "name": "宁波",
+                                    "value": 33
+                                },
+                                {
+                                    "name": "湛江",
+                                    "value": 33
+                                },
+                                {
+                                    "name": "揭阳",
+                                    "value": 34
+                                },
+                                {
+                                    "name": "荣成",
+                                    "value": 34
+                                },
+                                {
+                                    "name": "连云港",
+                                    "value": 35
+                                },
+                                {
+                                    "name": "葫芦岛",
+                                    "value": 35
+                                },
+                                {
+                                    "name": "常熟",
+                                    "value": 36
+                                },
+                                {
+                                    "name": "东莞",
+                                    "value": 36
+                                },
+                                {
+                                    "name": "河源",
+                                    "value": 36
+                                },
+                                {
+                                    "name": "淮安",
+                                    "value": 36
+                                },
+                                {
+                                    "name": "泰州",
+                                    "value": 36
+                                },
+                                {
+                                    "name": "南宁",
+                                    "value": 37
+                                },
+                                {
+                                    "name": "宿迁",
+                                    "value": 43
+                                },
+                                {
+                                    "name": "咸阳",
+                                    "value": 43
+                                },
+                                {
+                                    "name": "铜川",
+                                    "value": 44
+                                },
+                                {
+                                    "name": "平度",
+                                    "value": 44
+                                },
+                                {
+                                    "name": "佛山",
+                                    "value": 44
+                                },
+                                {
+                                    "name": "海口",
+                                    "value": 44
+                                },
+                                {
+                                    "name": "江门",
+                                    "value": 45
+                                },
+                                {
+                                    "name": "章丘",
+                                    "value": 45
+                                },
+                                {
+                                    "name": "肇庆",
+                                    "value": 46
+                                },
+                                {
+                                    "name": "大连",
+                                    "value": 47
+                                },
+                                {
+                                    "name": "临汾",
+                                    "value": 47
+                                },
+                                {
+                                    "name": "张家港",
+                                    "value": 52
+                                },
+                                {
+                                    "name": "三门峡",
+                                    "value": 53
+                                },
+                                {
+                                    "name": "锦州",
+                                    "value": 54
+                                },
+                                {
+                                    "name": "南昌",
+                                    "value": 54
+                                },
+                                {
+                                    "name": "柳州",
+                                    "value": 54
+                                },
+                                {
+                                    "name": "三亚",
+                                    "value": 54
+                                },
+                                {
+                                    "name": "自贡",
+                                    "value": 56
+                                },
+                                {
+                                    "name": "重庆",
+                                    "value": 66
+                                },
+                                {
+                                    "name": "台州",
+                                    "value": 67
+                                },
+                                {
+                                    "name": "南京",
+                                    "value": 67
+                                },
+                                {
+                                    "name": "滨州",
+                                    "value": 70
+                                },
+                                {
+                                    "name": "贵阳",
+                                    "value": 71
+                                },
+                                {
+                                    "name": "无锡",
+                                    "value": 71
+                                },
+                                {
+                                    "name": "本溪",
+                                    "value": 71
+                                },
+                                {
+                                    "name": "克拉玛依",
+                                    "value": 72
+                                },
+                                {
+                                    "name": "渭南",
+                                    "value": 72
+                                },
+                                {
+                                    "name": "马鞍山",
+                                    "value": 72
+                                },
+                                {
+                                    "name": "宝鸡",
+                                    "value": 72
+                                },
+                                {
+                                    "name": "焦作",
+                                    "value": 75
+                                },
+                                {
+                                    "name": "句容",
+                                    "value": 75
+                                },
+                                {
+                                    "name": "北京",
+                                    "value": 79
+                                },
+                                {
+                                    "name": "徐州",
+                                    "value": 79
+                                },
+                                {
+                                    "name": "衡水",
+                                    "value": 80
+                                },
+                                {
+                                    "name": "包头",
+                                    "value": 80
+                                },
+                                {
+                                    "name": "九江",
+                                    "value": 96
+                                },
+                                {
+                                    "name": "邯郸",
+                                    "value": 98
+                                },
+                                {
+                                    "name": "临安",
+                                    "value": 99
+                                },
+                                {
+                                    "name": "兰州",
+                                    "value": 99
+                                },
+                                {
+                                    "name": "沧州",
+                                    "value": 100
+                                },
+                                {
+                                    "name": "临沂",
+                                    "value": 103
+                                },
+                                {
+                                    "name": "南充",
+                                    "value": 104
+                                },
+                                {
+                                    "name": "天津",
+                                    "value": 105
+                                },
+                                {
+                                    "name": "富阳",
+                                    "value": 106
+                                },
+                                {
+                                    "name": "泰安",
+                                    "value": 112
+                                },
+                                {
+                                    "name": "诸暨",
+                                    "value": 112
+                                },
+                                {
+                                    "name": "郑州",
+                                    "value": 113
+                                },
+                                {
+                                    "name": "哈尔滨",
+                                    "value": 114
+                                },
+                                {
+                                    "name": "聊城",
+                                    "value": 116
+                                },
+                                {
+                                    "name": "芜湖",
+                                    "value": 117
+                                },
+                                {
+                                    "name": "唐山",
+                                    "value": 119
+                                },
+                                {
+                                    "name": "平顶山",
+                                    "value": 119
+                                },
+                                {
+                                    "name": "邢台",
+                                    "value": 119
+                                },
+                                {
+                                    "name": "保定",
+                                    "value": 153
+                                },
+                                {
+                                    "name": "湘潭",
+                                    "value": 154
+                                },
+                                {
+                                    "name": "金华",
+                                    "value": 157
+                                },
+                                {
+                                    "name": "岳阳",
+                                    "value": 169
+                                },
+                                {
+                                    "name": "长沙",
+                                    "value": 175
+                                },
+                                {
+                                    "name": "衢州",
+                                    "value": 177
+                                },
+                                {
+                                    "name": "廊坊",
+                                    "value": 193
+                                },
+                                {
+                                    "name": "菏泽",
+                                    "value": 194
+                                },
+                                {
+                                    "name": "合肥",
+                                    "value": 229
+                                },
+                                {
+                                    "name": "武汉",
+                                    "value": 273
+                                },
+                                {
+                                    "name": "大庆",
+                                    "value": 279
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:9"
+                },
+                {
+                    "position": {
+                        "top": 1,
+                        "left": 9,
+                        "height": 7,
+                        "width": 7
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "type": "gauge",
+                            "datasource": {
+                                "type": "gauge"
+                            },
+                            "fields": [
+                                "收益率",
+                                "抗风险指数",
+                                "资产总额"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "",
+                                "y": [
+                                    {
+                                        "field": "收益率",
+                                        "name": "佣金增速(%)",
+                                        "type": "",
+                                        "$$hashKey": "object:259",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [],
+                                        "gaugeMax": 30,
+                                        "gaugeCenterY": 60,
+                                        "gaugeDetailSize": 50,
+                                        "gaugeDetailColor": null,
+                                        "gaugeAxisLabelColor": "#8f9952",
+                                        "gaugeTitleColor": "#b2b0b9",
+                                        "gaugeAxisTickLength": 10,
+                                        "gaugeRadius": null
+                                    }
+                                ]
+                            },
+                            "title": {
+                                "text": "本月全国平均佣金增速百分比",
+                                "left": "center",
+                                "textStyle": {
+                                    "fontStyle": "italic",
+                                    "fontSize": "20",
+                                    "fontWeight": "bold"
+                                },
+                                "top": "20"
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "收益率": 12.8,
+                                    "抗风险指数": 68.6,
+                                    "资产总额": 278.65,
+                                    "$$hashKey": "object:244"
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:41"
+                },
+                {
+                    "position": {
+                        "top": 13,
+                        "left": 1,
+                        "height": 4,
+                        "width": 24
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "datasource": {
+                                "type": "demo2"
+                            },
+                            "fields": [
+                                "代码",
+                                "名称",
+                                "最新价",
+                                "涨跌额",
+                                "涨跌幅",
+                                "买入",
+                                "卖出",
+                                "昨收",
+                                "今开",
+                                "最高",
+                                "最低",
+                                "成交量/手",
+                                "成交额/万"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "名称",
+                                "y": [
+                                    {
+                                        "field": "涨跌额",
+                                        "name": "",
+                                        "type": "",
+                                        "$$hashKey": "object:1309",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [],
+                                        "color": null,
+                                        "symbolColorGradualMethod": null,
+                                        "symbolColorGradualDirection": "0,0,0,1",
+                                        "symbolColorGradualA": "#ea537b",
+                                        "symbolColorGradualB": "#e098c7",
+                                        "symbolColorGradual": false,
+                                        "barBorderRadius": null
+                                    }
+                                ]
+                            },
+                            "type": "bar",
+                            "themeColor": [
+                                "#e69d87",
+                                "#e098c7",
+                                "#f49f42",
+                                "#dd6b66",
+                                "#cc70af",
+                                "#fc97af",
+                                "#7289ab",
+                                "#d4a4eb",
+                                "#71669e",
+                                "#d2f5a6",
+                                "#73b9bc",
+                                "#73a373",
+                                "#759aa0",
+                                "#72ccff",
+                                "#f7c5a0",
+                                "#8fd3e8",
+                                "#ea7e53",
+                                "#91ca8c",
+                                "#76f2f2",
+                                "#8dc1a9",
+                                "#f7f494",
+                                "#9b8bba",
+                                "#eedd78",
+                                "#87f7cf",
+                                "#7cb4cc"
+                            ],
+                            "dataComm": {
+                                "shadowColor": "#b84646",
+                                "symbolColorGradual": false
+                            },
+                            "legend": {
+                                "show": false
+                            },
+                            "title": {
+                                "text": "本司代理基金业绩",
+                                "left": "center",
+                                "textStyle": {
+                                    "color": "#dddbc4"
+                                }
+                            },
+                            "xAxis": {
+                                "axisLabel": {
+                                    "rotate": 15
+                                }
+                            },
+                            "yAxis": {
+                                "r_show": false,
+                                "nameTextStyle": {
+                                    "color": null
+                                }
+                            },
+                            "Axis": {
+                                "labelColor": "#b9aaaa"
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "代码": "sz161217",
+                                    "名称": "国投资源",
+                                    "最新价": "0.717",
+                                    "涨跌额": "0.01",
+                                    "涨跌幅": "1.41%",
+                                    "买入": "0.717",
+                                    "卖出": "0.72",
+                                    "昨收": "0.707",
+                                    "今开": "0.711",
+                                    "最高": "0.722",
+                                    "最低": "0.711",
+                                    "成交量/手": "3,595",
+                                    "成交额/万": "25.81",
+                                    "$$hashKey": "object:1001"
+                                },
+                                {
+                                    "代码": "sz161210",
+                                    "名称": "国投新兴",
+                                    "最新价": "0.989",
+                                    "涨跌额": "0.004",
+                                    "涨跌幅": "0.41%",
+                                    "买入": "0.989",
+                                    "卖出": "0.99",
+                                    "昨收": "0.985",
+                                    "今开": "0.987",
+                                    "最高": "0.989",
+                                    "最低": "0.987",
+                                    "成交量/手": "279",
+                                    "成交额/万": "2.76",
+                                    "$$hashKey": "object:1002"
+                                },
+                                {
+                                    "代码": "sz161129",
+                                    "名称": "原油基金",
+                                    "最新价": "0.84",
+                                    "涨跌额": "-0.002",
+                                    "涨跌幅": "-0.24%",
+                                    "买入": "0.84",
+                                    "卖出": "0.842",
+                                    "昨收": "0.842",
+                                    "今开": "0.843",
+                                    "最高": "0.843",
+                                    "最低": "0.84",
+                                    "成交量/手": "959",
+                                    "成交额/万": "8.08",
+                                    "$$hashKey": "object:1003"
+                                },
+                                {
+                                    "代码": "sz161128",
+                                    "名称": "标普科技",
+                                    "最新价": "1.11",
+                                    "涨跌额": "0.026",
+                                    "涨跌幅": "2.40%",
+                                    "买入": "1.1",
+                                    "卖出": "1.11",
+                                    "昨收": "1.084",
+                                    "今开": "1.095",
+                                    "最高": "1.11",
+                                    "最低": "1.094",
+                                    "成交量/手": "1,296",
+                                    "成交额/万": "14.24",
+                                    "$$hashKey": "object:1004"
+                                },
+                                {
+                                    "代码": "sz161127",
+                                    "名称": "标普生物",
+                                    "最新价": "1.185",
+                                    "涨跌额": "0.008",
+                                    "涨跌幅": "0.68%",
+                                    "买入": "1.181",
+                                    "卖出": "1.185",
+                                    "昨收": "1.177",
+                                    "今开": "1.18",
+                                    "最高": "1.188",
+                                    "最低": "1.178",
+                                    "成交量/手": "1,480",
+                                    "成交额/万": "17.52",
+                                    "$$hashKey": "object:1005"
+                                },
+                                {
+                                    "代码": "sz161126",
+                                    "名称": "标普医药",
+                                    "最新价": "1.132",
+                                    "涨跌额": "0.007",
+                                    "涨跌幅": "0.62%",
+                                    "买入": "1.124",
+                                    "卖出": "1.132",
+                                    "昨收": "1.125",
+                                    "今开": "1.145",
+                                    "最高": "1.145",
+                                    "最低": "1.13",
+                                    "成交量/手": "238",
+                                    "成交额/万": "2.7",
+                                    "$$hashKey": "object:1006"
+                                },
+                                {
+                                    "代码": "sz161125",
+                                    "名称": "标普500",
+                                    "最新价": "1.04",
+                                    "涨跌额": "0.007",
+                                    "涨跌幅": "0.68%",
+                                    "买入": "1.038",
+                                    "卖出": "1.04",
+                                    "昨收": "1.033",
+                                    "今开": "1.035",
+                                    "最高": "1.041",
+                                    "最低": "1.035",
+                                    "成交量/手": "13,860",
+                                    "成交额/万": "143.98",
+                                    "$$hashKey": "object:1007"
+                                },
+                                {
+                                    "代码": "sz161124",
+                                    "名称": "香港小盘",
+                                    "最新价": "1.05",
+                                    "涨跌额": "0.007",
+                                    "涨跌幅": "0.67%",
+                                    "买入": "1.048",
+                                    "卖出": "1.052",
+                                    "昨收": "1.043",
+                                    "今开": "1.043",
+                                    "最高": "1.052",
+                                    "最低": "1.043",
+                                    "成交量/手": "2,630",
+                                    "成交额/万": "27.6",
+                                    "$$hashKey": "object:1008"
+                                },
+                                {
+                                    "代码": "sz161116",
+                                    "名称": "易基黄金",
+                                    "最新价": "0.717",
+                                    "涨跌额": "0",
+                                    "涨跌幅": "0.00%",
+                                    "买入": "0.716",
+                                    "卖出": "0.717",
+                                    "昨收": "0.717",
+                                    "今开": "0.717",
+                                    "最高": "0.718",
+                                    "最低": "0.716",
+                                    "成交量/手": "7,849",
+                                    "成交额/万": "56.25",
+                                    "$$hashKey": "object:1009"
+                                },
+                                {
+                                    "代码": "sz161037",
+                                    "名称": "高端制造",
+                                    "最新价": "1.042",
+                                    "涨跌额": "0.004",
+                                    "涨跌幅": "0.39%",
+                                    "买入": "1.043",
+                                    "卖出": "1.047",
+                                    "昨收": "1.038",
+                                    "今开": "1.038",
+                                    "最高": "1.043",
+                                    "最低": "1.037",
+                                    "成交量/手": "960",
+                                    "成交额/万": "9.97",
+                                    "$$hashKey": "object:1010"
+                                },
+                                {
+                                    "代码": "sz161036",
+                                    "名称": "娱乐增强",
+                                    "最新价": "0.941",
+                                    "涨跌额": "0.009",
+                                    "涨跌幅": "0.97%",
+                                    "买入": "0.934",
+                                    "卖出": "0.941",
+                                    "昨收": "0.932",
+                                    "今开": "0.941",
+                                    "最高": "0.941",
+                                    "最低": "0.941",
+                                    "成交量/手": "114",
+                                    "成交额/万": "1.07"
+                                },
+                                {
+                                    "代码": "sz161033",
+                                    "名称": "智能汽车",
+                                    "最新价": "1.019",
+                                    "涨跌额": "0.017",
+                                    "涨跌幅": "1.70%",
+                                    "买入": "1.012",
+                                    "卖出": "1.019",
+                                    "昨收": "1.002",
+                                    "今开": "1.006",
+                                    "最高": "1.022",
+                                    "最低": "1.006",
+                                    "成交量/手": "285",
+                                    "成交额/万": "2.87"
+                                },
+                                {
+                                    "代码": "sz161017",
+                                    "名称": "富国500",
+                                    "最新价": "2.135",
+                                    "涨跌额": "-0.034",
+                                    "涨跌幅": "-1.57%",
+                                    "买入": "2.135",
+                                    "卖出": "2.138",
+                                    "昨收": "2.169",
+                                    "今开": "2.162",
+                                    "最高": "2.162",
+                                    "最低": "2.114",
+                                    "成交量/手": "741",
+                                    "成交额/万": "15.84"
+                                },
+                                {
+                                    "代码": "sz161005",
+                                    "名称": "富国天惠",
+                                    "最新价": "1.866",
+                                    "涨跌额": "0.009",
+                                    "涨跌幅": "0.49%",
+                                    "买入": "1.854",
+                                    "卖出": "1.866",
+                                    "昨收": "1.857",
+                                    "今开": "1.857",
+                                    "最高": "1.87",
+                                    "最低": "1.852",
+                                    "成交量/手": "1,159",
+                                    "成交额/万": "21.57"
+                                },
+                                {
+                                    "代码": "sz160922",
+                                    "名称": "恒生中小",
+                                    "最新价": "1.053",
+                                    "涨跌额": "0.01",
+                                    "涨跌幅": "0.96%",
+                                    "买入": "1.048",
+                                    "卖出": "1.054",
+                                    "昨收": "1.043",
+                                    "今开": "1.048",
+                                    "最高": "1.054",
+                                    "最低": "1.048",
+                                    "成交量/手": "1,124",
+                                    "成交额/万": "11.82"
+                                },
+                                {
+                                    "代码": "sz160919",
+                                    "名称": "大成产业",
+                                    "最新价": "1.181",
+                                    "涨跌额": "0.002",
+                                    "涨跌幅": "0.17%",
+                                    "买入": "1.179",
+                                    "卖出": "1.183",
+                                    "昨收": "1.179",
+                                    "今开": "1.172",
+                                    "最高": "1.181",
+                                    "最低": "1.172",
+                                    "成交量/手": "898",
+                                    "成交额/万": "10.57"
+                                },
+                                {
+                                    "代码": "sz160918",
+                                    "名称": "大成小盘",
+                                    "最新价": "1.817",
+                                    "涨跌额": "0.012",
+                                    "涨跌幅": "0.67%",
+                                    "买入": "1.815",
+                                    "卖出": "1.817",
+                                    "昨收": "1.805",
+                                    "今开": "1.818",
+                                    "最高": "1.825",
+                                    "最低": "1.816",
+                                    "成交量/手": "975",
+                                    "成交额/万": "17.74"
+                                },
+                                {
+                                    "代码": "sz160916",
+                                    "名称": "优选LOF",
+                                    "最新价": "2.46",
+                                    "涨跌额": "0.009",
+                                    "涨跌幅": "0.37%",
+                                    "买入": "2.456",
+                                    "卖出": "2.46",
+                                    "昨收": "2.451",
+                                    "今开": "2.46",
+                                    "最高": "2.465",
+                                    "最低": "2.451",
+                                    "成交量/手": "2,125",
+                                    "成交额/万": "52.26"
+                                },
+                                {
+                                    "代码": "sz160910",
+                                    "名称": "大成创新",
+                                    "最新价": "1.055",
+                                    "涨跌额": "0.001",
+                                    "涨跌幅": "0.10%",
+                                    "买入": "1.055",
+                                    "卖出": "1.074",
+                                    "昨收": "1.054",
+                                    "今开": "1.054",
+                                    "最高": "1.076",
+                                    "最低": "1.054",
+                                    "成交量/手": "215",
+                                    "成交额/万": "2.27"
+                                },
+                                {
+                                    "代码": "sz160813",
+                                    "名称": "长盛同盛",
+                                    "最新价": "0.794",
+                                    "涨跌额": "0.006",
+                                    "涨跌幅": "0.76%",
+                                    "买入": "0.794",
+                                    "卖出": "0.797",
+                                    "昨收": "0.788",
+                                    "今开": "0.791",
+                                    "最高": "0.795",
+                                    "最低": "0.791",
+                                    "成交量/手": "1,423",
+                                    "成交额/万": "11.3"
+                                },
+                                {
+                                    "代码": "sz160812",
+                                    "名称": "长盛同益",
+                                    "最新价": "1.446",
+                                    "涨跌额": "0.006",
+                                    "涨跌幅": "0.42%",
+                                    "买入": "1.441",
+                                    "卖出": "1.446",
+                                    "昨收": "1.44",
+                                    "今开": "1.449",
+                                    "最高": "1.454",
+                                    "最低": "1.442",
+                                    "成交量/手": "1,093",
+                                    "成交额/万": "15.83"
+                                },
+                                {
+                                    "代码": "sz160810",
+                                    "名称": "长盛同丰",
+                                    "最新价": "1.193",
+                                    "涨跌额": "0.002",
+                                    "涨跌幅": "0.17%",
+                                    "买入": "1.192",
+                                    "卖出": "1.194",
+                                    "昨收": "1.191",
+                                    "今开": "1.193",
+                                    "最高": "1.193",
+                                    "最低": "1.193",
+                                    "成交量/手": "1",
+                                    "成交额/万": "0.01"
+                                },
+                                {
+                                    "代码": "sz160807",
+                                    "名称": "长盛300",
+                                    "最新价": "1.214",
+                                    "涨跌额": "0.003",
+                                    "涨跌幅": "0.25%",
+                                    "买入": "1.213",
+                                    "卖出": "1.219",
+                                    "昨收": "1.211",
+                                    "今开": "1.214",
+                                    "最高": "1.214",
+                                    "最低": "1.214",
+                                    "成交量/手": "1",
+                                    "成交额/万": "0.01"
+                                },
+                                {
+                                    "代码": "sz160805",
+                                    "名称": "长盛同智",
+                                    "最新价": "0.814",
+                                    "涨跌额": "-0.007",
+                                    "涨跌幅": "-0.85%",
+                                    "买入": "0.814",
+                                    "卖出": "0.827",
+                                    "昨收": "0.821",
+                                    "今开": "0.833",
+                                    "最高": "0.833",
+                                    "最低": "0.81",
+                                    "成交量/手": "54",
+                                    "成交额/万": "0.44"
+                                },
+                                {
+                                    "代码": "sz160723",
+                                    "名称": "嘉实原油",
+                                    "最新价": "0.901",
+                                    "涨跌额": "-0.009",
+                                    "涨跌幅": "-0.99%",
+                                    "买入": "0.901",
+                                    "卖出": "0.904",
+                                    "昨收": "0.91",
+                                    "今开": "0.902",
+                                    "最高": "0.905",
+                                    "最低": "0.901",
+                                    "成交量/手": "328",
+                                    "成交额/万": "2.96"
+                                },
+                                {
+                                    "代码": "sz160720",
+                                    "名称": "中期企债",
+                                    "最新价": "1.122",
+                                    "涨跌额": "0.006",
+                                    "涨跌幅": "0.54%",
+                                    "买入": "0",
+                                    "卖出": "1.123",
+                                    "昨收": "1.116",
+                                    "今开": "1.122",
+                                    "最高": "1.122",
+                                    "最低": "1.122",
+                                    "成交量/手": "1",
+                                    "成交额/万": "0.01"
+                                },
+                                {
+                                    "代码": "sz160719",
+                                    "名称": "嘉实黄金",
+                                    "最新价": "0.705",
+                                    "涨跌额": "0",
+                                    "涨跌幅": "0.00%",
+                                    "买入": "0.705",
+                                    "卖出": "0.706",
+                                    "昨收": "0.705",
+                                    "今开": "0.706",
+                                    "最高": "0.706",
+                                    "最低": "0.684",
+                                    "成交量/手": "5,764",
+                                    "成交额/万": "40.62"
+                                },
+                                {
+                                    "代码": "sz160717",
+                                    "名称": "恒生H股",
+                                    "最新价": "0.799",
+                                    "涨跌额": "0.009",
+                                    "涨跌幅": "1.14%",
+                                    "买入": "0.798",
+                                    "卖出": "0.799",
+                                    "昨收": "0.79",
+                                    "今开": "0.799",
+                                    "最高": "0.801",
+                                    "最低": "0.795",
+                                    "成交量/手": "29,162",
+                                    "成交额/万": "232.92"
+                                },
+                                {
+                                    "代码": "sz160716",
+                                    "名称": "嘉实50",
+                                    "最新价": "1.425",
+                                    "涨跌额": "0.012",
+                                    "涨跌幅": "0.85%",
+                                    "买入": "1.424",
+                                    "卖出": "1.425",
+                                    "昨收": "1.413",
+                                    "今开": "1.406",
+                                    "最高": "1.425",
+                                    "最低": "1.406",
+                                    "成交量/手": "3,083",
+                                    "成交额/万": "43.79"
+                                },
+                                {
+                                    "代码": "sz160706",
+                                    "名称": "嘉实 300",
+                                    "最新价": "1.052",
+                                    "涨跌额": "0.009",
+                                    "涨跌幅": "0.86%",
+                                    "买入": "1.052",
+                                    "卖出": "1.053",
+                                    "昨收": "1.043",
+                                    "今开": "1.043",
+                                    "最高": "1.053",
+                                    "最低": "1.043",
+                                    "成交量/手": "17,438",
+                                    "成交额/万": "183.06"
+                                },
+                                {
+                                    "代码": "sz160643",
+                                    "名称": "空天一体",
+                                    "最新价": "1",
+                                    "涨跌额": "0.011",
+                                    "涨跌幅": "1.11%",
+                                    "买入": "1",
+                                    "卖出": "1.012",
+                                    "昨收": "0.989",
+                                    "今开": "0.992",
+                                    "最高": "1.088",
+                                    "最低": "0.992",
+                                    "成交量/手": "5,033",
+                                    "成交额/万": "50.33"
+                                },
+                                {
+                                    "代码": "sz160635",
+                                    "名称": "医药基金",
+                                    "最新价": "1.01",
+                                    "涨跌额": "0",
+                                    "涨跌幅": "0.00%",
+                                    "买入": "1.01",
+                                    "卖出": "1.011",
+                                    "昨收": "1.01",
+                                    "今开": "0.999",
+                                    "最高": "1.01",
+                                    "最低": "0.999",
+                                    "成交量/手": "534",
+                                    "成交额/万": "5.4"
+                                },
+                                {
+                                    "代码": "sz160616",
+                                    "名称": "鹏华500",
+                                    "最新价": "1.295",
+                                    "涨跌额": "0.003",
+                                    "涨跌幅": "0.23%",
+                                    "买入": "1.286",
+                                    "卖出": "1.294",
+                                    "昨收": "1.292",
+                                    "今开": "1.285",
+                                    "最高": "1.295",
+                                    "最低": "1.278",
+                                    "成交量/手": "48",
+                                    "成交额/万": "0.62"
+                                },
+                                {
+                                    "代码": "sz160615",
+                                    "名称": "鹏华300",
+                                    "最新价": "1.465",
+                                    "涨跌额": "0.003",
+                                    "涨跌幅": "0.21%",
+                                    "买入": "1.465",
+                                    "卖出": "1.468",
+                                    "昨收": "1.462",
+                                    "今开": "1.462",
+                                    "最高": "1.467",
+                                    "最低": "1.462",
+                                    "成交量/手": "205",
+                                    "成交额/万": "3"
+                                },
+                                {
+                                    "代码": "sz160613",
+                                    "名称": "鹏华创新",
+                                    "最新价": "1.367",
+                                    "涨跌额": "-0.013",
+                                    "涨跌幅": "-0.94%",
+                                    "买入": "1.369",
+                                    "卖出": "1.379",
+                                    "昨收": "1.38",
+                                    "今开": "1.369",
+                                    "最高": "1.369",
+                                    "最低": "1.367",
+                                    "成交量/手": "24",
+                                    "成交额/万": "0.33"
+                                },
+                                {
+                                    "代码": "sz160611",
+                                    "名称": "鹏华治理",
+                                    "最新价": "0.83",
+                                    "涨跌额": "0.005",
+                                    "涨跌幅": "0.61%",
+                                    "买入": "0.827",
+                                    "卖出": "0.83",
+                                    "昨收": "0.825",
+                                    "今开": "0.824",
+                                    "最高": "0.83",
+                                    "最低": "0.824",
+                                    "成交量/手": "57",
+                                    "成交额/万": "0.47"
+                                },
+                                {
+                                    "代码": "sz160610",
+                                    "名称": "鹏华动力",
+                                    "最新价": "1.043",
+                                    "涨跌额": "-0.006",
+                                    "涨跌幅": "-0.57%",
+                                    "买入": "1.043",
+                                    "卖出": "1.048",
+                                    "昨收": "1.049",
+                                    "今开": "1.033",
+                                    "最高": "1.049",
+                                    "最低": "1.033",
+                                    "成交量/手": "215",
+                                    "成交额/万": "2.24"
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:50"
+                },
+                {
+                    "position": {
+                        "top": 1,
+                        "left": 16,
+                        "height": 7,
+                        "width": 9
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "type": "area",
+                            "datasource": {
+                                "type": "demo"
+                            },
+                            "fields": [
+                                "month",
+                                "income",
+                                "outcome"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "month",
+                                "y": [
+                                    {
+                                        "field": "income",
+                                        "name": "总收入",
+                                        "type": "",
+                                        "$$hashKey": "object:528",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [
+                                            0
+                                        ]
+                                    },
+                                    {
+                                        "field": "outcome",
+                                        "name": "佣金收入",
+                                        "type": "",
+                                        "$$hashKey": "object:533",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [
+                                            1
+                                        ]
+                                    }
+                                ]
+                            },
+                            "dataComm": {
+                                "areaOpacity": "0.2",
+                                "smooth": false,
+                                "symbolColorGradual": true,
+                                "symbolSize": 20
+                            },
+                            "themeColor": [
+                                "#e098c7",
+                                "#76f2f2",
+                                "#9b8bba",
+                                "#fc97af",
+                                "#cc70af",
+                                "#eedd78",
+                                "#7cb4cc",
+                                "#dd6b66",
+                                "#7289ab",
+                                "#71669e",
+                                "#ea7e53",
+                                "#f7c5a0",
+                                "#87f7cf",
+                                "#d4a4eb",
+                                "#f49f42",
+                                "#72ccff",
+                                "#8dc1a9",
+                                "#e69d87",
+                                "#d2f5a6",
+                                "#f7f494",
+                                "#8fd3e8",
+                                "#73a373",
+                                "#759aa0",
+                                "#91ca8c",
+                                "#73b9bc"
+                            ],
+                            "legend": {
+                                "orient": "vertical",
+                                "right": "20",
+                                "top": "20"
+                            },
+                            "yAxis": {
+                                "r_show": false,
+                                "name": "万元",
+                                "nameTextStyle": {
+                                    "color": "#ea3c08"
+                                },
+                                "nameLocation": "end"
+                            },
+                            "title": {
+                                "text": "全年佣金收入和总收入的比较",
+                                "textStyle": {
+                                    "fontSize": "20",
+                                    "fontWeight": "bold",
+                                    "fontStyle": "italic"
+                                },
+                                "left": "100",
+                                "top": "20"
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "month": "一月",
+                                    "income": 13890,
+                                    "outcome": 9090,
+                                    "$$hashKey": "object:426"
+                                },
+                                {
+                                    "month": "二月",
+                                    "income": 15640,
+                                    "outcome": 12430,
+                                    "$$hashKey": "object:427"
+                                },
+                                {
+                                    "month": "三月",
+                                    "income": 17330,
+                                    "outcome": 13870,
+                                    "$$hashKey": "object:428"
+                                },
+                                {
+                                    "month": "四月",
+                                    "income": 14980,
+                                    "outcome": 9700,
+                                    "$$hashKey": "object:429"
+                                },
+                                {
+                                    "month": "五月",
+                                    "income": 13200,
+                                    "outcome": 8900,
+                                    "$$hashKey": "object:430"
+                                },
+                                {
+                                    "month": "六月",
+                                    "income": 17140,
+                                    "outcome": 12980,
+                                    "$$hashKey": "object:431"
+                                },
+                                {
+                                    "month": "七月",
+                                    "income": 18900,
+                                    "outcome": 12340,
+                                    "$$hashKey": "object:432"
+                                },
+                                {
+                                    "month": "八月",
+                                    "income": 20670,
+                                    "outcome": 13950,
+                                    "$$hashKey": "object:433"
+                                },
+                                {
+                                    "month": "九月",
+                                    "income": 16870,
+                                    "outcome": 10600,
+                                    "$$hashKey": "object:434"
+                                },
+                                {
+                                    "month": "十月",
+                                    "income": 17780,
+                                    "outcome": 11300,
+                                    "$$hashKey": "object:435"
+                                },
+                                {
+                                    "month": "十一月",
+                                    "income": 19800,
+                                    "outcome": 15010
+                                },
+                                {
+                                    "month": "十二月",
+                                    "income": 16820,
+                                    "outcome": 12090
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:63"
+                },
+                {
+                    "position": {
+                        "top": 8,
+                        "left": 1,
+                        "height": 5,
+                        "width": 6
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "type": "rose",
+                            "datasource": {
+                                "type": "demo",
+                                "maxCount": null
+                            },
+                            "fields": [
+                                "month",
+                                "income",
+                                "outcome"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "month",
+                                "y": [
+                                    {
+                                        "field": "income",
+                                        "name": "开户数",
+                                        "type": "",
+                                        "$$hashKey": "object:2149",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [
+                                            0
+                                        ],
+                                        "color": "#c11111"
+                                    }
+                                ]
+                            },
+                            "dataComm": {
+                                "symbolColorGradual": true
+                            },
+                            "themeColor": [
+                                "#f49f42",
+                                "#7cb4cc",
+                                "#73b9bc",
+                                "#dd6b66",
+                                "#eedd78",
+                                "#91ca8c",
+                                "#cc70af",
+                                "#fc97af",
+                                "#87f7cf",
+                                "#72ccff",
+                                "#8fd3e8",
+                                "#d4a4eb",
+                                "#71669e",
+                                "#76f2f2",
+                                "#7289ab",
+                                "#759aa0",
+                                "#f7c5a0",
+                                "#9b8bba",
+                                "#73a373",
+                                "#ea7e53",
+                                "#d2f5a6",
+                                "#e098c7",
+                                "#8dc1a9",
+                                "#e69d87",
+                                "#f7f494"
+                            ]
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "month": "一月",
+                                    "income": 13890,
+                                    "outcome": 9090,
+                                    "$$hashKey": "object:2217"
+                                },
+                                {
+                                    "month": "二月",
+                                    "income": 15640,
+                                    "outcome": 12430,
+                                    "$$hashKey": "object:2218"
+                                },
+                                {
+                                    "month": "三月",
+                                    "income": 17330,
+                                    "outcome": 13870,
+                                    "$$hashKey": "object:2219"
+                                },
+                                {
+                                    "month": "四月",
+                                    "income": 14980,
+                                    "outcome": 9700,
+                                    "$$hashKey": "object:2220"
+                                },
+                                {
+                                    "month": "五月",
+                                    "income": 13200,
+                                    "outcome": 8900,
+                                    "$$hashKey": "object:2221"
+                                },
+                                {
+                                    "month": "六月",
+                                    "income": 17140,
+                                    "outcome": 12980,
+                                    "$$hashKey": "object:2222"
+                                },
+                                {
+                                    "month": "七月",
+                                    "income": 18900,
+                                    "outcome": 12340,
+                                    "$$hashKey": "object:2223"
+                                },
+                                {
+                                    "month": "八月",
+                                    "income": 20670,
+                                    "outcome": 13950,
+                                    "$$hashKey": "object:2224"
+                                },
+                                {
+                                    "month": "九月",
+                                    "income": 16870,
+                                    "outcome": 10600,
+                                    "$$hashKey": "object:2225"
+                                },
+                                {
+                                    "month": "十月",
+                                    "income": 17780,
+                                    "outcome": 11300,
+                                    "$$hashKey": "object:2226"
+                                },
+                                {
+                                    "month": "十一月",
+                                    "income": 19800,
+                                    "outcome": 15010
+                                },
+                                {
+                                    "month": "十二月",
+                                    "income": 16820,
+                                    "outcome": 12090
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:1779"
+                },
+                {
+                    "position": {
+                        "top": 8,
+                        "left": 19,
+                        "height": 5,
+                        "width": 6
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "type": "radar",
+                            "datasource": {
+                                "type": "demo",
+                                "maxCount": 2
+                            },
+                            "fields": [
+                                "month",
+                                "income",
+                                "outcome"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "month",
+                                "y": [
+                                    {
+                                        "field": "income",
+                                        "name": "佣金",
+                                        "type": "",
+                                        "$$hashKey": "object:3227"
+                                    },
+                                    {
+                                        "field": "income",
+                                        "name": "代理数",
+                                        "type": "",
+                                        "$$hashKey": "object:3232"
+                                    },
+                                    {
+                                        "field": "income",
+                                        "name": "开户数",
+                                        "type": "",
+                                        "$$hashKey": "object:3237"
+                                    },
+                                    {
+                                        "field": "outcome",
+                                        "name": "违约数",
+                                        "type": "",
+                                        "$$hashKey": "object:3242"
+                                    },
+                                    {
+                                        "field": "outcome",
+                                        "name": "投诉量",
+                                        "type": "",
+                                        "$$hashKey": "object:3247"
+                                    }
+                                ]
+                            },
+                            "legend": {
+                                "show": true,
+                                "orient": "vertical",
+                                "right": "5%",
+                                "bottom": "20%"
+                            },
+                            "dataComm": {
+                                "radarShape": "circle",
+                                "radarCenterX": 45
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "month": "一月",
+                                    "income": 13890,
+                                    "outcome": 9090,
+                                    "$$hashKey": "object:3125"
+                                },
+                                {
+                                    "month": "二月",
+                                    "income": 15640,
+                                    "outcome": 12430,
+                                    "$$hashKey": "object:3126"
+                                },
+                                {
+                                    "month": "三月",
+                                    "income": 17330,
+                                    "outcome": 13870,
+                                    "$$hashKey": "object:3127"
+                                },
+                                {
+                                    "month": "四月",
+                                    "income": 14980,
+                                    "outcome": 9700,
+                                    "$$hashKey": "object:3128"
+                                },
+                                {
+                                    "month": "五月",
+                                    "income": 13200,
+                                    "outcome": 8900,
+                                    "$$hashKey": "object:3129"
+                                },
+                                {
+                                    "month": "六月",
+                                    "income": 17140,
+                                    "outcome": 12980,
+                                    "$$hashKey": "object:3130"
+                                },
+                                {
+                                    "month": "七月",
+                                    "income": 18900,
+                                    "outcome": 12340,
+                                    "$$hashKey": "object:3131"
+                                },
+                                {
+                                    "month": "八月",
+                                    "income": 20670,
+                                    "outcome": 13950,
+                                    "$$hashKey": "object:3132"
+                                },
+                                {
+                                    "month": "九月",
+                                    "income": 16870,
+                                    "outcome": 10600,
+                                    "$$hashKey": "object:3133"
+                                },
+                                {
+                                    "month": "十月",
+                                    "income": 17780,
+                                    "outcome": 11300,
+                                    "$$hashKey": "object:3134"
+                                },
+                                {
+                                    "month": "十一月",
+                                    "income": 19800,
+                                    "outcome": 15010
+                                },
+                                {
+                                    "month": "十二月",
+                                    "income": 16820,
+                                    "outcome": 12090
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:1793"
+                },
+                {
+                    "position": {
+                        "top": 8,
+                        "left": 7,
+                        "height": 5,
+                        "width": 12
+                    },
+                    "category": "mu-echarts",
+                    "attrs": {
+                        "config": {
+                            "theme": "dark",
+                            "type": "area",
+                            "datasource": {
+                                "type": "demo"
+                            },
+                            "fields": [
+                                "month",
+                                "income",
+                                "outcome"
+                            ],
+                            "layout": {
+                                "isMultiple": false
+                            },
+                            "fieldMap": {
+                                "x": "month",
+                                "y": [
+                                    {
+                                        "field": "income",
+                                        "name": "开户数",
+                                        "type": "",
+                                        "$$hashKey": "object:3585",
+                                        "vmIdxSize": [],
+                                        "vmIdxGradual": [],
+                                        "areaColorGradualMethod": "linear",
+                                        "areaColorGradualDirection": "0,0,0,1",
+                                        "areaColorGradualA": "#f26f0f",
+                                        "symbolOpacity": "0",
+                                        "areaColorGradualB": "#a421e3",
+                                        "areaOpacity": "0.2"
+                                    }
+                                ]
+                            },
+                            "yAxis": {
+                                "r_show": false
+                            },
+                            "title": {
+                                "text": "本年度新增开户数月统计",
+                                "left": "center",
+                                "top": "20"
+                            },
+                            "legend": {
+                                "show": false
+                            },
+                            "dataComm": {
+                                "smooth": true
+                            },
+                            "grid": {
+                                "right": "0"
+                            }
+                        },
+                        "data": {
+                            "items": [
+                                {
+                                    "month": "一月",
+                                    "income": 13890,
+                                    "outcome": 9090,
+                                    "$$hashKey": "object:3483"
+                                },
+                                {
+                                    "month": "二月",
+                                    "income": 15640,
+                                    "outcome": 12430,
+                                    "$$hashKey": "object:3484"
+                                },
+                                {
+                                    "month": "三月",
+                                    "income": 17330,
+                                    "outcome": 13870,
+                                    "$$hashKey": "object:3485"
+                                },
+                                {
+                                    "month": "四月",
+                                    "income": 14980,
+                                    "outcome": 9700,
+                                    "$$hashKey": "object:3486"
+                                },
+                                {
+                                    "month": "五月",
+                                    "income": 13200,
+                                    "outcome": 8900,
+                                    "$$hashKey": "object:3487"
+                                },
+                                {
+                                    "month": "六月",
+                                    "income": 17140,
+                                    "outcome": 12980,
+                                    "$$hashKey": "object:3488"
+                                },
+                                {
+                                    "month": "七月",
+                                    "income": 18900,
+                                    "outcome": 12340,
+                                    "$$hashKey": "object:3489"
+                                },
+                                {
+                                    "month": "八月",
+                                    "income": 20670,
+                                    "outcome": 13950,
+                                    "$$hashKey": "object:3490"
+                                },
+                                {
+                                    "month": "九月",
+                                    "income": 16870,
+                                    "outcome": 10600,
+                                    "$$hashKey": "object:3491"
+                                },
+                                {
+                                    "month": "十月",
+                                    "income": 17780,
+                                    "outcome": 11300,
+                                    "$$hashKey": "object:3492"
+                                },
+                                {
+                                    "month": "十一月",
+                                    "income": 19800,
+                                    "outcome": 15010
+                                },
+                                {
+                                    "month": "十二月",
+                                    "income": 16820,
+                                    "outcome": 12090
+                                }
+                            ]
+                        }
+                    },
+                    "$$hashKey": "object:3280"
+                }
+            ]
+        }
+    ]
+}

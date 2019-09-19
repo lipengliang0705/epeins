@@ -1,0 +1,269 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myalarmRuleLabel">创建/编辑</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.alarmRule.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.alarmRule.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ruleName">规则名称</label>
+            <input type="text" class="form-control" name="name" id="field_ruleName"
+                    ng-show="vm.alarmRule.id"
+                    ng-model="vm.alarmRule.name"
+                    ng-pattern="/^\w+$/"
+                    required
+                    readonly
+                    />
+
+            <input type="text" class="form-control" name="name" id="field_ruleName"
+                    ng-hide="vm.alarmRule.id"
+                    ng-model="vm.alarmRule.name"
+                    ng-pattern="/^\w+$/"
+                    required
+                    />
+
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.required">
+                            *必填项
+                        </p>
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.pattern">
+                            必须由数字和字母组成
+                        </p>
+                    </div>
+        </div>
+        <div class="form-group">
+            <label for="field_EventRule">解析规则</label>
+            <select class="form-control" id="field_EventRule" name="EventRule" ng-model="vm.alarmRule.eventRule" ng-options="EventRule as EventRule.name for EventRule in vm.eventrules track by EventRule.name">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_conf">已存搜索</label>
+                    <select class="form-control" name="conf" id="field_confQueryBy"
+                    ng-model="vm.alarmRule.conf.queryBy">
+
+                    </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_conf">搜索命令</label>
+            <textarea class="form-control" name="conf" id="field_conf" rows="5" cols="80" ng-model="vm.alarmRule.extend.query"></textarea>
+        </div>
+        <div class="form-group form-group-b5">
+            <label class="control-label" for="field_alarmType">告警类型</label>
+                    <select class="form-control" name="alarmType" id="field_alarmType"
+                            ng-model="vm.alarmRule.alarmType" >
+                            <option value="KEYWORDS">关键字告警</option>
+                            <option value="BEYOND_EVENT_COUNT"> 事件统计告警</option>
+                            <option value="CONTINUOUS_EVENT_COUNT"> 连续统计告警</option>
+                    </select>
+        </div>
+
+        <div ng-switch="vm.alarmRule.alarmType">
+            <div class="form-group" ng-switch-when="KEYWORDS">
+                <!--  关键字告警-->
+                <!-- <label class="control-label" for="field_conf">关键字</label>
+                <input type="text" class="form-control" name="conf" id="field_conf"
+                        ng-model="vm.alarmRule.extend.keyword"
+                        /> -->
+            </div>
+            <div class="form-group stress-form" ng-switch-when="BEYOND_EVENT_COUNT">
+                <!--  事件数告警 -->
+                <!-- <input type="number"  name="conf" id="field_conf"
+                        ng-model="vm.alarmRule.conf.numerical"
+                        />
+                        <select ng-model="vm.alarmRule.conf.units" class="trigger-select">
+                            <option value="s">秒</option>
+                            <option value="m">分钟</option>
+                            <option value="h">小时</option>
+
+                        </select> -->
+                        <ul class="trigger-condition">
+                            <li>
+                                <label class="control-label" for="field_conf"><i class="colored">*</i>触发条件</label>
+                            </li>
+                            <li class="tc1">
+                                <div class="input-group">
+                                  <input type="number" class="form-control" ng-model="vm.alarmRule.extend.numerical">
+                                  <div class="input-group-btn dropdown" uib-dropdown>
+                                    <button type="button" class="btn btn-info" uib-dropdown-toggle href="" id="account-menu">{{vm.alarmRule.extend.units}} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                                        <li ng-repeat="item in vm.timeList" ng-click="vm.alarmRule.extend.units = item"><a> {{item}}</a></li>
+                                    </ul>
+                                  </div><!-- /btn-group -->
+                                  <!-- <pre>{{vm.alarmRule.extend}}</pre> -->
+                                </div>
+                            </li>
+                            <li class="tc2">
+                                <small>之内数量</small>
+                            </li>
+                            <li class="tc4">
+                                <select ng-model="vm.alarmRule.extend.compare" class="trigger-select">
+                                    <option value="num_events"> 大于</option>
+                                    <option value="num_events"> 小于</option>
+                                </select>
+                            </li>
+                            <li class="tc4">
+                                <input name="" class="inputnumber" value="" type="number" ng-model="vm.alarmRule.extend.number">
+                            </li>
+                        </ul>
+
+            </div>
+            <div class="form-group stress-form" ng-switch-when="CONTINUOUS_EVENT_COUNT——b">
+                <!--  字段统计告警  -->
+                <ul class="trigger-condition">
+                    <li>
+                       <label class="control-label" for="field_conf"><i class="colored">*</i>触发条件</label>
+                    </li>
+                    <li>
+                       <input type="text" class="trigger-input inputnumber"/>
+                    </li>
+                    <li>
+                        <small>在</small>
+                    </li>
+                    <li class="tc1">
+                        <div class="input-group">
+                          <input type="number" class="form-control">
+                          <div class="input-group-btn dropdown" uib-dropdown>
+                            <button type="button" class="btn btn-info" uib-dropdown-toggle href="" id="account-menu">秒 <span class="caret"></span></button>
+                            <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                              <li><a href>秒</a></li>
+                              <li><a href>分钟</a></li>
+                              <li><a href>小时</a></li>
+                            </ul>
+                          </div><!-- /btn-group -->
+                        </div>
+                    </li>
+                    <li>
+                       <small>之内达到</small>
+                    </li>
+                    <li>
+                        <input type="text" class="inputnumber" name="" value="">
+                    </li>
+                    <li>
+                      <small>的次数</small>
+                    </li>
+                    <li>
+                       <select ng-model="vm.alarmRule.conf.compare" class="trigger-select">
+                            <option value="gt">&gt;</option>
+                            <option value="lt">&lt;</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input name="" class="inputnumber" value="" type="number" ng-model="vm.alarmRule.conf.number">
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group stress-form" ng-switch-when="CONTINUOUS_EVENT_COUNT">
+                <!--  连续统计告警 -->
+                <ul class="trigger-condition">
+                    <li>
+                       <label class="control-label" for="field_conf"><i class="colored">*</i>触发条件</label>
+                    </li>
+                    <li>
+                       <input type="text" class="trigger-input inputnumber"/>
+                    </li>
+                    <li>
+                        <small>在</small>
+                    </li>
+                    <li class="tc1">
+                        <div class="input-group">
+                          <input type="number" class="form-control">
+                          <div class="input-group-btn dropdown" uib-dropdown>
+                            <button type="button" class="btn btn-info" uib-dropdown-toggle href="" id="account-menu">秒 <span class="caret"></span></button>
+                            <ul class="dropdown-menu pull-right" uib-dropdown-menu>
+                              <li><a href>秒</a></li>
+                              <li><a href>分钟</a></li>
+                              <li><a href>小时</a></li>
+                            </ul>
+                          </div><!-- /btn-group -->
+                        </div>
+                    </li>
+                    <li>
+                       <small>之内</small>
+                    </li>
+                    <li>
+                        <input type="text" class="inputnumber" name="" value="">
+                    </li>
+                    <li>
+                      <small>的搜索结果连续</small>
+                    </li>
+                    <li>
+                       <select ng-model="vm.alarmRule.conf.operation" class="trigger-select">
+                            <option value="within">低于</option>
+                            <option value="outer">高于</option>
+                        </select>
+                    </li>
+                    <li>
+                        <small>区间下限</small>
+                    </li>
+                    <li>
+                       <input type="number" name="" value="" ng-model="vm.alarmRule.conf.min" class="inputnumber"/>
+                    </li>
+                    <li>
+                        <small>区间上限</small>
+                    </li>
+                    <li>
+                        <input type="number" name="" value="" ng-model="vm.alarmRule.conf.max" class="inputnumber"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label" for="field_notifyType">通知类型</label>
+                    <select class="form-control" name="notifyType" id="field_notifyType" name="notifyType"
+                    ng-model="vm.alarmRule.notifyType">
+                        <option value="NULL">不通知</option>
+                        <option value="EMAIL">Email</option>
+                        <option value="MESSAGE">短信</option>
+                        <option value="RSYSLOG">rsys</option>
+                    </select>
+        </div>
+
+        <div class="" ng-switch="vm.alarmRule.notifyType">
+            <div class="form-group" ng-switch-when="EMAIL">
+                <label class="control-label" for="field_channelAuthority">通知组</label>
+                <input type="text" class="form-control" name="notifyRole" id="field_notifyRole"
+                        ng-model="vm.alarmRule.notifyRole"
+                        />
+            </div>
+            <div class="form-group" ng-switch-when="EMAIL">
+                <label class="control-label" for="field_channelDetail">其他</label>
+                <input type="text" class="form-control" name="channelDetail" id="field_channelDetail"
+                        ng-model="vm.alarmRule.chanelOther" placeholder="多个联系人以逗号分隔"
+                        />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_status">启用</label>
+                <input
+                    bs-switch
+                    switch-size="small"
+                    class="form-control" name="status" id="field_status"
+                    ng-model="vm.alarmRule.status"
+                    type="checkbox"
+                    ng-true-value="'1'"
+                    ng-false-value="'0'">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span>取消</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title" id="myAgentHostLabel">详情： <span>目标主机</span> {{vm.agentHost.id}}</h4>
+</div>
+<div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="entity-details">
+        <dt><span>名称</span></dt>
+        <dd>
+            <span>{{vm.agentHost.name}}</span>
+        </dd>
+        <dt><span>Ip地址</span></dt>
+        <dd>
+            <span>{{vm.agentHost.ip}}</span>
+        </dd>
+        <dt><span>主机类型</span></dt>
+        <dd>
+            <span ng-if="vm.agentHost.osType==1">HP-UX</span>
+            <span ng-if="vm.agentHost.osType==2">Linux</span>
+            <span ng-if="vm.agentHost.osType==3">AIX</span>
+        </dd>
+        <dt><span>登录类型</span></dt>
+        <dd>
+            <span ng-if="vm.agentHost.loginType==1">ssh</span>
+        </dd>
+        <dt><span>登录方式</span></dt>
+        <dd>
+            <span ng-if="vm.agentHost.loginMode==0">密码</span>
+            <span ng-if="vm.agentHost.loginMode==1">证书</span>
+        </dd>
+
+        <dt><span>用户名</span></dt>
+        <dd><span>{{vm.agentHost.loginInfo.userName}}</span></dd>
+
+        <dt><span>agent数量</span></dt>
+        <dd><span>{{vm.agentHost.alias||0}}</span></dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>取消</span>
+    </button>
+
+
+    <button type="button" ui-sref="agent-host-detail.edit({id:vm.agentHost.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> 编辑</span>
+    </button> -->
+</div>

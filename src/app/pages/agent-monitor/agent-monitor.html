@@ -1,0 +1,193 @@
+<style type="text/css"> 
+    .piechart {
+        height: 150px !important;
+        width: 100%;
+    }
+    #eventsadd .a-selected{
+        cursor:pointer;
+        border: 1px solid rgb(32, 158, 145);
+        padding: 0 8px;
+        background: rgb(32, 158, 145);
+        color: #fff;
+        
+        overflow: hidden;
+    }
+    #eventsadd .a-unchecked{
+        cursor:pointer;
+    }
+    .data-range-picker-a { padding: 20px 10px 2px 20px; cursor: pointer; }
+</style> 
+<div class="title-wrapper">
+    <h3 class="m-n font-thin h3">客户端监控</h3>
+    <small class="text-muted h5 font-title-des">数据采集客户端运行状态</small>
+</div>
+<div class="wrapper" >  
+
+    <div class="row agent-monitor">
+        <div class="col-lg-4 col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-4 text-left">
+                           
+                            <h4>已部署</h4>
+                            <p>{{vm.agentSummary.deployed}} </p>
+                            
+                            <!-- <a ng-click="vm.categoryShowDiv()">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a> -->
+                        </div>
+                        <div class="col-xs-8">
+                           <div class="piechart" ><simple-echarts options="vm.optionDeployedPie"></simple-echarts></div> 
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-4 text-left">
+                           
+                            <h4>运行中</h4>
+                            <p>{{vm.agentSummary.running}} </p> 
+                        </div>
+                        <div class="col-xs-8"> 
+                           <div class="piechart" ><simple-echarts options="vm.optionInoperationPie"></simple-echarts></div> 
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-4 text-left">
+                           
+                            <h4>事件增量</h4>   
+                           
+                            <p><span>今天</span>  {{vm.agentSummary.todayIncrement}}    </p>   
+                            <p><span>前一天</span>  {{vm.agentSummary.lastdayIncrement}} </p>
+                        </div>
+                        <div class="col-xs-8"> 
+                           <div class="piechart" >
+                                                         
+                                <!-- <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                 </div>  -->                             
+                                 <!-- <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-info" style="width:40%;" role="progressbar" aria-valuenow="40" aria-valuemax="100" aria-valuemin="0">40%</div>
+                                </div>   -->
+                            </div>  
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+    </div> 
+
+       
+    <div class="row agent-monitor">
+        <div class="col-sm-12">
+            <div class="panel  widget">
+                <div class="panel-heading">
+                  <button ng-click="vm.categoryShowDiv()" class="btn btn-primary">View Details <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+                <div class="panel-body">
+                    <div class="category_div" ng-show="vm.categoryShow" >   
+                        <div ng-repeat="array in vm.categoryArray track by $index">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6" ng-repeat="category in array.data">
+                                    <div class="category-div-list" ng-click="vm.categoryTableShowDiv(category.categoryName, array.number)">
+                                        <h4>{{category.categoryName}}</h4>
+                                        
+                                        <p>总计：{{category.totalNum}}</p>
+                                        <p>已部署：{{category.deployedNum}}</p>
+                                        <p>运行中：{{category.runningNum}}</p>
+                                        
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row" ng-show="vm.categoryTableShow && (array.number==vm.categoryTableShowIndex)">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel  widget">
+                                       <!--  <div class="panel-heading">
+                                            <i></i>业务明细 
+                                        </div> -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table  class="table" ng-table="vm.tableParams">
+                                                    <thead class="black-muted-bg">
+                                                        <tr>
+                                                            <th> <span>业务名</span> </th>
+                                                            <th> <span>主机名</span> </th>
+                                                            <th> <span>IP</span> </th>
+                                                            <th> <span>首次运行时间</span> </th>
+                                                            <th> <span>最近运行时间</span> </th>
+                                                            <th> <span>JAR包</span> </th>
+                                                            <th> <span>标签</span> </th>
+                                                            <th> <span>事件增量</span> </th>
+                                                            <th> <span>状态</span> </th>
+                                                            <th>操作</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>    
+                                                        <tr ng-repeat="bean in $data  | filter:search"> 
+                                                            <td>{{bean.categoryName}}</td>
+                                                            <td>{{bean.hostHame}}</td>                                        
+                                                            <td>{{bean.hostIp}}</td>
+                                                            <td>{{bean.firstRunningTime}}</td>
+                                                            <td>{{bean.lastRunningTime}}</td>                                        
+                                                            <td>{{bean.javaVersion}}</td>
+                                                            <td>{{bean.tags}}</td>                                        
+                                                            <td>{{bean.eventIncrement}}</td>
+                                                            <td>{{bean.flumeStatus}}</td>
+                                                            <td class="text-right">
+                                                                <a ng-click="vm.categoryDetailShowDiv(bean)" style="cursor:pointer;">详情</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>  
+                                            </div>
+                                        </div>
+                                    </div>         
+                                </div>   
+                            </div>    
+                            
+                            <div class="row" ng-show="vm.categoryDetailShow && (array.number==vm.categoryTableShowIndex)">
+                                <div class="col-sm-12">
+                                    <div class="panel  widget">
+                                        <div class="panel-heading" id="eventsadd">
+                                            <i></i>事件增量  &nbsp;&nbsp;
+                                            <a ng-class="{true:'a-selected',false:'a-unchecked'}[vm.timeInterval==5]" ng-click="vm.intervalClick('5')">5分钟</a> 
+                                            <a ng-class="{true:'a-selected',false:'a-unchecked'}[vm.timeInterval==10]" ng-click="vm.intervalClick('10')">10分钟</a>
+                                            <a ng-class="{true:'a-selected',false:'a-unchecked'}[vm.timeInterval==15]" ng-click="vm.intervalClick('15')">15分钟</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a date-range-picker options="vm.dateRangeOptions" ng-model="vm.dateRange" class="data-range-picker-a">{{(vm.formatShowTime(vm.dateRange.startDate) +"至"+ vm.formatShowTime(vm.dateRange.endDate))}}</a>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row"> 
+                                                <div class="col-lg-12 col-md-12">   
+                                                    <div mix-chart config="vm.eventIncrementLine.config" data="vm.eventIncrementLine.data" class="charts-xl" ></div>
+                                                </div>     
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                        
+                    </div> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

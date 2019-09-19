@@ -1,0 +1,23 @@
+<form novalidate angular-validator angular-validator-submit="vm.method.submit()" name="formName">
+    <div class="modal-header">
+        <button class="close" ng-click="vm.method.cancel()">×</button>
+        <h4 class="modal-title">修改知识库类</h4>
+    </div>
+    <div class="modal-body">
+        <div action="">
+            <div class="form-group">
+                <label for="">知识库类名称</label>
+                <input type="text" name="name" class="form-control" placeholder="请填知识库类名称" ng-model="vm.data.title" required validate-on="blur" required-message="'名称不能为空'" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-default" ng-click="vm.method.cancel()">
+            <span>取消</span>
+        </a>
+
+        <button class="btn btn-primary" type="submit">
+            <span>保存</span>
+        </button>
+    </div>
+</form>

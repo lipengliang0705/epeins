@@ -1,0 +1,114 @@
+<div class=" title-wrapper">
+    <h3 class="m-n font-thin h3">介质管理</h3>
+    <small class="text-muted h5 font-title-des">数据采集客户端介质信息</small>
+</div>
+<div class="wrapper" >
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="panel  widget">
+            <div class="panel-heading">
+              <button class="btn btn-primary" ui-sref="agent.new"><i class="fa fa-plus"></i>&nbsp;新建</button>
+              <full-size></full-size>
+            </div>
+            <div class="panel-body">
+               <!--  <form class="input-group">
+                    <span class="input-group-addon input-group-addon-primary addon-left" id="basic-addon1"><i class="ion-search"></i></span>
+                    <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." ng-model="searchFilter">
+                   
+                </form> -->
+                 <form name="vm.searchForm" novalidate ng-submit="vm.applyGlobalSearch()">
+                    <div class="input-group">
+                    
+                      <input type="text" class="form-control" placeholder="输入查询条件进行过滤..." name="searchTerm" ng-model="vm.globalSearchTerm" required />
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary search-btn" type="submit" ng-disabled="vm.searchForm.$invalid">
+                          <span class="ion-search"></span>
+                      </button>
+                      </span>
+                    </div>
+                </form>
+            <div class="table-responsive">
+                <table  class="table" ng-table="vm.tableParams">
+                   <!--  <thead class="black-muted-bg">
+                        <tr>
+                            <th>
+                                <span>ID</span>
+                            </th>
+                            <th>
+                                <span>名称</span>
+                            </th>
+                            <th>
+                                <span>版本</span>
+                            </th>
+                            <th>
+                                <span>数据源</span>
+                            </th>
+                            <th>
+                                <span>脚本路径</span>
+                            </th>
+                            <th>
+                                <span>描述</span>
+                            </th>
+                            <th>
+                                <span>状态</span>
+                            </th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody> -->
+                        <tr ng-repeat="agent in $data" ng-init="agent.status ? agent.status=1 : agent.status=0;">
+                           <!--  <td data-title="'ID'" sortable="'id'"><a ui-sref="agent-detail({id:agent.id})">{{agent.id}}</a></td> -->
+                            <td data-title="'名称'" sortable="'name'">{{agent.name}}</td>
+                            <td data-title="'版本'" sortable="'version'">{{agent.version}}</td>
+                            <td data-title="'数据源'" sortable="'sourcePath'">{{agent.sourcePath}}</td>
+                            <!--<td data-title="'脚本路径'" sortable="'scriptPath'">{{agent.scriptPath}}</td>-->
+                            <!--<td data-title="'描述'" sortable="'description'">{{agent.description}}</td>-->
+                            <!-- <td data-title="'状态'">
+                                <switcher ng-model="agent.status"
+                                          true-value="'1'"
+                                          false-value="'0'"
+                                          class="styled"
+                                        >
+                                </switcher>
+                              <input
+                                    bs-switch
+                                    switch-size="small"
+                                    ng-model="agent.status"
+                                    type="checkbox"
+                                    ng-change="vm.changeStatus(agent)"
+                                    ng-true-value="1"
+                                    ng-false-value="0">
+                            </td> -->
+
+                            <td class="text-right" data-title="'操作'">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="agent-detail({id:agent.id})"
+                                            class="btn-reset">
+                                        查看
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="agent.edit({id:agent.id})"
+                                            class="btn-reset">
+                                        编辑
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="agent.delete({id:agent.id})"
+                                            class="btn-reset text-delete">
+                                        删除
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.tableParams.data.length==0&&!vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据为空！！！</td>
+                        </tr>
+                        <tr ng-if="vm.dataload">
+                            <td colspan="8" class="table-data-alert">数据加载中...</td>
+                        </tr>
+                   <!--  </tbody> -->
+                </table>
+                 
+            </div>
+    </div>
+</div>
